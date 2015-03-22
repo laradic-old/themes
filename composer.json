@@ -1,0 +1,43 @@
+{
+    "name": "laradic/themes",
+    "description": "Laravel 5 Themes package",
+    "homepage": "https://github.com/laradic/themes",
+    "keywords": [
+        "extension",
+        "extensions",
+        "blade",
+        "laravel",
+        "theme",
+        "themes"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Robin Radic",
+            "email": "robin@radic.nl",
+            "role": "Package Author/Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=5.4.0",
+        "laravel/framework": "~5.0",
+        "illuminate/html": "~5.0",
+        "erusev/parsedown": "~1.5",
+        "laradic/support": "~1.0",
+        "laradic/debug": "dev-master",
+        "radic/blade-extensions": "dev-develop"
+    },
+    "require-dev": {
+        "laradic/dev": "dev-master",
+        "gooh/interface-distiller": "dev-master"
+    },
+    "scripts": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Laradic\\Themes\\": ""
+        }
+    }
+}
