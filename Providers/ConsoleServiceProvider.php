@@ -4,17 +4,11 @@ use Laradic\Support\AbstractConsoleProvider;
 
 class ConsoleServiceProvider extends AbstractConsoleProvider {
 
+    protected $namespace = 'Laradic\Themes\Console';
 
-	/**
-	 * Register any other events for your application.
-	 *
-	 * @param  \Illuminate\Contracts\Events\Dispatcher  $events
-	 * @return void
-	 */
-	public function boot()
-	{
-
-		//
-	}
+    protected $commands = [
+        'ThemePublish' => 'command.themes.publish',
+        'ThemePublishers' => 'command.themes.publishers'
+    ];
 
 }

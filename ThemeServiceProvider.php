@@ -36,8 +36,12 @@ class ThemeServiceProvider extends ServiceProvider
     {
         parent::register();
 
-        $this->registerProvider('Radic\BladeExtensions\BladeExtensionsServiceProvider');
+        $this->app->register('Radic\BladeExtensions\BladeExtensionsServiceProvider');
         $this->alias('Markdown', 'Radic\BladeExtensions\Facades\Markdown');
+
+        $this->app->register('Collective\Html\HtmlServiceProvider');
+        $this->alias('Form', 'Collective\Html\FormFacade');
+        $this->alias('HTML', 'Collective\Html\HtmlFacade');
 
         $this->app->register(new BusServiceProvider($this->app));
         $this->app->register(new EventServiceProvider($this->app));
@@ -45,6 +49,11 @@ class ThemeServiceProvider extends ServiceProvider
         $this->registerThemes();
         $this->registerViewFinder();
         $this->registerAssets();
+
+        if($this->app->runningInConsole())
+        {
+            $this->app->register('Laradic\Themes\Providers\ConsoleServiceProvider');
+        }
 
         $app = $this->app;
         $this->app->events->listen('creating: *', function(\Illuminate\Contracts\View\View $view) use ($app)

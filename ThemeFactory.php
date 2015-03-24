@@ -5,7 +5,6 @@ use ArrayAccess;
 use ArrayIterator;
 use Config;
 use Countable;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Filesystem\Filesystem;
@@ -43,7 +42,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     protected $dispatcher;
 
     /**
-     * @var Container
+     * @var \Illuminate\Contracts\Foundation\Application
      */
     protected $app;
 
@@ -54,6 +53,9 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
     /** @var array */
     protected $config;
+
+    /** @var Publisher[] */
+    protected $publishers = [];
 
     public function __construct(Application $app, Filesystem $files, Dispatcher $events)
     {
@@ -72,7 +74,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
     public function setActive($active)
     {
-        if (!$active instanceof Theme)
+        if ( ! $active instanceof Theme )
         {
             $this->active = $this->resolveTheme($active);
         }
@@ -83,7 +85,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     /** @return Theme */
     public function getActive()
     {
-        if (!$this->active)
+        if ( ! $this->active )
         {
             throw new RuntimeException('Could not get active theme because there isn\'t any defined');
         }
@@ -99,7 +101,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
     public function setDefault($default)
     {
-        $default = $this->resolveTheme($default);
+        $default       = $this->resolveTheme($default);
         $this->default = $default;
     }
 
@@ -111,7 +113,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
      */
     public function resolveTheme($slug)
     {
-        if (in_array($slug, $this->themes))
+        if ( in_array($slug, $this->themes) )
         {
             return $this->themes[$slug];
         }
@@ -123,7 +125,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
         {
             $themePath = $this->getThemePath($path[0], $key, $area);
 
-            if ($this->files->isDirectory($themePath))
+            if ( $this->files->isDirectory($themePath) )
             {
                 $class = Config::get('radic_themes.themeClass');
 
@@ -134,9 +136,10 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
     public function addNamespace($id, $dirName)
     {
-        $location = $this->getPath('namespaces').'/'.$dirName;
-        $this->app->view->addLocation($location);
-        $this->app->view->addNamespace($id, $location);
+        $location = $this->getPath('namespaces') . '/' . $dirName;
+        $view     = $this->app->make('view');
+        $view->addLocation($location);
+        $view->addNamespace($id, $location);
     }
 
 
@@ -157,12 +160,12 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
             $paths[]  = $current->getCascadedPath($cascadeType, $cascadeName, $pathType);
             $looped[] = $current;
 
-            if (!$parent = $current->getParentTheme())
+            if ( ! $parent = $current->getParentTheme() )
             {
                 break;
             }
 
-            if ($parent === $this->getDefault())
+            if ( $parent === $this->getDefault() )
             {
                 break;
             }
@@ -170,7 +173,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
             $current = $parent;
         }
 
-        if ($default = $this->getDefault() and !in_array($default, $looped))
+        if ( $default = $this->getDefault() and ! in_array($default, $looped) )
         {
             $paths[] = $default->getCascadedPath($cascadeType, $cascadeName, $pathType);
         }
@@ -182,14 +185,14 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     {
         $split = '/(\/|\\\)/';
 
-        if (($keyCount = count(preg_split($split, $key))) > 2)
+        if ( ($keyCount = count(preg_split($split, $key))) > 2 )
         {
             throw new RuntimeException("Theme had folder depth of [{$keyCount}] however it must be less than or equal to [2].");
         }
 
-        if (isset($area))
+        if ( isset($area) )
         {
-            if (($areaCount = count(preg_split($split, $area))) != 1)
+            if ( ($areaCount = count(preg_split($split, $area))) != 1 )
             {
                 throw new RuntimeException("Theme area had folder depth of [{$areaCount}] however it must match [1].");
             }
@@ -200,13 +203,62 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
         return "{$path}/{$key}";
     }
 
+    public function addPackagePublisher($package, $sourcePath, $theme = null)
+    {
+        $theme = is_null($theme) ? $this->getActive() : $this->resolveTheme($theme);
+
+        $this->publishers[$package] = Publisher::create($this->getFiles())
+            ->asPackage($package)
+            ->from($sourcePath)
+            ->toTheme($theme);
+    }
+
+    public function addNamespacePublisher($namespace, $sourcePath, $theme = null)
+    {
+        $theme = is_null($theme) ? $this->getActive() : $this->resolveTheme($theme);
+
+        $this->publishers[$namespace] = Publisher::create($this->getFiles())
+            ->asNamespace($namespace)
+            ->from($sourcePath)
+            ->toTheme($theme);
+    }
+
+    public function publish($namespaceOrPackage = null)
+    {
+        if(is_null($namespaceOrPackage))
+        {
+            // Publish all
+        }
+        else
+        {
+            if(isset($this->publishers[$namespaceOrPackage]))
+            {
+                $this->publishers[$namespaceOrPackage]->publish();
+            }
+            else
+            {
+                throw new \InvalidArgumentException("Could not publish [$namespaceOrPackage]. The publisher could not be resolved for $namespaceOrPackage");
+            }
+        }
+    }
+
+    /**
+     * Get the value of publishers
+     *
+     * @return Publisher[]
+     */
+    public function getPublishers()
+    {
+        return $this->publishers;
+    }
+
+
 
     //
     /* EVENTS */
     //
     public function boot()
     {
-
     }
 
     //
@@ -266,7 +318,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
     public function offsetSet($key, $value)
     {
-        if (is_null($key))
+        if ( is_null($key) )
         {
             $this->themes[] = $value;
         }
