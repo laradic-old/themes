@@ -227,7 +227,10 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     {
         if(is_null($namespaceOrPackage))
         {
-            // Publish all
+            foreach($this->publishers as $publisher)
+            {
+                $publisher->publish();
+            }
         }
         else
         {

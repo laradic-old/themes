@@ -26,14 +26,15 @@ class ThemePublishCommand extends AbstractConsoleCommand
     public function fire()
     {
         $publisher = $this->argument('publisher');
-        app('themes')->publish($publisher );
-        $this->info("Published $publisher");
+    #    $this->dump($publisher);
+        app('themes')->publish($publisher);
+        $this->info("Published " . (!is_null($publisher) ? $publisher : 'all'));
     }
 
     public function getArguments()
     {
         return [
-            ['publisher', InputArgument::REQUIRED, 'The namespace or package to publish. Check themes:publishers for available options']
+            ['publisher', InputArgument::OPTIONAL, 'The namespace or package to publish. If not provided, everything will be published. Check themes:publishers for available options']
         ];
     }
 }
