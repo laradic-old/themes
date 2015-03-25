@@ -262,6 +262,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     //
     public function boot()
     {
+        $this->getActive()->boot();
     }
 
     //

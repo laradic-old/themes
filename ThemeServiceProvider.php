@@ -1,12 +1,7 @@
 <?php namespace Laradic\Themes;
 
-use Config;
-use File;
-use Illuminate\Http\Request;
 use Illuminate\View\FileViewFinder;
 use Laradic\Support\ServiceProvider;
-use Laradic\Themes\Providers\BusServiceProvider;
-use Laradic\Themes\Providers\EventServiceProvider;
 use View;
 
 class ThemeServiceProvider extends ServiceProvider
@@ -18,13 +13,31 @@ class ThemeServiceProvider extends ServiceProvider
     /** @inheritdoc */
     protected $dir = __DIR__;
 
-    /** @inheritdoc */
+    protected $providers = [
+        'Laradic\Themes\Providers\BusServiceProvider',
+        'Laradic\Themes\Providers\EventServiceProvider',
+        'Radic\BladeExtensions\BladeExtensionsServiceProvider',
+        'Collective\Html\HtmlServiceProvider'
+    ];
+
+    protected $aliases = [
+        'Markdown' => 'Radic\BladeExtensions\Facades\Markdown',
+        'Form'     => 'Collective\Html\FormFacade',
+        'HTML'     => 'Collective\Html\HtmlFacade'
+    ];
+
     public function boot()
     {
-        parent::boot();
-        $this->app->make('themes')
-            ->setConfig($this->app['config']['radic_themes'])
-            ->setActive($this->app['config']['radic_themes.active']);
+        /** @var \Illuminate\Foundation\Application $app */
+        $app = parent::boot();
+
+        /** @var \Illuminate\Contracts\Config\Repository $config */
+        $config = $app->make('config');
+
+        $themes = $app->make('themes');
+        $themes->setConfig($config->get('radic_themes'));
+        $themes->setActive($config->get('radic_themes.active'));
+        $themes->boot();
     }
 
     /**
@@ -34,31 +47,21 @@ class ThemeServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        parent::register();
-
-        $this->app->register('Radic\BladeExtensions\BladeExtensionsServiceProvider');
-        $this->alias('Markdown', 'Radic\BladeExtensions\Facades\Markdown');
-
-        $this->app->register('Collective\Html\HtmlServiceProvider');
-        $this->alias('Form', 'Collective\Html\FormFacade');
-        $this->alias('HTML', 'Collective\Html\HtmlFacade');
-
-        $this->app->register(new BusServiceProvider($this->app));
-        $this->app->register(new EventServiceProvider($this->app));
+        /** @var \Illuminate\Foundation\Application $app */
+        $app = parent::register();
 
         $this->registerThemes();
         $this->registerViewFinder();
         $this->registerAssets();
 
-        if($this->app->runningInConsole())
+        if ( $app->runningInConsole() )
         {
-            $this->app->register('Laradic\Themes\Providers\ConsoleServiceProvider');
+            $app->register('Laradic\Themes\Providers\ConsoleServiceProvider');
         }
 
-        $app = $this->app;
-        $this->app->events->listen('creating: *', function(\Illuminate\Contracts\View\View $view) use ($app)
+        $app->make('events')->listen('creating: *', function (\Illuminate\Contracts\View\View $view) use ($app)
         {
-            $app->themes->getActive()->boot();
+            $app->make('themes')->getActive()->boot();
         });
     }
 
@@ -110,14 +113,9 @@ class ThemeServiceProvider extends ServiceProvider
                 $themesViewFinder->addNamespace($namespace, $hints);
             }
 
-            //
-            //$this->app['themes']->setViewFactory
             return $themesViewFinder;
         });
 
-
         View::setFinder($this->app['view.finder']);
-        //$viewServiceProvider = new ViewServiceProvider($this->app);
-        //$viewServiceProvider->registerFactory();
     }
 }
