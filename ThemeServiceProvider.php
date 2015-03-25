@@ -51,6 +51,7 @@ class ThemeServiceProvider extends ServiceProvider
         $app = parent::register();
 
         $this->registerThemes();
+        $this->registerWidgets();
         $this->registerViewFinder();
         $this->registerAssets();
 
@@ -84,6 +85,19 @@ class ThemeServiceProvider extends ServiceProvider
         {
             $this->alias('Themes', 'Laradic\Themes\Facades\Themes');
         });
+    }
+
+    public function registerWidgets()
+    {
+        $this->app->singleton('themes.widgets', 'Laradic\Themes\Widgets');
+        $this->app->alias('themes.widgets', 'Laradic\Themes\Contracts\Widgets');
+
+        $this->app->booting(function ()
+        {
+            $this->alias('Widgets', 'Laradic\Themes\Facades\Widgets');
+        });
+
+        $this->app->make('themes.widgets')->registerDirectives();
     }
 
     protected function registerViewFinder()
