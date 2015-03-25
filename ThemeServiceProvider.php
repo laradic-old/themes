@@ -37,7 +37,7 @@ class ThemeServiceProvider extends ServiceProvider
         $themes = $app->make('themes');
         $themes->setConfig($config->get('radic_themes'));
         $themes->setActive($config->get('radic_themes.active'));
-        $themes->boot();
+      #  $themes->boot();
     }
 
     /**
@@ -61,7 +61,7 @@ class ThemeServiceProvider extends ServiceProvider
 
         $app->make('events')->listen('creating: *', function (\Illuminate\Contracts\View\View $view) use ($app)
         {
-            $app->make('themes')->getActive()->boot();
+            $app->make('themes')->boot();
         });
     }
 
