@@ -37,6 +37,11 @@ class Asset
         $this->type = $this->resolveType($this->ext);
     }
 
+    public function path()
+    {
+        return $this->assetPath;
+    }
+
     public function url()
     {
         return $this->assets->toUrl($this->assetPath);
