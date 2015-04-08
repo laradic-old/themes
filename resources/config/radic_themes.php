@@ -11,6 +11,7 @@ return array(
     /* Class names */
     'assetClass' => '\\Laradic\\Themes\\Assets\\Asset',
     'themeClass' => '\\Laradic\\Themes\\Theme',
+    'widgetsClass' => '\\Laradic\\Themes\\Widgets',
     'paths'      => array(
         'themes'     => array(
             public_path()

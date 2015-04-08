@@ -35,6 +35,7 @@ class ThemeServiceProvider extends ServiceProvider
         $config = $app->make('config');
 
         $themes = $app->make('themes');
+
         $themes->setConfig($config->get('radic_themes'));
         $themes->setActive($config->get('radic_themes.active'));
       #  $themes->boot();
@@ -89,7 +90,7 @@ class ThemeServiceProvider extends ServiceProvider
 
     public function registerWidgets()
     {
-        $this->app->singleton('themes.widgets', 'Laradic\Themes\Widgets');
+        $this->app->singleton('themes.widgets', $this->app->make('config')->get('radic_themes.widgetsClass'));
         $this->app->alias('themes.widgets', 'Laradic\Themes\Contracts\Widgets');
 
         $this->app->booting(function ()

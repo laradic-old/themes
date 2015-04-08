@@ -22,14 +22,29 @@ use Laradic\Themes\Contracts\Widgets as WidgetsContract;
 class Widgets implements WidgetsContract
 {
 
+    /**
+     * The view factory instance
+     * @var \Illuminate\Contracts\View\Factory
+     */
     protected $view;
 
+    /**
+     * The blade compiler instance
+     * @var \Illuminate\View\Compilers\BladeCompiler
+     */
     protected $blade;
 
+    /**
+     * The registered widgets
+     * @var \Closure[]
+     */
     protected $widgets = [];
 
     /**
      * Instanciates the class
+     *
+     * @param \Illuminate\Contracts\View\Factory       $view
+     * @param \Illuminate\View\Compilers\BladeCompiler $blade
      */
     public function __construct(View $view, BladeCompiler $blade)
     {
@@ -37,16 +52,28 @@ class Widgets implements WidgetsContract
         $this->blade = $blade;
     }
 
+    /**
+     * Registers a widget
+     *
+     * @param          $name
+     * @param callable $callback
+     */
     public function create($name, Closure $callback)
     {
         $this->widgets[$name] = $callback;
     }
 
+    /**
+     * Checks if a widget exists, optionally throwing an exception if not found
+     *
+     * @param      $name
+     * @param bool $throwException
+     * @return bool
+     */
     public function exists($name, $throwException = false)
     {
-        #\Debugger::log('widgets', $this->widgets);
         $exists = isset($this->widgets[$name]);
-        if ( !$exists and $throwException )
+        if ( ! $exists and $throwException )
         {
             throw new InvalidArgumentException("Could not find widget [$name]. The widget does not exist");
         }
@@ -54,6 +81,9 @@ class Widgets implements WidgetsContract
         return $exists;
     }
 
+    /**
+     * Registers the @widget directive
+     */
     public function registerDirectives()
     {
         $this->blade->extend(function ($value, BladeCompiler $blade)
@@ -63,15 +93,36 @@ class Widgets implements WidgetsContract
 
             return preg_replace($pattern, $replace, $value);
         });
+
+
     }
 
-    public function render()
+    /**
+     * Renders a widget
+     *
+     * @param string $name the widget name
+     * @param mixed $param,...
+     * @return string The rendered widget
+     */
+    public function render($name, $param)
     {
-        $args      = func_get_args();
-        $name      = head($args);
-        $arguments = array_slice($args, 1);
+        $arguments = array_slice(func_get_args(), 1);
         $this->exists($name, true);
 
         return call_user_func_array($this->widgets[$name], $arguments);
+    }
+
+
+    /**
+     * Handle magic __call methods against the class.
+     *
+     * @param  string $method
+     * @param  array  $parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters = array())
+    {
+        $this->exists($method, true);
+        return $this->render($method, $parameters);
     }
 }
