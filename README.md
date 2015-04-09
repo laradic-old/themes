@@ -25,6 +25,14 @@ Version 0.1 preview
   
 
 [**Check the documentation for all features and options**](http://docs.radic.nl/themes/)
+
+
+#### My other packages
+|----|----|
+| laradic/extensions | Modular and manageable approach to extending your app |
+| radic/blade-extensions | A collection of usefull Laravel blade extensions, like $loop data in foreach, view partials, etc |
+| laradic/config | Laravel 5 Config exras like namespaces, saving to db/file. yaml/php array parser etc |
+| laradic/docit | A documentation generator for your code, live preview [docs.radic.nl](http://docs.radic.nl/) |
   
   
 #### Installation  
