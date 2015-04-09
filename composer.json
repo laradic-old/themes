@@ -25,7 +25,7 @@
         "laravel/framework": "~5.0",
         "illuminate/html": "~5.0",
         "erusev/parsedown": "~1.5",
-        "laradic/support": "~1.0",
+        "laradic/support": "dev-master",
         "laradic/debug": "dev-master",
         "radic/blade-extensions": "dev-develop"
     },

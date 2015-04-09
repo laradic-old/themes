@@ -32,7 +32,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
     /**
      * Contains all the resolved theme instances using slug => Class instance association
-     * @var array
+     * @var Theme[]
      */
     protected $themes = [];
 
@@ -186,6 +186,11 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
                 return $this->themes[$slug] = new $class($this, $this->dispatcher, $themePath);
             }
         }
+    }
+
+    public function all()
+    {
+        return array_keys($this->themes);
     }
 
     /**

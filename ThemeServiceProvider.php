@@ -52,7 +52,7 @@ class ThemeServiceProvider extends ServiceProvider
         $app = parent::register();
 
         $this->registerThemes();
-        $this->registerWidgets();
+       # $this->registerWidgets();
         $this->registerViewFinder();
         $this->registerAssets();
 
