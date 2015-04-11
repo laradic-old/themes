@@ -47,6 +47,11 @@ class Asset
         return $this->assets->toUrl($this->assetPath);
     }
 
+    public function uri()
+    {
+        return $this->assets->relativePath($this->assetPath);
+    }
+
 
     protected function resolveExtension($path)
     {

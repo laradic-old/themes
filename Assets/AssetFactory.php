@@ -68,6 +68,11 @@ class AssetFactory implements AssetFactoryContract
         return $this->make($assetPath)->url();
     }
 
+    public function uri($assetPath = "")
+    {
+        return $this->make($assetPath)->uri();
+    }
+
     /**
      * group
      *

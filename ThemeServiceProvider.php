@@ -55,6 +55,7 @@ class ThemeServiceProvider extends ServiceProvider
        # $this->registerWidgets();
         $this->registerViewFinder();
         $this->registerAssets();
+        $this->registerNavigation();
 
         if ( $app->runningInConsole() )
         {
@@ -133,4 +134,27 @@ class ThemeServiceProvider extends ServiceProvider
 
         View::setFinder($this->app['view.finder']);
     }
+
+    protected function registerNavigation()
+    {
+        $this->app->singleton('navigation', 'Laradic\Themes\Navigation\Factory');
+        $this->alias('navigation', 'Laradic\Themes\Contracts\NavigationFactory');
+        $this->app->booting(function ()
+        {
+            $this->alias('Navigation', 'Laradic\Themes\Facades\Navigation');
+        });
+
+
+        /** @var \Illuminate\View\Compilers\BladeCompiler $blade */
+        $blade = $this->app->make('view')->getEngineResolver()->resolve('blade')->getCompiler();
+
+        $blade->extend(function ($value) use ($blade)
+        {
+            $matcher = $blade->createMatcher('navigation');
+            $replace = '$1<?php echo app("navigation")->render$2 ?>';
+
+            return preg_replace($matcher, $replace, $value);
+        });
+    }
+
 }
