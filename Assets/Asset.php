@@ -33,8 +33,8 @@ class Asset
     {
         $this->assets    = $assets;
         $this->assetPath = $assetPath;
-        $this->ext = $this->resolveExtension($assetPath);
-        $this->type = $this->resolveType($this->ext);
+        $this->ext       = $this->resolveExtension($assetPath);
+        $this->type      = $this->resolveType($this->ext);
     }
 
     public function path()
@@ -52,6 +52,15 @@ class Asset
         return $this->assets->relativePath($this->assetPath);
     }
 
+    public function script($attr = [], $secure = false)
+    {
+        return \HTML::script($this->url(), $attr, $secure);
+    }
+
+    public function style($attr = [], $secure = false)
+    {
+        return \HTML::style($this->url(), $attr, $secure);
+    }
 
     protected function resolveExtension($path)
     {
@@ -73,6 +82,7 @@ class Asset
         {
             return 'script';
         }
+
         return 'other';
     }
 

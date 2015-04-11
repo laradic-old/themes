@@ -57,6 +57,15 @@ class AssetFactory implements AssetFactoryContract
         $this->assetManager = new AssetManager();
     }
 
+    function ___call($name, $arguments)
+    {
+        if(in_array($name, ['url', 'uri', 'style', 'script']))
+        {
+            #call_user_func_array([$this->make($name),
+        }
+    }
+
+
     /** @return Asset */
     public function make($assetPath)
     {
@@ -71,6 +80,16 @@ class AssetFactory implements AssetFactoryContract
     public function uri($assetPath = "")
     {
         return $this->make($assetPath)->uri();
+    }
+
+    public function style($assetPath = "", $attributes = [], $secure = false)
+    {
+        return $this->make($assetPath)->style($attributes, $secure);
+    }
+
+    public function script($assetPath = "", $attributes = [], $secure = false)
+    {
+        return $this->make($assetPath)->script($attributes, $secure);
     }
 
     /**
