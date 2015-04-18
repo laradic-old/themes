@@ -35,12 +35,15 @@ Version 0.1 preview
 
 
 #### My other packages
-| Package | Description |
+<!---+ table table-hover table-condensed table-striped table-light +-->
+| Package | Description | |
 |----|----|
-| [laradic/extensions](https://github.com/laradic/extensions) | Modular and manageable approach to extending your app |
-| [radic/blade-extensions](https://github.com/radic/blade-extensions) | A collection of usefull Laravel blade extensions, like $loop data in foreach, view partials, etc |
-| [laradic/config](https://github.com/laradic/config) | Laravel 5 Config exras like namespaces, saving to db/file. yaml/php array parser etc |
-| [laradic/docit](https://github.com/laradic/docit) | A documentation generator for your code, live preview [docs.radic.nl](http://docs.radic.nl/) |
+| [laradic/extensions](https://github.com/laradic/extensions) | Modular and manageable approach to extending your app | [doc](http://docs.radic.nl/extensions) |
+| [laradic/config](https://github.com/laradic/config) | Laravel 5 Config exras like namespaces, saving to db/file. yaml/php array parser etc | [doc](http://docs.radic.nl/config) |
+| [laradic/docit](https://github.com/laradic/docit) | A documentation generator for your code, live preview [docs.radic.nl](http://docs.radic.nl/) | [doc](http://docs.radic.nl/docit) |
+| [laradic/themes](https://github.com/laradic/themes) | Laravel 5 theme package | [doc](http://docs.radic.nl/themes) |
+| [radic/blade-extensions](https://github.com/radic/blade-extensions) | A collection of usefull Laravel blade extensions, like $loop data in foreach, view partials, etc | [doc](http://docs.radic.nl/blade-extensions) |
+<!---+ /table +-->
   
   
 <a name="copyright"></a>

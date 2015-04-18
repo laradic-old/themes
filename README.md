@@ -28,12 +28,13 @@ Version 0.1 preview
 
 
 #### My other packages
-| Package | Description |
+| Package | Description | |
 |----|----|
-| [laradic/extensions](https://github.com/laradic/extensions) | Modular and manageable approach to extending your app |
-| [radic/blade-extensions](https://github.com/radic/blade-extensions) | A collection of usefull Laravel blade extensions, like $loop data in foreach, view partials, etc |
-| [laradic/config](https://github.com/laradic/config) | Laravel 5 Config exras like namespaces, saving to db/file. yaml/php array parser etc |
-| [laradic/docit](https://github.com/laradic/docit) | A documentation generator for your code, live preview [docs.radic.nl](http://docs.radic.nl/) |
+| [laradic/extensions](https://github.com/laradic/extensions) | Modular and manageable approach to extending your app | [doc](http://docs.radic.nl/extensions) |
+| [laradic/config](https://github.com/laradic/config) | Laravel 5 Config exras like namespaces, saving to db/file. yaml/php array parser etc | [doc](http://docs.radic.nl/config) |
+| [laradic/docit](https://github.com/laradic/docit) | A documentation generator for your code, live preview [docs.radic.nl](http://docs.radic.nl/) | [doc](http://docs.radic.nl/docit) |
+| [laradic/themes](https://github.com/laradic/themes) | Laravel 5 theme package | [doc](http://docs.radic.nl/themes) |
+| [radic/blade-extensions](https://github.com/radic/blade-extensions) | A collection of usefull Laravel blade extensions, like $loop data in foreach, view partials, etc | [doc](http://docs.radic.nl/blade-extensions) |
   
   
 #### Installation  
@@ -140,15 +141,18 @@ return [
 ```
 
 ###### Loading theme views
+The active and default theme can be set in the configuration by altering the `active` and `default` keys.
+`View::make` will return the first found view using the following order:
+
+- public/{area}/{theme}/views/view-file.EXT 
+- (parent theme views folder)
+- resources/views/view-file.EXT
+- (default theme views folder)
+    
+You can set the active theme on the fly by using `Theme::setActive('theme/slug')`
   
 ```php
-/* 
- * This can return the first found view using the following order
- * - public/{area}/{theme}/views/view-file.EXT 
- * - (parent theme views folder)
- * - resources/views/view-file.EXT
- * - (default theme views folder)
- */
+// public/{active/theme}/views/view-file.EXT
 $view = View::make('view-file');  
 
 // public/{area}/{theme}/namespaces/my-namespace/views/view-file.EXT
