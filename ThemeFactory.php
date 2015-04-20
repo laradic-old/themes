@@ -15,6 +15,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\NamespacedItemResolver;
 use IteratorAggregate;
+use Laradic\Themes\Contracts\NavigationFactory;
 use Laradic\Themes\Contracts\ThemeFactory as ThemeFactoryContract;
 use RuntimeException;
 
@@ -79,6 +80,15 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
     /** @var Publisher[] */
     protected $publishers = [];
+
+    /** @var \Laradic\Themes\Contracts\NavigationFactory */
+    protected $navigation;
+
+    /** @var \DaveJamesMiller\Breadcrumbs\Manager */
+    protected $breadcrumbs;
+
+    /** @var \Laradic\Themes\Assets\AssetFactory */
+    protected $assets;
 
     /**
      * Instantiates the class
@@ -536,5 +546,76 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     {
         return new ArrayIterator($this->themes);
     }
+
+    /**
+     * Get the value of navigation
+     *
+     * @return NavigationFactory
+     */
+    public function getNavigation()
+    {
+        return $this->navigation;
+    }
+
+    /**
+     * Sets the value of navigation
+     *
+     * @param NavigationFactory $navigation
+     * @return NavigationFactory
+     */
+    public function setNavigation($navigation)
+    {
+        $this->navigation = $navigation;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of breadcrumbs
+     *
+     * @return \DaveJamesMiller\Breadcrumbs\Manager
+     */
+    public function getBreadcrumbs()
+    {
+        return $this->breadcrumbs;
+    }
+
+    /**
+     * Sets the value of breadcrumbs
+     *
+     * @param \DaveJamesMiller\Breadcrumbs\Manager $breadcrumbs
+     * @return \DaveJamesMiller\Breadcrumbs\Manager
+     */
+    public function setBreadcrumbs($breadcrumbs)
+    {
+        $this->breadcrumbs = $breadcrumbs;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of assets
+     *
+     * @return Assets\AssetFactory
+     */
+    public function getAssets()
+    {
+        return $this->assets;
+    }
+
+    /**
+     * Sets the value of assets
+     *
+     * @param Assets\AssetFactory $assets
+     * @return Assets\AssetFactory
+     */
+    public function setAssets($assets)
+    {
+        $this->assets = $assets;
+
+        return $this;
+    }
+
+
 
 }

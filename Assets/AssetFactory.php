@@ -55,6 +55,8 @@ class AssetFactory implements AssetFactoryContract
         $this->assetClass   = $app->config->get('radic_themes.assetClass');
         $this->urlGenerator = $urlGenerator;
         $this->assetManager = new AssetManager();
+
+        $themes->setAssets($this);
     }
 
     function ___call($name, $arguments)

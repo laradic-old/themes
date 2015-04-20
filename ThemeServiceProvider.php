@@ -1,5 +1,6 @@
 <?php namespace Laradic\Themes;
 
+use Illuminate\Foundation\Application;
 use Illuminate\View\FileViewFinder;
 use Laradic\Support\ServiceProvider;
 use View;
@@ -17,13 +18,15 @@ class ThemeServiceProvider extends ServiceProvider
         'Laradic\Themes\Providers\BusServiceProvider',
         'Laradic\Themes\Providers\EventServiceProvider',
         'Radic\BladeExtensions\BladeExtensionsServiceProvider',
+        'DaveJamesMiller\Breadcrumbs\ServiceProvider',
         'Collective\Html\HtmlServiceProvider'
     ];
 
     protected $aliases = [
-        'Markdown' => 'Radic\BladeExtensions\Facades\Markdown',
-        'Form'     => 'Collective\Html\FormFacade',
-        'HTML'     => 'Collective\Html\HtmlFacade'
+        'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
+        'Markdown'    => 'Radic\BladeExtensions\Facades\Markdown',
+        'Form'        => 'Collective\Html\FormFacade',
+        'HTML'        => 'Collective\Html\HtmlFacade'
     ];
 
     public function boot()
@@ -31,14 +34,12 @@ class ThemeServiceProvider extends ServiceProvider
         /** @var \Illuminate\Foundation\Application $app */
         $app = parent::boot();
 
-        /** @var \Illuminate\Contracts\Config\Repository $config */
-        $config = $app->make('config');
 
+        $config = $app->make('config');
         $themes = $app->make('themes');
 
         $themes->setConfig($config->get('radic_themes'));
         $themes->setActive($config->get('radic_themes.active'));
-      #  $themes->boot();
     }
 
     /**
@@ -51,11 +52,10 @@ class ThemeServiceProvider extends ServiceProvider
         /** @var \Illuminate\Foundation\Application $app */
         $app = parent::register();
 
-        $this->registerThemes();
-       # $this->registerWidgets();
-        $this->registerViewFinder();
-        $this->registerAssets();
         $this->registerNavigation();
+        $this->registerAssets();
+        $this->registerThemes();
+        $this->registerViewFinder();
 
         if ( $app->runningInConsole() )
         {
@@ -80,7 +80,13 @@ class ThemeServiceProvider extends ServiceProvider
 
     public function registerThemes()
     {
-        $this->app->singleton('themes', 'Laradic\Themes\ThemeFactory');
+        $this->app->singleton('themes', function (Application $app)
+        {
+            $themeFactory = new ThemeFactory($app, $app->make('files'), $app->make('events'));
+            $themeFactory->setNavigation($app->make('navigation'));
+            $themeFactory->setBreadcrumbs($app->make('breadcrumbs'));
+            return $themeFactory;
+        });
         $this->app->alias('themes', 'Laradic\Themes\Contracts\ThemeFactory');
 
         $this->app->booting(function ()
@@ -156,5 +162,4 @@ class ThemeServiceProvider extends ServiceProvider
             return preg_replace($matcher, $replace, $value);
         });
     }
-
 }
