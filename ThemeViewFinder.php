@@ -1,15 +1,11 @@
-<?php namespace Laradic\Themes;
-
+<?php
 /**
- * Part of the Radic packages.
- * Licensed under the MIT license.
+ * Part of the Robin Radic's PHP packages.
  *
- * @package        themes
- * @author         Robin Radic
- * @license        MIT
- * @copyright  (c) 2011-2015, Robin Radic
- * @link           http://radic.mit-license.org
+ * MIT License and copyright information bundled with this package
+ * in the LICENSE file or visit http://radic.mit-license.com
  */
+namespace Laradic\Themes;
 
 use Illuminate\Support\NamespacedItemResolver;
 use Illuminate\View\FileViewFinder;
@@ -18,9 +14,14 @@ use Laradic\Themes\Contracts\ThemeFactory;
 use Laradic\Themes\Contracts\ThemeViewFinder as ThemeViewFinderContract;
 
 /**
- * ThemesViewFinder
+ * This is the ThemeViewFinder class.
  *
- * @package Laradic\Themes
+ * @package        Themes
+ * @version        1.0.0
+ * @author         Robin Radic
+ * @license        MIT License
+ * @copyright      2015, Robin Radic
+ * @link           https://github.com/robinradic
  */
 class ThemeViewFinder extends FileViewFinder implements ThemeViewFinderContract
 {

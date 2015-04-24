@@ -1,7 +1,9 @@
 <?php
 /**
- * Part of the Laradic packages.
- * MIT License and copyright information bundled with this package in the LICENSE file.
+ * Part of the Robin Radic's PHP packages.
+ *
+ * MIT License and copyright information bundled with this package
+ * in the LICENSE file or visit http://radic.mit-license.com
  */
 namespace Laradic\Themes;
 
@@ -20,13 +22,14 @@ use Laradic\Themes\Contracts\ThemeFactory as ThemeFactoryContract;
 use RuntimeException;
 
 /**
- * Class ThemeFactory
+ * This is the ThemeFactory class.
  *
- * @package     Laradic\Themes
- * @author      Robin Radic
- * @license     MIT
- * @copyright   2011-2015, Robin Radic
- * @link        http://radic.mit-license.org
+ * @package        Laradic\Themes
+ * @version        1.0.0
+ * @author         Robin Radic
+ * @license        MIT License
+ * @copyright      2015, Robin Radic
+ * @link           https://github.com/robinradic
  */
 class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFactoryContract
 {

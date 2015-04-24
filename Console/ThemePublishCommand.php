@@ -1,6 +1,9 @@
 <?php
 /**
- * Part of the Radic packages.
+ * Part of the Robin Radic's PHP packages.
+ *
+ * MIT License and copyright information bundled with this package
+ * in the LICENSE file or visit http://radic.mit-license.com
  */
 namespace Laradic\Themes\Console;
 
@@ -8,13 +11,14 @@ use Laradic\Support\AbstractConsoleCommand;
 use Symfony\Component\Console\Input\InputArgument;
 
 /**
- * Class ThemePackageCommand
+ * This is the ThemePublishCommand class.
  *
- * @package     Laradic\Themes\Console
- * @author      Robin Radic
- * @license     MIT
- * @copyright   2011-2015, Robin Radic
- * @link        http://radic.mit-license.org
+ * @package        Laradic\Themes
+ * @version        1.0.0
+ * @author         Robin Radic
+ * @license        MIT License
+ * @copyright      2015, Robin Radic
+ * @link           https://github.com/robinradic
  */
 class ThemePublishCommand extends AbstractConsoleCommand
 {

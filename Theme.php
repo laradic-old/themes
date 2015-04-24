@@ -1,4 +1,11 @@
-<?php namespace Laradic\Themes;
+<?php
+/**
+ * Part of the Robin Radic's PHP packages.
+ *
+ * MIT License and copyright information bundled with this package
+ * in the LICENSE file or visit http://radic.mit-license.com
+ */
+namespace Laradic\Themes;
 
 use Closure;
 use File;
@@ -8,9 +15,18 @@ use Laradic\Themes\Exceptions\ThemesConfigurationException;
 use Stringy\Stringy;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 
+/**
+ * This is the Theme class.
+ *
+ * @package        Laradic\Themes
+ * @version        1.0.0
+ * @author         Robin Radic
+ * @license        MIT License
+ * @copyright      2015, Robin Radic
+ * @link           https://github.com/robinradic
+ */
 class Theme
 {
-
     /**
      * @var \Laradic\Themes\ThemeFactory
      */

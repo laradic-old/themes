@@ -1,6 +1,9 @@
 <?php
 /**
- * Part of the Laradic packages.
+ * Part of the Robin Radic's PHP packages.
+ *
+ * MIT License and copyright information bundled with this package
+ * in the LICENSE file or visit http://radic.mit-license.com
  */
 namespace Laradic\Themes\Navigation;
 
@@ -14,13 +17,14 @@ use Illuminate\Support\Collection;
 use Laradic\Themes\Contracts\NavigationFactory;
 
 /**
- * Class Factory
+ * This is the Factory class.
  *
- * @package     Laradic\Admin
- * @author      Robin Radic
- * @license     MIT
- * @copyright   2011-2015, Robin Radic
- * @link        http://radic.mit-license.org
+ * @package        Laradic\Themes
+ * @version        1.0.0
+ * @author         Robin Radic
+ * @license        MIT License
+ * @copyright      2015, Robin Radic
+ * @link           https://github.com/robinradic
  */
 class Factory implements NavigationFactory
 {

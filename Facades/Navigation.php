@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * Class Navigation
  *
- * @package     ${NAMESPACE}
+ * @package Themes
  * @author      Robin Radic
  * @license     MIT
  * @copyright   2011-2015, Robin Radic

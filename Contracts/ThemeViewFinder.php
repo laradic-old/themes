@@ -1,5 +1,17 @@
-<?php namespace Laradic\Themes\Contracts;
+<?php
+/**
+ * Part of the Robin Radic's PHP packages.
+ *
+ * MIT License and copyright information bundled with this package
+ * in the LICENSE file or visit http://radic.mit-license.com
+ */
+namespace Laradic\Themes\Contracts;
 
+/**
+ * Interface ThemeViewFinder
+ *
+ * @package Laradic\Themes\Contracts
+ */
 interface ThemeViewFinder
 {
 

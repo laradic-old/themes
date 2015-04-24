@@ -1,20 +1,23 @@
-<?php namespace Laradic\Themes\Exceptions; /**
- * Part of the Radic packges.
- * Licensed under the MIT license.
+<?php
+/**
+ * Part of the Robin Radic's PHP packages.
  *
- * @package    dev7
- * @author     Robin Radic
- * @license    MIT
- * @copyright  (c) 2011-2015, Robin Radic
- * @link       http://radic.mit-license.org
+ * MIT License and copyright information bundled with this package
+ * in the LICENSE file or visit http://radic.mit-license.com
  */
+namespace Laradic\Themes\Exceptions;
 use Exception;
 
 
 /**
- * ThemesConfigurationException
+ * This is the ThemesConfigurationException.
  *
- * @package Laradic\Themes\Exceptions${NAME}
+ * @package        Laradic\Themes
+ * @version        1.0.0
+ * @author         Robin Radic
+ * @license        MIT License
+ * @copyright      2015, Robin Radic
+ * @link           https://github.com/robinradic
  */
 class ThemesConfigurationException extends Exception
 {

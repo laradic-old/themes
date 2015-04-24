@@ -1,20 +1,23 @@
 <?php
 /**
- * Part of the Laradic packages.
- * MIT License and copyright information bundled with this package in the LICENSE file.
+ * Part of the Robin Radic's PHP packages.
+ *
+ * MIT License and copyright information bundled with this package
+ * in the LICENSE file or visit http://radic.mit-license.com
  */
 namespace Laradic\Themes\Assets;
 
 use Laradic\Themes\Contracts\AssetFactory as AssetFactoryContract;
 
 /**
- * Class Asset
+ * This is the Asset class.
  *
- * @package     Laradic\Themes\Assets
- * @author      Robin Radic
- * @license     MIT
- * @copyright   2011-2015, Robin Radic
- * @link        http://radic.mit-license.org
+ * @package        Laradic\Themes
+ * @version        1.0.0
+ * @author         Robin Radic
+ * @license        MIT License
+ * @copyright      2015, Robin Radic
+ * @link           https://github.com/robinradic
  */
 class Asset
 {
@@ -52,12 +55,12 @@ class Asset
         return $this->assets->relativePath($this->assetPath);
     }
 
-    public function script($attr = [], $secure = false)
+    public function script($attr = [ ], $secure = false)
     {
         return \HTML::script($this->url(), $attr, $secure);
     }
 
-    public function style($attr = [], $secure = false)
+    public function style($attr = [ ], $secure = false)
     {
         return \HTML::style($this->url(), $attr, $secure);
     }
@@ -71,8 +74,8 @@ class Asset
 
     protected function resolveType($ext)
     {
-        $style  = ['css', 'scss', 'sass', 'less'];
-        $script = ['js', 'ts', 'cs'];
+        $style  = [ 'css', 'scss', 'sass', 'less' ];
+        $script = [ 'js', 'ts', 'cs' ];
 
         if ( in_array($ext, $style) )
         {

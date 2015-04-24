@@ -1,15 +1,12 @@
-<?php namespace Laradic\Themes\Assets;
-
+<?php
 /**
- * Part of the Radic packges.
- * Licensed under the MIT license.
+ * Part of the Robin Radic's PHP packages.
  *
- * @package        dev7
- * @author         Robin Radic
- * @license        MIT
- * @copyright  (c) 2011-2015, Robin Radic
- * @link           http://radic.mit-license.org
+ * MIT License and copyright information bundled with this package
+ * in the LICENSE file or visit http://radic.mit-license.com
  */
+namespace Laradic\Themes\Assets;
+
 use Closure;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Foundation\Application;
@@ -22,9 +19,14 @@ use Assetic\AssetManager;
 use View;
 
 /**
- * Asset
+ * This is the AssetFactory class.
  *
- * @package Laradic\Themes\Assets${NAME}
+ * @package        Laradic\Themes
+ * @version        1.0.0
+ * @author         Robin Radic
+ * @license        MIT License
+ * @copyright      2015, Robin Radic
+ * @link           https://github.com/robinradic
  */
 class AssetFactory implements AssetFactoryContract
 {

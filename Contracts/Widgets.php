@@ -1,19 +1,18 @@
 <?php
 /**
- * Part of the Radic packages.
+ * Part of the Robin Radic's PHP packages.
+ *
+ * MIT License and copyright information bundled with this package
+ * in the LICENSE file or visit http://radic.mit-license.com
  */
 namespace Laradic\Themes\Contracts;
 
 use Closure;
 
 /**
- * Widgets contract
+ * Interface Widgets
  *
- * @package     Laradic\Themes\Contracts
- * @author      Robin Radic
- * @license     MIT
- * @copyright   2011-2015, Robin Radic
- * @link        http://radic.mit-license.org
+ * @package Laradic\Themes\Contracts
  */
 interface Widgets
 {

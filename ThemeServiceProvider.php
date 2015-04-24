@@ -1,10 +1,27 @@
-<?php namespace Laradic\Themes;
+<?php
+/**
+ * Part of the Robin Radic's PHP packages.
+ *
+ * MIT License and copyright information bundled with this package
+ * in the LICENSE file or visit http://radic.mit-license.com
+ */
+namespace Laradic\Themes;
 
 use Illuminate\Foundation\Application;
 use Illuminate\View\FileViewFinder;
 use Laradic\Support\ServiceProvider;
 use View;
 
+/**
+ * This is the ThemeServiceProvider class.
+ *
+ * @package        Laradic\Themes
+ * @version        1.0.0
+ * @author         Robin Radic
+ * @license        MIT License
+ * @copyright      2015, Robin Radic
+ * @link           https://github.com/robinradic
+ */
 class ThemeServiceProvider extends ServiceProvider
 {
 
@@ -144,7 +161,7 @@ class ThemeServiceProvider extends ServiceProvider
     protected function registerNavigation()
     {
         $this->app->singleton('navigation', 'Laradic\Themes\Navigation\Factory');
-        $this->alias('navigation', 'Laradic\Themes\Contracts\NavigationFactory');
+        $this->app->bind('Laradic\Themes\Contracts\NavigationFactory', 'navigation');
         $this->app->booting(function ()
         {
             $this->alias('Navigation', 'Laradic\Themes\Facades\Navigation');

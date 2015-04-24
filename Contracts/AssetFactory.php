@@ -1,16 +1,17 @@
-<?php namespace Laradic\Themes\Contracts;
+<?php
+/**
+ * Part of the Robin Radic's PHP packages.
+ *
+ * MIT License and copyright information bundled with this package
+ * in the LICENSE file or visit http://radic.mit-license.com
+ */
+namespace Laradic\Themes\Contracts;
 
 /**
- * Part of the Radic packges.
- * Licensed under the MIT license.
+ * Interface AssetFactory
  *
- * @package    dev9
- * @author     Robin Radic
- * @license    MIT
- * @copyright  (c) 2011-2015, Robin Radic
- * @link       http://radic.mit-license.org
+ * @package Laradic\Themes\Contracts
  */
-
 interface AssetFactory {
     /** @return \Illuminate\Routing\UrlGenerator */
     public function getUrlGenerator();
