@@ -8,7 +8,7 @@
 namespace Laradic\Themes\Assets;
 
 use Laradic\Support\Sorter;
-use Laradic\Support\Str;
+use Laradic\Support\String;
 use Laradic\Themes\Contracts\AssetFactory as AssetFactoryContract;
 
 /**
@@ -76,7 +76,7 @@ class AssetGroup
         foreach ($this->sorter->sort() as $name)
         {
             /** @var Asset $asset */
-            $asset    = $this->get(Str::singular($type), $name)['asset'];
+            $asset    = $this->get(String::singular($type), $name)['asset'];
             $assets[] = $type == 'styles' ? '<link href="' . $asset->url() . '" type="text/css" rel="stylesheet">' : '<script type="text/javascript" src="' . $asset->url() . '"></script>';
         }
 

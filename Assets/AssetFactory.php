@@ -37,24 +37,34 @@ class AssetFactory implements AssetFactoryContract
     /** @var Container */
     protected $container;
 
+    /** @var string */
     protected $assetClass;
 
+    /**
+     * The assetic asset manager instance
+     * @var \Assetic\AssetManager
+     */
     protected $assetManager;
 
+    /**
+     * @var AssetGroup[]
+     */
     protected $assetGroups = [];
 
     /** @var UrlGenerator */
     protected $urlGenerator;
 
     /**
-     * @param Container    $container
-     * @param ThemeFactory $themes
+     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param ThemeFactory                                 $themes
+     * @param \Illuminate\Contracts\Routing\UrlGenerator   $urlGenerator
+     * @internal param \Illuminate\Contracts\Container\Container $container
      */
     public function __construct(Application $app, ThemeFactory $themes, UrlGenerator $urlGenerator)
     {
         $this->app          = $app;
         $this->themes       = $themes;
-        $this->assetClass   = $app->config->get('radic_themes.assetClass');
+        $this->assetClass   = $app->make('config')->get('radic_themes.assetClass');
         $this->urlGenerator = $urlGenerator;
         $this->assetManager = new AssetManager();
 
@@ -76,22 +86,50 @@ class AssetFactory implements AssetFactoryContract
         return new $this->assetClass($this, $this->getPath($assetPath));
     }
 
-    public function url($assetPath = "")
+    /**
+     * url
+     *
+     * @param string $assetPath
+     * @return string
+     */
+    public function url($assetPath = '')
     {
         return $this->make($assetPath)->url();
     }
 
-    public function uri($assetPath = "")
+    /**
+     * uri
+     *
+     * @param string $assetPath
+     * @return string
+     */
+    public function uri($assetPath = '')
     {
         return $this->make($assetPath)->uri();
     }
 
-    public function style($assetPath = "", $attributes = [], $secure = false)
+    /**
+     * style
+     *
+     * @param string $assetPath
+     * @param array  $attributes
+     * @param bool   $secure
+     * @return string
+     */
+    public function style($assetPath = "", array $attributes = [], $secure = false)
     {
         return $this->make($assetPath)->style($attributes, $secure);
     }
 
-    public function script($assetPath = "", $attributes = [], $secure = false)
+    /**
+     * script
+     *
+     * @param string $assetPath
+     * @param array  $attributes
+     * @param bool   $secure
+     * @return string
+     */
+    public function script($assetPath = "", array $attributes = [], $secure = false)
     {
         return $this->make($assetPath)->script($attributes, $secure);
     }
@@ -116,6 +154,12 @@ class AssetFactory implements AssetFactoryContract
         }
     }
 
+    /**
+     * relativePath
+     *
+     * @param $path
+     * @return string
+     */
     public function relativePath($path)
     {
         $path = Stringy::create($path)->removeLeft(public_path());
@@ -127,6 +171,12 @@ class AssetFactory implements AssetFactoryContract
         return $path->__toString();
     }
 
+    /**
+     * toUrl
+     *
+     * @param $path
+     * @return string
+     */
     public function toUrl($path)
     {
         if ( Stringy::create($path)->startsWith(public_path()) )
@@ -137,6 +187,12 @@ class AssetFactory implements AssetFactoryContract
         return $this->urlGenerator->to($path);
     }
 
+    /**
+     * getPath
+     *
+     * @param null $key
+     * @return string
+     */
     public function getPath($key = null)
     {
         list($section, $relativePath, $extension) = with(new NamespacedItemResolver)->parseKey($key);
@@ -186,6 +242,11 @@ class AssetFactory implements AssetFactoryContract
         return $file;
     }
 
+    /**
+     * getThemes
+     *
+     * @return \Laradic\Themes\Contracts\ThemeFactory|\Laradic\Themes\ThemeFactory
+     */
     public function getThemes()
     {
         return $this->themes;

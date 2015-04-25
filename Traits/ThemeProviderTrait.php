@@ -19,11 +19,23 @@ namespace Laradic\Themes\Traits;
  */
 trait ThemeProviderTrait {
 
+    /**
+     * addPackagePublisher
+     *
+     * @param $package
+     * @param $path
+     */
     protected function addPackagePublisher($package, $path)
     {
         app('themes')->addPackagePublisher($package, $path);
     }
 
+    /**
+     * addNamespacePublisher
+     *
+     * @param $namespace
+     * @param $path
+     */
     protected function addNamespacePublisher($namespace, $path)
     {
         app('themes')->addNamespacePublisher($namespace, $path);

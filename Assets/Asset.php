@@ -28,10 +28,20 @@ class Asset
     /** @var \Laradic\Themes\Assets\AssetFactory */
     protected $assets;
 
+    /**
+     * @var string
+     */
     protected $type;
 
+    /**
+     * @var
+     */
     protected $ext;
 
+    /**
+     * @param \Laradic\Themes\Contracts\AssetFactory $assets
+     * @param                                        $assetPath
+     */
     public function __construct(AssetFactoryContract $assets, $assetPath)
     {
         $this->assets    = $assets;
@@ -40,31 +50,66 @@ class Asset
         $this->type      = $this->resolveType($this->ext);
     }
 
+    /**
+     * path
+     *
+     * @return string
+     */
     public function path()
     {
         return $this->assetPath;
     }
 
+    /**
+     * url
+     *
+     * @return string
+     */
     public function url()
     {
         return $this->assets->toUrl($this->assetPath);
     }
 
+    /**
+     * uri
+     *
+     * @return string
+     */
     public function uri()
     {
         return $this->assets->relativePath($this->assetPath);
     }
 
+    /**
+     * script
+     *
+     * @param array $attr
+     * @param bool  $secure
+     * @return string
+     */
     public function script($attr = [ ], $secure = false)
     {
         return \HTML::script($this->url(), $attr, $secure);
     }
 
+    /**
+     * style
+     *
+     * @param array $attr
+     * @param bool  $secure
+     * @return string
+     */
     public function style($attr = [ ], $secure = false)
     {
         return \HTML::style($this->url(), $attr, $secure);
     }
 
+    /**
+     * resolveExtension
+     *
+     * @param $path
+     * @return mixed
+     */
     protected function resolveExtension($path)
     {
         $arr = preg_split('/\./', $path);
@@ -72,6 +117,12 @@ class Asset
         return end($arr);
     }
 
+    /**
+     * resolveType
+     *
+     * @param $ext
+     * @return string
+     */
     protected function resolveType($ext)
     {
         $style  = [ 'css', 'scss', 'sass', 'less' ];

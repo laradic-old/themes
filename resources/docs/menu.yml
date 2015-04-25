@@ -25,6 +25,10 @@ menu:
       "Navigation & breadcrumbs": usage/navigation-and-breadcrumbs
       Console commands: usage/console-commands
 
+  - name: API PHPDoc
+    icon: fa fa-link
+    page: ${project.phpdoc.dir}
+
   - name: Links
     icon: fa fa-link
     children:
