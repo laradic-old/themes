@@ -289,6 +289,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
         $view     = $this->app->make('view');
         $view->addLocation($location);
         $view->addNamespace($name, $location);
+        return $this;
     }
 
     /**
@@ -389,6 +390,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
             ->asPackage($package)
             ->from($sourcePath)
             ->toTheme($theme);
+        return $this;
     }
 
     /**
@@ -406,6 +408,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
             ->asNamespace($namespace)
             ->from($sourcePath)
             ->toTheme($theme);
+        return $this;
     }
 
     /**
