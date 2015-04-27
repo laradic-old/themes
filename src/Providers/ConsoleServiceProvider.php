@@ -24,8 +24,9 @@ class ConsoleServiceProvider extends AggregateConsoleProvider {
     protected $namespace = 'Laradic\Themes\Console';
 
     protected $commands = [
-        'ThemePublish' => 'command.themes.publish',
-        'ThemePublishers' => 'command.themes.publishers'
+        'ThemePublish' => 'commands.themes.publish',
+        'ThemePublishers' => 'commands.themes.publishers',
+        'ThemeMake' => 'commands.themes.make'
     ];
 
 }

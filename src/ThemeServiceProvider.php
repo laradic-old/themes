@@ -9,6 +9,7 @@ namespace Laradic\Themes;
 
 use Illuminate\Foundation\Application;
 use Illuminate\View\FileViewFinder;
+use Laradic\Config\Traits\ConfigProviderTrait;
 use Laradic\Support\ServiceProvider;
 use View;
 
@@ -24,12 +25,7 @@ use View;
  */
 class ThemeServiceProvider extends ServiceProvider
 {
-
-    /** @inheritdoc */
-    protected $configFiles = ['radic_themes'];
-
-    /** @inheritdoc */
-    protected $dir = __DIR__ . '/../';
+    use ConfigProviderTrait;
 
     protected $providers = [
         'Laradic\Themes\Providers\BusServiceProvider',
@@ -55,8 +51,8 @@ class ThemeServiceProvider extends ServiceProvider
         $config = $app->make('config');
         $themes = $app->make('themes');
 
-        $themes->setConfig($config->get('radic_themes'));
-        $themes->setActive($config->get('radic_themes.active'));
+        $themes->setConfig($config->get('laradic/themes::config'));
+        $themes->setActive($config->get('laradic/themes::active'));
     }
 
     /**
@@ -68,6 +64,7 @@ class ThemeServiceProvider extends ServiceProvider
     {
         /** @var \Illuminate\Foundation\Application $app */
         $app = parent::register();
+        $config = $this->addConfigComponent('laradic/themes', 'laradic/themes', __DIR__ . '/../resources/config');
 
         $this->registerNavigation();
         $this->registerAssets();
