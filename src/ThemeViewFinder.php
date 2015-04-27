@@ -36,7 +36,7 @@ class ThemeViewFinder extends FileViewFinder implements ThemeViewFinderContract
     {
         $name = str_replace('.', '/', $name);
 
-        if (!isset($this->themes))
+        if ( ! isset($this->themes) )
         {
             return parent::find($name);
         }
@@ -46,9 +46,9 @@ class ThemeViewFinder extends FileViewFinder implements ThemeViewFinderContract
 
         try
         {
-            if (isset($area))
+            if ( isset($area) )
             {
-                if (isset($this->hints[$area]))
+                if ( isset($this->hints[ $area ]) )
                 {
                     $sectionType = 'namespaces';
                     $paths       = $this->themes->getCascadedPaths('namespaces', $area, 'views');
@@ -57,7 +57,7 @@ class ThemeViewFinder extends FileViewFinder implements ThemeViewFinderContract
                 {
                     $sectionType = 'packages';
                     $paths       = $this->themes->getCascadedPaths('packages', $area, 'views');
-                   # $paths       = $this->themes->getCascadedPackageViewPaths($area);
+                    # $paths       = $this->themes->getCascadedPackageViewPaths($area);
                 }
 
                 $view = $this->findInPaths($view, $paths);
@@ -79,22 +79,19 @@ class ThemeViewFinder extends FileViewFinder implements ThemeViewFinderContract
                 $active   = $this->themes->getActive();
                 $fallback = $this->themes->getDefault();
 
-                if (isset($area))
+                if ( isset($area) )
                 {
-                    $message = sprintf('Theme [%s] view [%s] could not be found in theme [%s]',
-                        $sectionType, $name, $active->getSlug()
-                    );
+                    $message = sprintf('Could not find view [%s] in [%s] of [%s]', $name, $sectionType, $active->getSlug());
                 }
                 else
                 {
-                    $message = sprintf('Theme view [%s] could not be found in theme [%s]',
-                        $name, $active->getSlug()
-                    );
+                    $message = sprintf('View [%s] could not be found in [%s]', $name, $active->getSlug());
                 }
 
                 throw new InvalidArgumentException($message);
             }
         }
+
         return $view;
     }
 

@@ -35,61 +35,93 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
     /**
      * Contains all the resolved theme instances using slug => Class instance association
+     *
      * @var Theme[]
      */
-    protected $themes = [];
+    protected $themes = [ ];
 
     /**
      * The active theme instance
+     *
      * @var \Laradic\Themes\Theme
      */
     protected $active;
 
     /**
      * The default theme instance
+     *
      * @var \Laradic\Themes\Theme
      */
     protected $default;
 
     /**
+     * The filesystem object
+     *
      * @var \Illuminate\Filesystem\Filesystem
      */
     protected $files;
 
     /**
-     * @var \Illuminate\View\ViewFinderInterface
+     * The theme package's view finder to locate theme views
+     *
+     * @var \Laradic\Themes\ThemeViewFinder
      */
     protected $finder;
 
     /**
+     * The event dispatcher
+     *
      * @var \Illuminate\Contracts\Events\Dispatcher
      */
     protected $dispatcher;
 
     /**
+     * Laravel's application instance
+     *
      * @var \Illuminate\Contracts\Foundation\Application
      */
     protected $app;
 
     /**
      * Filesystem paths to directories where themes are installed
+     *
      * @var $paths array
      */
-    protected $paths = [];
+    protected $paths = [ ];
 
-    /** @var array */
+    /**
+     * The laradic/theme config
+     *
+     * @var array
+     */
     protected $config;
 
-    /** @var Publisher[] */
-    protected $publishers = [];
+    /**
+     * Collection of all theme publishers that have been added
+     *
+     * @var Publisher[]
+     */
+    protected $publishers = [ ];
 
-    /** @var \Laradic\Themes\Contracts\NavigationFactory */
+    /**
+     * The navigation instance
+     *
+     * @var \Laradic\Themes\Contracts\NavigationFactory
+     */
     protected $navigation;
 
-    /** @var \DaveJamesMiller\Breadcrumbs\Manager */
+    /**
+     * The breadcrumb instance
+     *
+     * @var \DaveJamesMiller\Breadcrumbs\Manager
+     */
     protected $breadcrumbs;
 
-    /** @var \Laradic\Themes\Assets\AssetFactory */
+    /**
+     * The asset factory instance
+     *
+     * @var \Laradic\Themes\Assets\AssetFactory
+     */
     protected $assets;
 
     /**
@@ -107,21 +139,21 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     }
 
     /**
-     * setConfig
+     * Set the internal config array
      *
-     * @param $config
+     * @param array $config
      * @return $this
      */
-    public function setConfig($config)
+    public function setConfig(array $config)
     {
-        $this->paths  = $config['paths'];
+        $this->paths  = $config[ 'paths' ];
         $this->config = $config;
 
         return $this;
     }
 
     /**
-     * Set the active theme
+     * Set the active theme that should be used
      *
      * @param string|\Laradic\Themes\Theme $theme The slug or Theme instance
      * @return $this
@@ -153,6 +185,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
     /**
      * Get the default theme
+     *
      * @return \Laradic\Themes\Theme
      */
     public function getDefault()
@@ -167,46 +200,53 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
      */
     public function setDefault($theme)
     {
-        $theme       = $this->resolveTheme($theme);
+        $theme         = $this->resolveTheme($theme);
         $this->default = $theme;
     }
 
     /**
-     * resolveTheme
+     * Resolve a theme using it's slug. It will check all theme paths for the required theme.
+     * It will instantiate the theme, register it with the factory and return it.
      *
-     * @param $slug
+     * @param string $slug The theme slug
      * @return Theme
      */
     public function resolveTheme($slug)
     {
         if ( in_array($slug, $this->themes) )
         {
-            return $this->themes[$slug];
+            return $this->themes[ $slug ];
         }
 
         $resolver = new NamespacedItemResolver;
         list($area, $key) = $resolver->parseKey($slug);
 
-        foreach ($this->paths as $path)
+        foreach ( $this->paths as $path )
         {
-            $themePath = $this->getThemePath($path[0], $key, $area);
+            $themePath = $this->getThemePath($path[ 0 ], $key, $area);
 
             if ( $this->files->isDirectory($themePath) )
             {
                 $class = Config::get('radic_themes.themeClass');
 
-                return $this->themes[$slug] = new $class($this, $this->dispatcher, $themePath);
+                return $this->themes[ $slug ] = new $class($this, $this->dispatcher, $themePath);
             }
         }
     }
 
+    /**
+     * Returns all resolved theme slugs
+     *
+     * @return array
+     */
     public function all()
     {
         return array_keys($this->themes);
     }
 
     /**
-     * Get a theme with the provided slug
+     * Get a theme with the provided slug, equal to resolveTheme
+     *
      * @return \Laradic\Themes\Theme
      */
     public function get($slug)
@@ -229,6 +269,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
     /**
      * Get the number of themes
+     *
      * @return int
      */
     public function count()
@@ -237,37 +278,37 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     }
 
     /**
-     * addNamespace
+     * Add a namespace to the theme
      *
-     * @param $id
-     * @param $dirName
+     * @param string $name
+     * @param string $dirName
      */
-    public function addNamespace($id, $dirName)
+    public function addNamespace($name, $dirName)
     {
         $location = $this->getPath('namespaces') . '/' . $dirName;
         $view     = $this->app->make('view');
         $view->addLocation($location);
-        $view->addNamespace($id, $location);
+        $view->addNamespace($name, $location);
     }
 
     /**
-     * getPath
+     * Get a path by type, as configured in config.
      *
-     * @param $type
-     * @return mixed
+     * @param string $type views, assets, namespaces or packages
+     * @return string
      */
     public function getPath($type)
     {
-        return $this->paths[$type];
+        return $this->paths[ $type ];
     }
 
     /**
-     * getCascadedPaths
+     * Get paths cascadingly for the defined options.
      *
-     * @param      $cascadeType
-     * @param null $cascadeName
-     * @param null $pathType
-     * @param null $theme
+     * @param string      $cascadeType The type, either namespaces, packages
+     * @param null|string $cascadeName The namespaced or package name
+     * @param null|string $pathType    The path type like views or assets
+     * @param null|string $theme
      * @return array
      */
     public function getCascadedPaths($cascadeType, $cascadeName = null, $pathType = null, $theme = null)
@@ -277,10 +318,10 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
         $current = is_null($theme) ? $this->getActive() : $this->resolveTheme($theme);
 
-        while (true)
+        while ( true )
         {
-            $paths[]  = $current->getCascadedPath($cascadeType, $cascadeName, $pathType);
-            $looped[] = $current;
+            $paths[ ]  = $current->getCascadedPath($cascadeType, $cascadeName, $pathType);
+            $looped[ ] = $current;
 
             if ( ! $parent = $current->getParentTheme() )
             {
@@ -297,14 +338,14 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
         if ( $default = $this->getDefault() and ! in_array($default, $looped) )
         {
-            $paths[] = $default->getCascadedPath($cascadeType, $cascadeName, $pathType);
+            $paths[ ] = $default->getCascadedPath($cascadeType, $cascadeName, $pathType);
         }
 
         return $paths;
     }
 
     /**
-     * getThemePath
+     * Get the path tot the theme
      *
      * @param      $path
      * @param      $key
@@ -334,41 +375,41 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     }
 
     /**
-     * addPackagePublisher
+     * Register/add a theme publisher that publishes as a package
      *
-     * @param      $package
-     * @param      $sourcePath
-     * @param null $theme
+     * @param string      $package    Package name
+     * @param string      $sourcePath Path to the theme
+     * @param string|null $theme      Exclude to a specific theme using tthis slug
      */
     public function addPackagePublisher($package, $sourcePath, $theme = null)
     {
         $theme = is_null($theme) ? $this->getActive() : $this->resolveTheme($theme);
 
-        $this->publishers[$package] = Publisher::create($this->getFiles())
+        $this->publishers[ $package ] = Publisher::create($this->getFiles())
             ->asPackage($package)
             ->from($sourcePath)
             ->toTheme($theme);
     }
 
     /**
-     * addNamespacePublisher
+     * Register/add a theme publisher that publishes as a namespace
      *
-     * @param      $namespace
-     * @param      $sourcePath
-     * @param null $theme
+     * @param string      $namespace  Name
+     * @param string      $sourcePath Path to the theme
+     * @param string|null $theme      Exclude to a specific theme using tthis slug
      */
     public function addNamespacePublisher($namespace, $sourcePath, $theme = null)
     {
         $theme = is_null($theme) ? $this->getActive() : $this->resolveTheme($theme);
 
-        $this->publishers[$namespace] = Publisher::create($this->getFiles())
+        $this->publishers[ $namespace ] = Publisher::create($this->getFiles())
             ->asNamespace($namespace)
             ->from($sourcePath)
             ->toTheme($theme);
     }
 
     /**
-     * publish
+     * Publish an namespace or package
      *
      * @param null $namespaceOrPackage
      */
@@ -376,16 +417,16 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     {
         if ( is_null($namespaceOrPackage) )
         {
-            foreach ($this->publishers as $publisher)
+            foreach ( $this->publishers as $publisher )
             {
                 $publisher->publish();
             }
         }
         else
         {
-            if ( isset($this->publishers[$namespaceOrPackage]) )
+            if ( isset($this->publishers[ $namespaceOrPackage ]) )
             {
-                $this->publishers[$namespaceOrPackage]->publish();
+                $this->publishers[ $namespaceOrPackage ]->publish();
             }
             else
             {
@@ -409,8 +450,9 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     //
     /* EVENTS */
     //
+
     /**
-     * boot
+     * Boot the active theme
      */
     public function boot()
     {
@@ -444,9 +486,9 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     }
 
     /**
-     * getFinder
+     * Get the theme view finder instance
      *
-     * @return \Illuminate\View\ViewFinderInterface
+     * @return \Laradic\Themes\ThemeViewFinder
      */
     public function getFinder()
     {
@@ -467,7 +509,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     }
 
     /**
-     * getFiles
+     * Get the filesystem object
      *
      * @return \Illuminate\Filesystem\Filesystem
      */
@@ -477,7 +519,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     }
 
     /**
-     * setFiles
+     * Set the filesystem object
      *
      * @param $files
      * @return $this
@@ -508,7 +550,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
      */
     public function offsetGet($key)
     {
-        return $this->themes[$key];
+        return $this->themes[ $key ];
     }
 
     /**
@@ -521,11 +563,11 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     {
         if ( is_null($key) )
         {
-            $this->themes[] = $value;
+            $this->themes[ ] = $value;
         }
         else
         {
-            $this->themes[$key] = $value;
+            $this->themes[ $key ] = $value;
         }
     }
 
@@ -536,7 +578,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
      */
     public function offsetUnset($key)
     {
-        unset($this->themes[$key]);
+        unset($this->themes[ $key ]);
     }
 
     /**
@@ -550,7 +592,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     }
 
     /**
-     * Get the value of navigation
+     * Get the NavigationFactory instance
      *
      * @return NavigationFactory
      */
@@ -560,7 +602,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     }
 
     /**
-     * Sets the value of navigation
+     * Sets the NavigationFactory instance
      *
      * @param NavigationFactory $navigation
      * @return NavigationFactory
@@ -586,7 +628,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
      * Sets the value of breadcrumbs
      *
      * @param \DaveJamesMiller\Breadcrumbs\Manager $breadcrumbs
-     * @return \DaveJamesMiller\Breadcrumbs\Manager
+     * @return $this
      */
     public function setBreadcrumbs($breadcrumbs)
     {
@@ -596,9 +638,9 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     }
 
     /**
-     * Get the value of assets
+     * Get the asset factory instance
      *
-     * @return Assets\AssetFactory
+     * @return \Laradic\Themes\Assets\AssetFactory
      */
     public function getAssets()
     {
@@ -609,7 +651,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
      * Sets the value of assets
      *
      * @param Assets\AssetFactory $assets
-     * @return Assets\AssetFactory
+     * @return $this
      */
     public function setAssets($assets)
     {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project title="API Documentation" version="v2.8.2">
   <partials/>
-  <file path="Assets/Asset.php" generated-path="Assets.Asset.html" hash="34172c3c92b807872415555a445bb63a" package="Default">
+  <file path="Assets/Asset.php" generated-path="Assets.Asset.html" hash="006887a9b79ee5cbbb4c77abbf3e7262" package="Default">
     <docblock line="0">
       <description>Part of the Robin Radic's PHP packages.</description>
       <long-description>MIT License and copyright information bundled with this package
@@ -47,30 +47,38 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes\Assets" line="31" package="Laradic\Themes">
+      <property static="false" visibility="protected" namespace="Laradic\Themes\Assets" line="34" package="Laradic\Themes">
         <name>$type</name>
         <full_name>\Laradic\Themes\Assets\Asset::type</full_name>
         <default></default>
-        <docblock line="31">
+        <docblock line="34">
           <description></description>
           <long-description></long-description>
+          <tag name="var" line="34" description="" type="string" variable="">
+            <type>string</type>
+          </tag>
         </docblock>
       </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes\Assets" line="33" package="Laradic\Themes">
+      <property static="false" visibility="protected" namespace="Laradic\Themes\Assets" line="39" package="Laradic\Themes">
         <name>$ext</name>
         <full_name>\Laradic\Themes\Assets\Asset::ext</full_name>
         <default></default>
-        <docblock line="33">
+        <docblock line="39">
           <description></description>
           <long-description></long-description>
+          <tag name="var" line="39" description="" type="" variable=""/>
         </docblock>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="35" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="45" package="Laradic\Themes">
         <name>__construct</name>
         <full_name>\Laradic\Themes\Assets\Asset::__construct()</full_name>
-        <docblock line="35">
+        <docblock line="45">
           <description></description>
           <long-description></long-description>
+          <tag name="param" line="45" description="" type="\Laradic\Themes\Contracts\AssetFactory" variable="$assets">
+            <type>\Laradic\Themes\Contracts\AssetFactory</type>
+          </tag>
+          <tag name="param" line="45" description="" type="" variable="$assetPath"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$assets</name>
@@ -83,72 +91,103 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="43" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="58" package="Laradic\Themes">
         <name>path</name>
         <full_name>\Laradic\Themes\Assets\Asset::path()</full_name>
-        <docblock line="43">
-          <description></description>
+        <docblock line="58">
+          <description>path</description>
           <long-description></long-description>
+          <tag name="return" line="58" description="" type="string">
+            <type>string</type>
+          </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="48" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="68" package="Laradic\Themes">
         <name>url</name>
         <full_name>\Laradic\Themes\Assets\Asset::url()</full_name>
-        <docblock line="48">
-          <description></description>
+        <docblock line="68">
+          <description>url</description>
           <long-description></long-description>
+          <tag name="return" line="68" description="" type="string">
+            <type>string</type>
+          </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="53" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="78" package="Laradic\Themes">
         <name>uri</name>
         <full_name>\Laradic\Themes\Assets\Asset::uri()</full_name>
-        <docblock line="53">
-          <description></description>
+        <docblock line="78">
+          <description>uri</description>
           <long-description></long-description>
+          <tag name="return" line="78" description="" type="string">
+            <type>string</type>
+          </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="58" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="90" package="Laradic\Themes">
         <name>script</name>
         <full_name>\Laradic\Themes\Assets\Asset::script()</full_name>
-        <docblock line="58">
-          <description></description>
+        <docblock line="90">
+          <description>script</description>
           <long-description></long-description>
+          <tag name="param" line="90" description="" type="array" variable="$attr">
+            <type>array</type>
+          </tag>
+          <tag name="param" line="90" description="" type="boolean" variable="$secure">
+            <type>boolean</type>
+          </tag>
+          <tag name="return" line="90" description="" type="string">
+            <type>string</type>
+          </tag>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$attr</name>
           <default>array()</default>
-          <type/>
+          <type>array</type>
         </argument>
         <argument line="0" by_reference="false">
           <name>$secure</name>
           <default>false</default>
-          <type/>
+          <type>boolean</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="63" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="102" package="Laradic\Themes">
         <name>style</name>
         <full_name>\Laradic\Themes\Assets\Asset::style()</full_name>
-        <docblock line="63">
-          <description></description>
+        <docblock line="102">
+          <description>style</description>
           <long-description></long-description>
+          <tag name="param" line="102" description="" type="array" variable="$attr">
+            <type>array</type>
+          </tag>
+          <tag name="param" line="102" description="" type="boolean" variable="$secure">
+            <type>boolean</type>
+          </tag>
+          <tag name="return" line="102" description="" type="string">
+            <type>string</type>
+          </tag>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$attr</name>
           <default>array()</default>
-          <type/>
+          <type>array</type>
         </argument>
         <argument line="0" by_reference="false">
           <name>$secure</name>
           <default>false</default>
-          <type/>
+          <type>boolean</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="Laradic\Themes\Assets" line="68" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Laradic\Themes\Assets" line="113" package="Laradic\Themes">
         <name>resolveExtension</name>
         <full_name>\Laradic\Themes\Assets\Asset::resolveExtension()</full_name>
-        <docblock line="68">
-          <description></description>
+        <docblock line="113">
+          <description>resolveExtension</description>
           <long-description></long-description>
+          <tag name="param" line="113" description="" type="" variable="$path"/>
+          <tag name="return" line="113" description="" type="mixed">
+            <type>mixed</type>
+          </tag>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$path</name>
@@ -156,12 +195,16 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="Laradic\Themes\Assets" line="75" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Laradic\Themes\Assets" line="126" package="Laradic\Themes">
         <name>resolveType</name>
         <full_name>\Laradic\Themes\Assets\Asset::resolveType()</full_name>
-        <docblock line="75">
-          <description></description>
+        <docblock line="126">
+          <description>resolveType</description>
           <long-description></long-description>
+          <tag name="param" line="126" description="" type="" variable="$ext"/>
+          <tag name="return" line="126" description="" type="string">
+            <type>string</type>
+          </tag>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$ext</name>
@@ -169,52 +212,37 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="97" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="148" package="Laradic\Themes">
         <name>getType</name>
         <full_name>\Laradic\Themes\Assets\Asset::getType()</full_name>
-        <docblock line="97">
+        <docblock line="148">
           <description>Get the value of type</description>
           <long-description></long-description>
-          <tag name="return" line="97" description="" type="mixed">
+          <tag name="return" line="148" description="" type="mixed">
             <type>mixed</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="107" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="158" package="Laradic\Themes">
         <name>getExt</name>
         <full_name>\Laradic\Themes\Assets\Asset::getExt()</full_name>
-        <docblock line="107">
+        <docblock line="158">
           <description>Get the value of ext</description>
           <long-description></long-description>
-          <tag name="return" line="107" description="" type="mixed">
+          <tag name="return" line="158" description="" type="mixed">
             <type>mixed</type>
           </tag>
         </docblock>
       </method>
     </class>
     <parse_markers>
-      <error line="35" code="PPC:ERR-50015">Argument $assets is missing from the Docblock of __construct</error>
-      <error line="35" code="PPC:ERR-50015">Argument $assetPath is missing from the Docblock of __construct</error>
-      <error line="35" code="PPC:ERR-50008">No summary for method __construct()</error>
-      <error line="43" code="PPC:ERR-50008">No summary for method path()</error>
-      <error line="48" code="PPC:ERR-50008">No summary for method url()</error>
-      <error line="53" code="PPC:ERR-50008">No summary for method uri()</error>
-      <error line="58" code="PPC:ERR-50015">Argument $attr is missing from the Docblock of script</error>
-      <error line="58" code="PPC:ERR-50015">Argument $secure is missing from the Docblock of script</error>
-      <error line="58" code="PPC:ERR-50008">No summary for method script()</error>
-      <error line="63" code="PPC:ERR-50015">Argument $attr is missing from the Docblock of style</error>
-      <error line="63" code="PPC:ERR-50015">Argument $secure is missing from the Docblock of style</error>
-      <error line="63" code="PPC:ERR-50008">No summary for method style()</error>
-      <error line="68" code="PPC:ERR-50015">Argument $path is missing from the Docblock of resolveExtension</error>
-      <error line="68" code="PPC:ERR-50008">No summary for method resolveExtension()</error>
-      <error line="75" code="PPC:ERR-50015">Argument $ext is missing from the Docblock of resolveType</error>
-      <error line="75" code="PPC:ERR-50008">No summary for method resolveType()</error>
+      <error line="45" code="PPC:ERR-50008">No summary for method __construct()</error>
       <error line="26" code="PPC:ERR-50007">No summary for property $assetPath</error>
       <error line="29" code="PPC:ERR-50007">No summary for property $assets</error>
-      <error line="31" code="PPC:ERR-50007">No summary for property $type</error>
-      <error line="33" code="PPC:ERR-50007">No summary for property $ext</error>
+      <error line="34" code="PPC:ERR-50007">No summary for property $type</error>
+      <error line="39" code="PPC:ERR-50007">No summary for property $ext</error>
     </parse_markers>
-    <source>eJylVVFP2zAQfs+vuAekhAoamLQXGBsTYgMJpop1TyuqXNdtPNI4si8dFeK/72wnaZoG6ISFSHv+7rvvPl/qT1/yJA/iXi+AHgyYRlAzwETAnZrIDO7YVPLQwOBqADnjD2wuTJ+gFn17PYQbyUVmBLBsClzlKy3nCYLMZkovGEqVwaTIpqmYwl+JCRFLU/FYCqpga91cX1z++HkJM5kKUBqW0kiEBDE/iWNtJfQXEg9TX6zP1YKS4yBjC2GIjQiYQ42GiaDQ6KsxAs1pEBRma+9CZagZxxL1jT4qvQJmoPm9QhFH6c3QSqc/q9chgafM1Gacl11BuTarOsRSaGMdKddx/6h/5DZYgQl1Xa2G8267bLvabtjutte2u/Xh6PjjQQdH9gDrZa015O2cDqWYWENjbTN0mRAHrjnfaPAUBDaJjKAmmAaDWmZzi7LhXCsUHOmI95iFDxgmp62MUecBbZ7AC3Sm5GrEcZWL7ah4xCpYTMgzmBUZdyM4HnOVkeiCY9R1yFWlg0YH+47pKagc27Oje/jZA23gbK2vC2M5aoy3pAUjvWXgrAppYVS6FJePSKdLyqOGnq1860J3/pB2onWVMvW525ycyKN2t1pgobOthl4lKnS6C49Vrn4Rtk3+usxCyx3ZtUjpl2cpLOd/FjFcyxzJdURNrv6GexoJI3ihBX2dsdSIFzSMroa3NycnFYGv6hyxQ0V0NdEbCnCVivcI8Pm716/fn1rC9hDmXe8D01ZhrsV8bPJUYhTGo34cUp3c+9xWKLJpZLN2FeCn2M5vu7RrEpw/ITeGaoamejL/TAU94b7x0vij8Ul/HAbdf+5xNVDOIKJ7aUxK2crVPygr7sN+jVqraXQYOli4Lvr8BquTtAOtw23wts0NFd1LOtyw1l1cdvXgO11X9uJasrQQ7oYnc8vNCnNeUi3ko5iWwbhzSOcC3eG8/j76X+kd9ZAh75FDw/qGGnc7eDHPwT8x2pia</source>
+    <source>eJy9VltP2zAUfs+vOA9ISVFpYNJeYOwixAYSTBXrnlZUua7beKRxZDtdK8R/37GdW9NkVEWahQjY5/J93zk+8odPaZR64fGxB8cwJFKDmIOOGDyIKU/ggcw49RUMb4aQEvpEFkwN0NRY39+O4I5TligGJJkBFelG8kWkgSdzIZdEc5HANEtmMZvBH64jDMxVEceEwAwm193t1fX3H9cw5zEDIWHFFdcQaZ2eh6E0EAZLrk9il2xAxRKdQy8hS6YwGgYg1mo8ihhujb8oxbS68LxM7ZxdiURLQnVu9RX/FHIDREH9/8IKY+TajAx0/DF4rSXQmKhSjM85K8jXdlZrsWJSGUXydTY4HZzaA5LpCFkXq6a8Pc5pF8c12e1xJbtd707P3vdbYiRPUC0jrUJtF1iUbGoEDaXxkLlD6Flyjqj37HnGCYVAEkSC0pInC2NltlMpNKMaS3xEjPmQ6Oii4TFuLdB2BTrCqSqW/cIWiHxrx1VvUtbu2OXB1rrFIUXcyx34HT2UA24477kq8bYRZlOsP8yzhNrrNJlQkSD3jOqgrWELEP1awJ6N9OyVqcw1PPnoDM3GZaV1m42JUdq48jbMULx847LYkkyJeMWu1xo7FZEHNTw7/qZc7f4jPAmqLLnry06l0kq4Un/JdCaT1k5pqGq8g6ZMuXtTiS4EmYwPB4DO++Q3UomfaNsE1alLJvlbUPE9UUkW47hfMYNlf3CKSp7qJj53bYiUxFwprWXjZCpEjJ2jGM0kO4CVyxrY0Nhvv+CxX0TDf+ckVqyD9PhmdH93fl4EcDRt6foOaRmom7LexOy/MzZJ30LY+R/CtzkG2qkf1a5vSWzJ12zWMa5LartjJm2beKgtUk0lW0xUGnMd+OF4EPp9l7mXT/4ac5bMAuP1GjEznzo44bjap1adnNzoM0OvycbWA2wpfaoU0vBV8SXuGzP8wmNt0rqudU6/rY22v6mzKw35HAJ8mE1sO9r8/TxjD3qlVYWmJppvzfwq6csrUS2kPcJau624zXr5Ah9m0u+q1jd8r5mX24rEGbNP3Ja6dfdd4z4tmLbF+fdsdG+QPfFUzXIQHOz/V9DY940D8+L9BWDETaM=</source>
   </file>
   <file path="Contracts/Widgets.php" generated-path="Contracts.Widgets.html" hash="01681789d0b616915ec5ba1cc0d4d7ea" package="Default">
     <docblock line="0">
@@ -387,14 +415,14 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
     </parse_markers>
     <source>eJw1jMEKwjAQRO/5ir1Vv6GCeBEEb3rsZdmMNtAmIbsBQfrv1kbnMrDz3h6OecwUeYZmFtCVC/sgw33EehrOLOyhvXNVQZdpqnOIbBhuNedU7A/8euVkYlVqOuFliF6pre7taE0uySAGT2psQehRo1hIkZ6wRp5EoJrKbr8ZzfumwGqJ1Nn2v+u3YXGL+wDIX0LR</source>
   </file>
-  <file path="Console/ThemePublishersCommand.php" generated-path="Console.ThemePublishersCommand.html" hash="83a8cd9bc3815d6d4f0c92c930fe9424" package="Default">
+  <file path="Console/ThemePublishersCommand.php" generated-path="Console.ThemePublishersCommand.html" hash="1e0bbb64fe1034a55effb2235154807d" package="Default">
     <docblock line="0">
       <description>Part of the Robin Radic's PHP packages.</description>
       <long-description>MIT License and copyright information bundled with this package
 in the LICENSE file or visit http://radic.mit-license.com</long-description>
       <tag name="package" line="0" description="Default"/>
     </docblock>
-    <namespace-alias name="AbstractConsoleCommand">\Laradic\Console\Command</namespace-alias>
+    <namespace-alias name="Command">\Laradic\Console\Command</namespace-alias>
     <class final="false" abstract="false" namespace="Laradic\Themes\Console" line="22" package="Laradic\Themes">
       <extends>\Laradic\Console\Command</extends>
       <name>ThemePublishersCommand</name>
@@ -441,7 +469,7 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
       <error line="25" code="PPC:ERR-50007">No summary for property $name</error>
       <error line="27" code="PPC:ERR-50007">No summary for property $description</error>
     </parse_markers>
-    <source>eJx1U8GK2zAQvesr5rBgJ2zsbKGXpN12CQtdSEvYzTFQZFmORWxJSOO0Ydl/70jrxC5NB+OD5703b57kT19sbVk+nTKYwoY7BFMB1hKeTaE0PPNSicTD5tsGLBcHvpc+I2hAf3/awloJqb0ErksQxp6c2tcISlfGtRyV0VB0umxkCb8U1iSs/FknSNCEMGv9tHr88fIIlWokGAdH5RVCjWgXee6ChaxVOGveh2XCtETOmeat9KRGAjyidtta0qfdymhvGrlkrPND86Wz1jjcPRQeHRfYo1ambck+gfsUtsEkPcFZFNx0RaN8LZ3vsSAa7i85fO0Xgr7+NhMRR+KGMPq6y+bZPDZ4hzUtfK5R6LHdb3xujxKP7SHxWB/mdx9vr2joAwwVUvUU657OoytClrkLDNcTchaX+9/m8jdKXXq4HiJ7ZSwMsc6gFEjHfhMOCT5DgjGNhb0oJst/sKX0wikb7w1R1soj8KYBfuSq4QVdjoGeXfjhk4Cq0yISK+VkOomtV3be+mYgkjJ3jp9+HuTJp9zatPeWTGb3e4nDzulkshwUwt2d3VNerdSYJg9XPC2SEYF+AclFnY5Hcz9yMrlAB5+jSXRuckQeKb+x9/cb+wMg4ytF</source>
+    <source>eJx1UlFr2zAQftevuIeCnbDY6WAvydZtlMIK2QhtHgtDls+xiC0JSc4WSv/7TqoSe6w7jI119333fXf6+Nm0hpXzOYM5bLn1oBvwLcKDrqSCB15LkTnYftuC4eLA9+gKKg3V3+93sJEClUPgqgahzcnKfetBqkbbnnupFVSDqjus4Zf0LRFLd+YJFNQh9Nrc3979eLyDRnYI2sJROumh9d6sytIGCUUv/aJ7bVYI3RO4ZIr36IiNCHisetq1SEdPt1o53eGascGNyXRK374nvZRNtndBFT1BSmTYDlUnXYvWpVoQHXcX41+SA0jxd/dYcSRscJ/iulgWy5jgg2/J4TkmU47pZPGcnow4pscRx3i/vP7w7g0OdYAxwhgdzXFPCxiqMLzSBoRNgJJFc/9zjr89qtpB+mfPjAVWY7VH4WmxV2EN8AkyH+2vzIUiW/9TW6MTVpp4Mwiykc4D7zrgRy47XtH6R3hxwYcjAc2gRAQ20mI+i6lndrZ5NQKJmVvLTz8PeHI5NyZP2rLZ4maPfjSZz2brkSHczsUNDahH5fPs6xuaVtkEQJccuWjzaWvuJkpml9JR56QTLQon4AnzC3t9v7A/CUgfDQ==</source>
   </file>
   <file path="Exceptions/ThemesConfigurationException.php" generated-path="Exceptions.ThemesConfigurationException.html" hash="f2f46e9333bebddd5a7b864cd1bc2c60" package="Default">
     <docblock line="0">
@@ -500,142 +528,16 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
     </parse_markers>
     <source>eJx1kMFOwzAMhu95Ct+ASrR3QGLStIlKA1Vj4rRLmrqNRetUics0Id6dpN1ukGP8+fttPz2PdlRFlinIoNJewLUgFmHvamLY64bMTYDqpYJRm0/dYcgjmujX8gA7MsgBQXMDxo1nT50VIG6dH7SQY6gnbnps4ERio5jC1ZMUMSFl7cr15u19Ay31CM7DFwUSsCLjQ1H4NEI+kNz3S1hu3BCbC8V6wBBtUaBn6niwGL+Oa8fitZHwqK6rlSzo28TOzDZWnT9fNlldRvrXM8fRnwr4Vgriizmw8iiT56X+QXjaEjfoU3NCxqmOK0A7sZlP06EswO1dHPRH/QI7EoFo</source>
   </file>
-  <file path="ThemeServiceProvider.php" generated-path="ThemeServiceProvider.html" hash="90ac14839507ae879ab953b35fc58823" package="Default">
+  <file path="ThemeServiceProvider.php" generated-path="ThemeServiceProvider.html" hash="c2b65b736c04a9fcf993ddc149cd73c3" package="Default">
     <docblock line="0">
-      <description>Part of the Robin Radic's PHP packages.</description>
-      <long-description>MIT License and copyright information bundled with this package
-in the LICENSE file or visit http://radic.mit-license.com</long-description>
+      <description></description>
+      <long-description></long-description>
       <tag name="package" line="0" description="Default"/>
     </docblock>
-    <namespace-alias name="Application">\Illuminate\Foundation\Application</namespace-alias>
-    <namespace-alias name="FileViewFinder">\Illuminate\View\FileViewFinder</namespace-alias>
-    <namespace-alias name="ServiceProvider">\Laradic\Support\ServiceProvider</namespace-alias>
-    <namespace-alias name="View">\View</namespace-alias>
-    <class final="false" abstract="false" namespace="Laradic\Themes" line="25" package="Laradic\Themes">
-      <extends>\Laradic\Support\ServiceProvider</extends>
-      <name>ThemeServiceProvider</name>
-      <full_name>\Laradic\Themes\ThemeServiceProvider</full_name>
-      <docblock line="25">
-        <description>This is the ThemeServiceProvider class.</description>
-        <long-description></long-description>
-        <tag name="package" line="25" description="Laradic\Themes"/>
-        <tag name="version" line="25" description="1.0.0"/>
-        <tag name="author" line="25" description="Robin Radic"/>
-        <tag name="license" line="25" description="MIT License" link="http://opensource.org/licenses/MIT"/>
-        <tag name="copyright" line="25" description="2015, Robin Radic"/>
-        <tag name="link" line="25" description="https://github.com/robinradic" link="https://github.com/robinradic"/>
-      </docblock>
-      <property static="false" visibility="protected" namespace="Laradic\Themes" line="29" package="Laradic\Themes">
-        <name>$configFiles</name>
-        <full_name>\Laradic\Themes\ThemeServiceProvider::configFiles</full_name>
-        <default>array('radic_themes')</default>
-        <docblock line="29">
-          <description></description>
-          <long-description></long-description>
-          <tag name="inheritdoc" line="29" description=""/>
-        </docblock>
-      </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes" line="32" package="Laradic\Themes">
-        <name>$dir</name>
-        <full_name>\Laradic\Themes\ThemeServiceProvider::dir</full_name>
-        <default>__DIR__</default>
-        <docblock line="32">
-          <description></description>
-          <long-description></long-description>
-          <tag name="inheritdoc" line="32" description=""/>
-        </docblock>
-      </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes" line="34" package="Laradic\Themes">
-        <name>$providers</name>
-        <full_name>\Laradic\Themes\ThemeServiceProvider::providers</full_name>
-        <default>array('Laradic\Themes\Providers\BusServiceProvider', 'Laradic\Themes\Providers\EventServiceProvider', 'Radic\BladeExtensions\BladeExtensionsServiceProvider', 'DaveJamesMiller\Breadcrumbs\ServiceProvider', 'Collective\Html\HtmlServiceProvider')</default>
-        <docblock line="34">
-          <description></description>
-          <long-description></long-description>
-        </docblock>
-      </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes" line="42" package="Laradic\Themes">
-        <name>$aliases</name>
-        <full_name>\Laradic\Themes\ThemeServiceProvider::aliases</full_name>
-        <default>array('Breadcrumbs' =&gt; 'DaveJamesMiller\Breadcrumbs\Facade', 'Markdown' =&gt; 'Radic\BladeExtensions\Facades\Markdown', 'Form' =&gt; 'Collective\Html\FormFacade', 'HTML' =&gt; 'Collective\Html\HtmlFacade')</default>
-        <docblock line="42">
-          <description></description>
-          <long-description></long-description>
-        </docblock>
-      </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="49" package="Laradic\Themes">
-        <name>boot</name>
-        <full_name>\Laradic\Themes\ThemeServiceProvider::boot()</full_name>
-        <docblock line="49">
-          <description></description>
-          <long-description></long-description>
-        </docblock>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="67" package="Laradic\Themes">
-        <name>register</name>
-        <full_name>\Laradic\Themes\ThemeServiceProvider::register()</full_name>
-        <docblock line="67">
-          <description>Register the service provider.</description>
-          <long-description></long-description>
-          <tag name="return" line="67" description="" type="void">
-            <type>void</type>
-          </tag>
-        </docblock>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="88" package="Laradic\Themes">
-        <name>registerAssets</name>
-        <full_name>\Laradic\Themes\ThemeServiceProvider::registerAssets()</full_name>
-        <docblock line="88">
-          <description></description>
-          <long-description></long-description>
-        </docblock>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="98" package="Laradic\Themes">
-        <name>registerThemes</name>
-        <full_name>\Laradic\Themes\ThemeServiceProvider::registerThemes()</full_name>
-        <docblock line="98">
-          <description></description>
-          <long-description></long-description>
-        </docblock>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="115" package="Laradic\Themes">
-        <name>registerWidgets</name>
-        <full_name>\Laradic\Themes\ThemeServiceProvider::registerWidgets()</full_name>
-        <docblock line="115">
-          <description></description>
-          <long-description></long-description>
-        </docblock>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="Laradic\Themes" line="128" package="Laradic\Themes">
-        <name>registerViewFinder</name>
-        <full_name>\Laradic\Themes\ThemeServiceProvider::registerViewFinder()</full_name>
-        <docblock line="128">
-          <description></description>
-          <long-description></long-description>
-        </docblock>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="Laradic\Themes" line="161" package="Laradic\Themes">
-        <name>registerNavigation</name>
-        <full_name>\Laradic\Themes\ThemeServiceProvider::registerNavigation()</full_name>
-        <docblock line="161">
-          <description></description>
-          <long-description></long-description>
-        </docblock>
-      </method>
-    </class>
     <parse_markers>
-      <error line="49" code="PPC:ERR-50008">No summary for method boot()</error>
-      <error line="88" code="PPC:ERR-50008">No summary for method registerAssets()</error>
-      <error line="98" code="PPC:ERR-50008">No summary for method registerThemes()</error>
-      <error line="115" code="PPC:ERR-50008">No summary for method registerWidgets()</error>
-      <error line="128" code="PPC:ERR-50008">No summary for method registerViewFinder()</error>
-      <error line="161" code="PPC:ERR-50008">No summary for method registerNavigation()</error>
-      <error line="29" code="PPC:ERR-50007">No summary for property $configFiles</error>
-      <error line="32" code="PPC:ERR-50007">No summary for property $dir</error>
-      <error line="34" code="PPC:ERR-50007">No summary for property $providers</error>
-      <error line="42" code="PPC:ERR-50007">No summary for property $aliases</error>
+      <error line="0" code="PPC:ERR-50000">No summary was found for this file</error>
     </parse_markers>
-    <source>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</source>
+    <source>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</source>
   </file>
   <file path="Navigation/Factory.php" generated-path="Navigation.Factory.html" hash="3ffcdbd51fae9b40fc8cab891054513c" package="Default">
     <docblock line="0">
@@ -951,14 +853,14 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
     </parse_markers>
     <source>eJytWG1v2zYQ/u5fwSEBJAW2kw7YF3tJh2Zdl6EJgiTblyoIaIm2uMiSQVIOjCL/fXck9UZZlgdUKOpKPD733N3DI9lfP26Szej87GxEzsg9FYrkS6ISRh7yBc/IA4155Ely/+c92dDola6YnIIpWt/ePJGvPGKZZIRmMYnyzU7wVaIIz5a5WFPF84wsiixOWUzeuEoAmMsSByHAA/r6enP9+e7xM1nylJFckC2XXJFEqc3s/Fwghemaq0lqnE2jfA2Tz0cZXTMJaABAtVX4lDD4FN7RLV9p9/PRqAB6nwSjcSSK9ULO9Yff6Zb9hdNveZoyETYMwi8sY4KqXBjTmzQt1jyjioXXeaYEjZQMH/JC8WwV/i3SY8z/4ewt/AP+mYsdoZLgu33tzCqh8ZcdHu26fCw2m1wocA1hRSYDaOIkqGZWp6riU6rhCYsFf7BCJfcopbISwG+2ksQ+bSfaYsuERBXY58P0YnqhB2ihEqh0+TTUpodtqcvhhtT0cC01/fx88eGX8R6M7JXUD8pJgp5WIMRigSI6FzhD2AnnIx1cFSpfb1KII1OSdJI0+j4aISZkCmKkgoTXsHRoupMqfIQpYmd/EBYNNyJXUA9YB6dSD8xdgKNltgdyVUuwH7UrjT1IXLG1PI5bS9NdpC0M10D6l+zBa+vZmnXAhFW7C3eTSUUzxQHJ6FSX0I5WPjegy3V/ibqPrZELcHyJ6oochdFKZUUCM3hgejtz3RjEnowWC1hYZFlkpv4vL1EOGRRFpPwe/uNmrzKccKVpl9ZFoLG/j0rPJ6fY5idXSjC7gC9Jxt7IXR4z3xN5rrwx0TZj4nnBvJpo52kNlpNqtfpdS2Sj4a3anGFDD4dL/bgUZaWAy3phOihVKtCmsdLQ5L2jSBrH++VXgvK4Z2BL04I5Y1mRpjgGb0DOGYTCQf3JKfY5Z2iR53oedlmYyCMQjOuXCkF3iM3Emkvs0rKyEEwVIiNh774aYjEPagsS4UOwYxvYuAwC6wpRjQ1vePNOUA4tpvB1SVMJkwzJJkcY+/bsSu40AzpNmRnPRmOGQGC7R2U+uQKKt0xR3+MxUuBxQ2F8SXzyE2x/L8jWt+QDfdBp6nRylVBZDwcVQE2O1BW8MzTbACumKoB53yzN9jrhKWQV2buWTkQxVXRiZntV6htz3utknJgOMpsBD/0v6Qc6qjs4H8X6ix80cleIFKv2L91SGQm+UbO55+QNsmbE6esi96dFW7dWq05HH40OWhdRU7TKOgQML592CG1B2+l8b72xVLIhlyYrGqsPqpFzE7emyfUWFjE4dmt2h3PVUCTO1nHoKIIj0mI5Om3NJqgL+INS0nGn8tJXIfgBP+/9CzYRbIm6Bhetdd1aV5tC2T5gF0xlZ9ub/t7XyCEP+xt5s4NboMFmqJc49JeetrWnH+hmNEzYdQTLPGaibLy4PZp263q2YtrTycBxrwQtDc/b20icaA6EUe/eLfjJ1Zq+Mr9SOBoE5CPxFG4/s1lWbT/TmC1pkSqPzEyYgQOEt03fqyd4pQocO5uvYCCpKy6hhTQuif6p+XW3NTfPcA9mNEpIaY+XP3MaIZdXxHzsy3bD3WxWcvDN7HHNzm8c2xb1lIDgva/cWMbW19h6H+oVfdtf0LHsztVaaDCBlahn92xyJvEDAIVMbAq/XTyPie1YJhS3gTjvdkeSKEeD8OHZ7OMQnT5fNL8PNlG7p/RKAlCqJPd3NvO323O+MKVvMfrAgv8R07qHdE5nPReaoU5krHxXqu3F2TwMd4k+MiWPYTpw83LvWU0KB6OQVRQWotNZW+f7S+fW7YbbF2anHu61rlOSo6+IQ0WqDAfqNHgh6ZaqN4gfcc39PyWsY6yBegrZdwk7WM730X96uvTa</source>
   </file>
-  <file path="Providers/ConsoleServiceProvider.php" generated-path="Providers.ConsoleServiceProvider.html" hash="8e4619df80875ecb65e99fc4951cb8ff" package="Default">
+  <file path="Providers/ConsoleServiceProvider.php" generated-path="Providers.ConsoleServiceProvider.html" hash="1e841f5a07938b627011c2e1e2f7fcd0" package="Default">
     <docblock line="0">
       <description>Part of the Robin Radic's PHP packages.</description>
       <long-description>MIT License and copyright information bundled with this package
 in the LICENSE file or visit http://radic.mit-license.com</long-description>
       <tag name="package" line="0" description="Default"/>
     </docblock>
-    <namespace-alias name="AbstractConsoleProvider">\Laradic\Console\AggregateConsoleProvider</namespace-alias>
+    <namespace-alias name="AggregateConsoleProvider">\Laradic\Console\AggregateConsoleProvider</namespace-alias>
     <class final="false" abstract="false" namespace="Laradic\Themes\Providers" line="22" package="Laradic\Themes">
       <extends>\Laradic\Console\AggregateConsoleProvider</extends>
       <name>ConsoleServiceProvider</name>
@@ -996,7 +898,7 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
       <error line="24" code="PPC:ERR-50007">No summary for property $namespace</error>
       <error line="26" code="PPC:ERR-50007">No summary for property $commands</error>
     </parse_markers>
-    <source>eJx9UctOwzAQvPsr9oAUqYKkReJCKQ8hJCoBimhvlIOTuI1FYlv2poAQ/87aOLRAYeWTZ2Z3dvbkzNSGZYMBgwHk3CLoJWAt4F4XUsE9r2SZOMivczC8fOIr4VKievbtdA43shTKCeCqglKbVytXNYJUS21bjlIrKDpVNaKCZ4k1NZau7+Nb0AQ/62Z6eXU3u4KlbARoC2vpJEKNaI6zzHoLaSvxoPkclpa6JXHGFG+Fo27UgAfWYl4L+lrkVq9lJawbM9a5DTzrjNEWFxeFQ8tLvNTK6Ub0dGLHIObeJz1vLpJmwq5pfs+FsuHuK4rzuBPE+u4nMNZkx+cRa5QO02EAeIc17dzXVu4Bjkv38FboAd6EHupwODra39FDPcGmfLCOkl3RSbrCx5lZr7BRkLGw3F+bixcUqnLwR4rwxpifYqxGUSKdfm9zqAkkP24V1cn4l4p8tdwPmsAD670nQZZ3RSNdncDkFJLISzE0TE3E9ndr6Az/yTwchI9k6J19AEsx/lQ=</source>
+    <source>eJx9UctOwzAQvPsr9oAUqSpJi8SFUh6qKlGpoKj0Rjk4iZtYTezIdgII8e+sjUMKtKx88szszs5eXtdFTaLBgMAAYqoMyC2YgsFKJlzAimY8DTTEdzHUNN3RnOkQqZZ9v1jDkqdMaAZUZJDK+k3xvDDAxVaqihouBSSNyEqWwQs3BTbmuutjW+AEO2u5mM0fHuew5SUDqaDlmhsojKkvokhZC2HFzWn5NSxMZYXiiAhaMY3dsAF1rM26YPi1iZVsecaUnhDS6B6eSaFlyTa3ea5YTg3zHx0f6T6JtTWKz7rzpEemWjTQcSEtqf7O4sYvBb5+GnKMFv3YQHyNw1E4cgBtTIFLd7UXvIP91h28l7qD+9RdnY3G58MDPcQO+rLJaow2x5s0ic0zUlahvCAibrljm7NXw0Sm4ViM8E6IHVMraVhq8Pgn/ammEPy6llcHkz8qNFZRO2kKT6QzHzhZ3CQl10UA0ysIPC80rmFYe2x4WIN3+E9mYSd8RkMf5BP2Pf7Q</source>
   </file>
   <file path="Navigation/Node.php" generated-path="Navigation.Node.html" hash="a595235abbdee7fb1dfc2c8ebb88361f" package="Default">
     <docblock line="0">
@@ -1395,7 +1297,7 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
     </parse_markers>
     <source>eJytV9tu2zgQfddXTAsBtgNf0gL7EtfudoPuNkAaBEn6FAcBLdEWEVnykpTboM2/7/BiSZZE2U5XCGJbHJ65nDMj6sPHdbT2RicnHpzANeES0gXIiMJNOmcJ3JCQBR0B11+uYU2CJ7KkYoimyvrrxR1csoAmggJJQgjS9TNny0gCSxYpXxHJ0gTmWRLGNITvTEYIzMQWR0GgB+Xr8uL889XtZ1iwmELKYcMEkxBJuT4bjbgKYbhichAbZ8MgXeHmkZeQFRWIhgBEW83uIoq3Zldkw5ba/djzMlFbP08TyUkgy5ZXaUjH2viOUzpTP/U/IAL+IoKa9W2l7lQi+Kei11ZBTERemT9timCvXffaYkO5UOWx17vh6fBUL5BMRliC7VWiQS/bGmyXSxzo5YIDfb0/ffdHvwEjeYLiUnUWWOglMpTNVXVHXO3gdsPI08mZPOkPSZOwKAmw1TrGrBKJBjvF9H56noLXFVOXyppwIJyTZ3tnpD/XPJU0kCgSf0UlgQncP4ybN8+cTM/+RkJT7kRemGUH7jxNY9dOTv/NGKfhNeUrJhRr4vUo4jJdIhkTWJBYUFeW59iIJH4WcnaLleXP9sOFLfSqA0xIzpKlaysLX5FLxMKQlpMwBtkc1QmLLAl05z8+BlgqybNAdtFPHyxDORd98DckzigCJVkc9400wA8iFodcO7h/6Gnsn95WrWuCK/LsbAddw/SLnb1xbu+rmTOYstD8nJiUK6s2ILWa66RiYmoMJZPBdEmlIaZrHb7UahkR8SkIqBD2Rl5jzIOswF8XosqXOJUZTxoYqBQ4x+6WYaoFYwvo4qgSFOtUTqWnh7a9VVHnZAJYWQq9HKXAyzHf7JZmMA0iGjx1e6Vd9Z3qsvlZ8ZRXXupediJvaMX97pqDRe6+Ccq7vcHUUccKcDN4ez71nIpfVislAFVyl44+hTh0Caj52Kwk0+a/bAupR2PFQLVYHobpmKridIlaJUfC8CuG0NUOKv3rEN6jDsns6DkVhQcGSoIIjJ166Pqowyl62Eev5bWITIXVc+mq+EZjQR3BWEhV7Hsdz4Nqe53ruIU/vW2HwGr5cDSFqDl/w+j3arnKIPlEUpI3W7ZjTGWndruE8g+V+lRimMHDHAurgrGeVuwHDX8p5lopx0a5CLvt0W5Haj2cWyrFvniMPotw1Ig+XppCx4lbq6EWT4BJ6Xnn5G1vQZt60CI1nG3q1SwaqK1x3qjWUav7Ose63pmTJeX24GOTns+0571qNptaNa0MavLYHuQ6ncJF0eIFsm70p2qjV7pRGw4n8BZNJx1/03nbGnct4lY5uieqHaUlg+PUaHhW2x2KtDWyAe+fJm2ibHgyOjSqjhWUJK3RM3FTx9szAxqPyYeycED4hhQbfeOp/FUsNSXaBO7gsMFSUep+Z/hdhs0R7f/g1iAdxqqxPZrP5mCbmdyxfRWHNqFdwHbe8tcxv5LoUVzhAfLcvnm0ENOaRQnCxUiQZkk+4fE5Utj3YAqnBwvJvL39loK+aIg90jF+DtdMc1wVsewYHacSG7SFcOgif7X1t+G3KuHF+w/G00WS</source>
   </file>
-  <file path="ThemeFactory.php" generated-path="ThemeFactory.html" hash="01e36b00cc5a429c17e02d562026db7d" package="Default">
+  <file path="ThemeFactory.php" generated-path="ThemeFactory.html" hash="592be04d46eeb47532d192aa380c84e3" package="Default">
     <docblock line="0">
       <description>Part of the Robin Radic's PHP packages.</description>
       <long-description>MIT License and copyright information bundled with this package
@@ -1433,173 +1335,173 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
         <tag name="copyright" line="33" description="2015, Robin Radic"/>
         <tag name="link" line="33" description="https://github.com/robinradic" link="https://github.com/robinradic"/>
       </docblock>
-      <property static="false" visibility="protected" namespace="Laradic\Themes" line="40" package="Laradic\Themes">
+      <property static="false" visibility="protected" namespace="Laradic\Themes" line="41" package="Laradic\Themes">
         <name>$themes</name>
         <full_name>\Laradic\Themes\ThemeFactory::themes</full_name>
         <default>array()</default>
-        <docblock line="40">
+        <docblock line="41">
           <description>Contains all the resolved theme instances using slug =&gt; Class instance association</description>
           <long-description></long-description>
-          <tag name="var" line="40" description="" type="array&lt;mixed,\Laradic\Themes\Theme&gt;" variable="">
+          <tag name="var" line="41" description="" type="array&lt;mixed,\Laradic\Themes\Theme&gt;" variable="">
             <type>array&lt;mixed,\Laradic\Themes\Theme&gt;</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes" line="46" package="Laradic\Themes">
+      <property static="false" visibility="protected" namespace="Laradic\Themes" line="48" package="Laradic\Themes">
         <name>$active</name>
         <full_name>\Laradic\Themes\ThemeFactory::active</full_name>
         <default></default>
-        <docblock line="46">
+        <docblock line="48">
           <description>The active theme instance</description>
           <long-description></long-description>
-          <tag name="var" line="46" description="" type="\Laradic\Themes\Theme" variable="">
+          <tag name="var" line="48" description="" type="\Laradic\Themes\Theme" variable="">
             <type>\Laradic\Themes\Theme</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes" line="52" package="Laradic\Themes">
+      <property static="false" visibility="protected" namespace="Laradic\Themes" line="55" package="Laradic\Themes">
         <name>$default</name>
         <full_name>\Laradic\Themes\ThemeFactory::default</full_name>
         <default></default>
-        <docblock line="52">
+        <docblock line="55">
           <description>The default theme instance</description>
           <long-description></long-description>
-          <tag name="var" line="52" description="" type="\Laradic\Themes\Theme" variable="">
+          <tag name="var" line="55" description="" type="\Laradic\Themes\Theme" variable="">
             <type>\Laradic\Themes\Theme</type>
-          </tag>
-        </docblock>
-      </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes" line="57" package="Laradic\Themes">
-        <name>$files</name>
-        <full_name>\Laradic\Themes\ThemeFactory::files</full_name>
-        <default></default>
-        <docblock line="57">
-          <description></description>
-          <long-description></long-description>
-          <tag name="var" line="57" description="" type="\Illuminate\Filesystem\Filesystem" variable="">
-            <type>\Illuminate\Filesystem\Filesystem</type>
           </tag>
         </docblock>
       </property>
       <property static="false" visibility="protected" namespace="Laradic\Themes" line="62" package="Laradic\Themes">
-        <name>$finder</name>
-        <full_name>\Laradic\Themes\ThemeFactory::finder</full_name>
+        <name>$files</name>
+        <full_name>\Laradic\Themes\ThemeFactory::files</full_name>
         <default></default>
         <docblock line="62">
-          <description></description>
+          <description>The filesystem object</description>
           <long-description></long-description>
-          <tag name="var" line="62" description="" type="\Illuminate\View\ViewFinderInterface" variable="">
-            <type>\Illuminate\View\ViewFinderInterface</type>
+          <tag name="var" line="62" description="" type="\Illuminate\Filesystem\Filesystem" variable="">
+            <type>\Illuminate\Filesystem\Filesystem</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes" line="67" package="Laradic\Themes">
+      <property static="false" visibility="protected" namespace="Laradic\Themes" line="69" package="Laradic\Themes">
+        <name>$finder</name>
+        <full_name>\Laradic\Themes\ThemeFactory::finder</full_name>
+        <default></default>
+        <docblock line="69">
+          <description>The theme package's view finder to locate theme views</description>
+          <long-description></long-description>
+          <tag name="var" line="69" description="" type="\Laradic\Themes\ThemeViewFinder" variable="">
+            <type>\Laradic\Themes\ThemeViewFinder</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="false" visibility="protected" namespace="Laradic\Themes" line="76" package="Laradic\Themes">
         <name>$dispatcher</name>
         <full_name>\Laradic\Themes\ThemeFactory::dispatcher</full_name>
         <default></default>
-        <docblock line="67">
-          <description></description>
+        <docblock line="76">
+          <description>The event dispatcher</description>
           <long-description></long-description>
-          <tag name="var" line="67" description="" type="\Illuminate\Contracts\Events\Dispatcher" variable="">
+          <tag name="var" line="76" description="" type="\Illuminate\Contracts\Events\Dispatcher" variable="">
             <type>\Illuminate\Contracts\Events\Dispatcher</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes" line="72" package="Laradic\Themes">
+      <property static="false" visibility="protected" namespace="Laradic\Themes" line="83" package="Laradic\Themes">
         <name>$app</name>
         <full_name>\Laradic\Themes\ThemeFactory::app</full_name>
         <default></default>
-        <docblock line="72">
-          <description></description>
+        <docblock line="83">
+          <description>Laravel's application instance</description>
           <long-description></long-description>
-          <tag name="var" line="72" description="" type="\Illuminate\Contracts\Foundation\Application" variable="">
+          <tag name="var" line="83" description="" type="\Illuminate\Contracts\Foundation\Application" variable="">
             <type>\Illuminate\Contracts\Foundation\Application</type>
-          </tag>
-        </docblock>
-      </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes" line="78" package="Laradic\Themes">
-        <name>$paths</name>
-        <full_name>\Laradic\Themes\ThemeFactory::paths</full_name>
-        <default>array()</default>
-        <docblock line="78">
-          <description>Filesystem paths to directories where themes are installed</description>
-          <long-description></long-description>
-          <tag name="var" line="78" description="&lt;p&gt;array&lt;/p&gt;" type="" variable="$paths"/>
-        </docblock>
-      </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes" line="81" package="Laradic\Themes">
-        <name>$config</name>
-        <full_name>\Laradic\Themes\ThemeFactory::config</full_name>
-        <default></default>
-        <docblock line="81">
-          <description></description>
-          <long-description></long-description>
-          <tag name="var" line="81" description="" type="array" variable="">
-            <type>array</type>
-          </tag>
-        </docblock>
-      </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes" line="84" package="Laradic\Themes">
-        <name>$publishers</name>
-        <full_name>\Laradic\Themes\ThemeFactory::publishers</full_name>
-        <default>array()</default>
-        <docblock line="84">
-          <description></description>
-          <long-description></long-description>
-          <tag name="var" line="84" description="" type="array&lt;mixed,\Laradic\Themes\Publisher&gt;" variable="">
-            <type>array&lt;mixed,\Laradic\Themes\Publisher&gt;</type>
-          </tag>
-        </docblock>
-      </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes" line="87" package="Laradic\Themes">
-        <name>$navigation</name>
-        <full_name>\Laradic\Themes\ThemeFactory::navigation</full_name>
-        <default></default>
-        <docblock line="87">
-          <description></description>
-          <long-description></long-description>
-          <tag name="var" line="87" description="" type="\Laradic\Themes\Contracts\NavigationFactory" variable="">
-            <type>\Laradic\Themes\Contracts\NavigationFactory</type>
           </tag>
         </docblock>
       </property>
       <property static="false" visibility="protected" namespace="Laradic\Themes" line="90" package="Laradic\Themes">
+        <name>$paths</name>
+        <full_name>\Laradic\Themes\ThemeFactory::paths</full_name>
+        <default>array()</default>
+        <docblock line="90">
+          <description>Filesystem paths to directories where themes are installed</description>
+          <long-description></long-description>
+          <tag name="var" line="90" description="&lt;p&gt;array&lt;/p&gt;" type="" variable="$paths"/>
+        </docblock>
+      </property>
+      <property static="false" visibility="protected" namespace="Laradic\Themes" line="97" package="Laradic\Themes">
+        <name>$config</name>
+        <full_name>\Laradic\Themes\ThemeFactory::config</full_name>
+        <default></default>
+        <docblock line="97">
+          <description>The laradic/theme config</description>
+          <long-description></long-description>
+          <tag name="var" line="97" description="" type="array" variable="">
+            <type>array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="false" visibility="protected" namespace="Laradic\Themes" line="104" package="Laradic\Themes">
+        <name>$publishers</name>
+        <full_name>\Laradic\Themes\ThemeFactory::publishers</full_name>
+        <default>array()</default>
+        <docblock line="104">
+          <description>Collection of all theme publishers that have been added</description>
+          <long-description></long-description>
+          <tag name="var" line="104" description="" type="array&lt;mixed,\Laradic\Themes\Publisher&gt;" variable="">
+            <type>array&lt;mixed,\Laradic\Themes\Publisher&gt;</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="false" visibility="protected" namespace="Laradic\Themes" line="111" package="Laradic\Themes">
+        <name>$navigation</name>
+        <full_name>\Laradic\Themes\ThemeFactory::navigation</full_name>
+        <default></default>
+        <docblock line="111">
+          <description>The navigation instance</description>
+          <long-description></long-description>
+          <tag name="var" line="111" description="" type="\Laradic\Themes\Contracts\NavigationFactory" variable="">
+            <type>\Laradic\Themes\Contracts\NavigationFactory</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="false" visibility="protected" namespace="Laradic\Themes" line="118" package="Laradic\Themes">
         <name>$breadcrumbs</name>
         <full_name>\Laradic\Themes\ThemeFactory::breadcrumbs</full_name>
         <default></default>
-        <docblock line="90">
-          <description></description>
+        <docblock line="118">
+          <description>The breadcrumb instance</description>
           <long-description></long-description>
-          <tag name="var" line="90" description="" type="\DaveJamesMiller\Breadcrumbs\Manager" variable="">
+          <tag name="var" line="118" description="" type="\DaveJamesMiller\Breadcrumbs\Manager" variable="">
             <type>\DaveJamesMiller\Breadcrumbs\Manager</type>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes" line="93" package="Laradic\Themes">
+      <property static="false" visibility="protected" namespace="Laradic\Themes" line="125" package="Laradic\Themes">
         <name>$assets</name>
         <full_name>\Laradic\Themes\ThemeFactory::assets</full_name>
         <default></default>
-        <docblock line="93">
-          <description></description>
+        <docblock line="125">
+          <description>The asset factory instance</description>
           <long-description></long-description>
-          <tag name="var" line="93" description="" type="\Laradic\Themes\Assets\AssetFactory" variable="">
+          <tag name="var" line="125" description="" type="\Laradic\Themes\Assets\AssetFactory" variable="">
             <type>\Laradic\Themes\Assets\AssetFactory</type>
           </tag>
         </docblock>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="102" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="134" package="Laradic\Themes">
         <name>__construct</name>
         <full_name>\Laradic\Themes\ThemeFactory::__construct()</full_name>
-        <docblock line="102">
+        <docblock line="134">
           <description>Instantiates the class</description>
           <long-description></long-description>
-          <tag name="param" line="102" description="" type="\Illuminate\Contracts\Foundation\Application" variable="$app">
+          <tag name="param" line="134" description="" type="\Illuminate\Contracts\Foundation\Application" variable="$app">
             <type>\Illuminate\Contracts\Foundation\Application</type>
           </tag>
-          <tag name="param" line="102" description="" type="\Illuminate\Filesystem\Filesystem" variable="$files">
+          <tag name="param" line="134" description="" type="\Illuminate\Filesystem\Filesystem" variable="$files">
             <type>\Illuminate\Filesystem\Filesystem</type>
           </tag>
-          <tag name="param" line="102" description="" type="\Illuminate\Contracts\Events\Dispatcher" variable="$events">
+          <tag name="param" line="134" description="" type="\Illuminate\Contracts\Events\Dispatcher" variable="$events">
             <type>\Illuminate\Contracts\Events\Dispatcher</type>
           </tag>
         </docblock>
@@ -1619,14 +1521,16 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type>\Illuminate\Contracts\Events\Dispatcher</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="115" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="147" package="Laradic\Themes">
         <name>setConfig</name>
         <full_name>\Laradic\Themes\ThemeFactory::setConfig()</full_name>
-        <docblock line="115">
-          <description>setConfig</description>
+        <docblock line="147">
+          <description>Set the internal config array</description>
           <long-description></long-description>
-          <tag name="param" line="115" description="" type="" variable="$config"/>
-          <tag name="return" line="115" description="" type="\Laradic\Themes\ThemeFactory">
+          <tag name="param" line="147" description="" type="array" variable="$config">
+            <type>array</type>
+          </tag>
+          <tag name="return" line="147" description="" type="\Laradic\Themes\ThemeFactory">
             <type>\Laradic\Themes\ThemeFactory</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1634,20 +1538,20 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
         <argument line="0" by_reference="false">
           <name>$config</name>
           <default></default>
-          <type/>
+          <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="129" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="161" package="Laradic\Themes">
         <name>setActive</name>
         <full_name>\Laradic\Themes\ThemeFactory::setActive()</full_name>
-        <docblock line="129">
-          <description>Set the active theme</description>
+        <docblock line="161">
+          <description>Set the active theme that should be used</description>
           <long-description></long-description>
-          <tag name="param" line="129" description="&lt;p&gt;The slug or Theme instance&lt;/p&gt;" type="string|\Laradic\Themes\Theme" variable="$theme">
+          <tag name="param" line="161" description="&lt;p&gt;The slug or Theme instance&lt;/p&gt;" type="string|\Laradic\Themes\Theme" variable="$theme">
             <type>string</type>
             <type>\Laradic\Themes\Theme</type>
           </tag>
-          <tag name="return" line="129" description="" type="\Laradic\Themes\ThemeFactory">
+          <tag name="return" line="161" description="" type="\Laradic\Themes\ThemeFactory">
             <type>\Laradic\Themes\ThemeFactory</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1658,35 +1562,35 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type>string|\Laradic\Themes\Theme</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="144" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="176" package="Laradic\Themes">
         <name>getActive</name>
         <full_name>\Laradic\Themes\ThemeFactory::getActive()</full_name>
-        <docblock line="144">
+        <docblock line="176">
           <description>Get the activated theme</description>
           <long-description></long-description>
-          <tag name="return" line="144" description="" type="\Laradic\Themes\Theme">
+          <tag name="return" line="176" description="" type="\Laradic\Themes\Theme">
             <type>\Laradic\Themes\Theme</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="158" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="191" package="Laradic\Themes">
         <name>getDefault</name>
         <full_name>\Laradic\Themes\ThemeFactory::getDefault()</full_name>
-        <docblock line="158">
+        <docblock line="191">
           <description>Get the default theme</description>
           <long-description></long-description>
-          <tag name="return" line="158" description="" type="\Laradic\Themes\Theme">
+          <tag name="return" line="191" description="" type="\Laradic\Themes\Theme">
             <type>\Laradic\Themes\Theme</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="168" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="201" package="Laradic\Themes">
         <name>setDefault</name>
         <full_name>\Laradic\Themes\ThemeFactory::setDefault()</full_name>
-        <docblock line="168">
+        <docblock line="201">
           <description>Set the default theme</description>
           <long-description></long-description>
-          <tag name="param" line="168" description="&lt;p&gt;The slug or Theme instance&lt;/p&gt;" type="string|\Laradic\Themes\Theme" variable="$theme">
+          <tag name="param" line="201" description="&lt;p&gt;The slug or Theme instance&lt;/p&gt;" type="string|\Laradic\Themes\Theme" variable="$theme">
             <type>string</type>
             <type>\Laradic\Themes\Theme</type>
           </tag>
@@ -1697,38 +1601,43 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type>string|\Laradic\Themes\Theme</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="180" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="214" package="Laradic\Themes">
         <name>resolveTheme</name>
         <full_name>\Laradic\Themes\ThemeFactory::resolveTheme()</full_name>
-        <docblock line="180">
-          <description>resolveTheme</description>
-          <long-description></long-description>
-          <tag name="param" line="180" description="" type="" variable="$slug"/>
-          <tag name="return" line="180" description="" type="\Laradic\Themes\Theme">
+        <docblock line="214">
+          <description>Resolve a theme using it's slug. It will check all theme paths for the required theme.</description>
+          <long-description>It will instantiate the theme, register it with the factory and return it.</long-description>
+          <tag name="param" line="214" description="&lt;p&gt;The theme slug&lt;/p&gt;" type="string" variable="$slug">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="214" description="" type="\Laradic\Themes\Theme">
             <type>\Laradic\Themes\Theme</type>
           </tag>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$slug</name>
           <default></default>
-          <type/>
+          <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="203" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="242" package="Laradic\Themes">
         <name>all</name>
         <full_name>\Laradic\Themes\ThemeFactory::all()</full_name>
-        <docblock line="203">
-          <description></description>
+        <docblock line="242">
+          <description>Returns all resolved theme slugs</description>
           <long-description></long-description>
+          <tag name="return" line="242" description="" type="array">
+            <type>array</type>
+          </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="212" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="252" package="Laradic\Themes">
         <name>get</name>
         <full_name>\Laradic\Themes\ThemeFactory::get()</full_name>
-        <docblock line="212">
-          <description>Get a theme with the provided slug</description>
+        <docblock line="252">
+          <description>Get a theme with the provided slug, equal to resolveTheme</description>
           <long-description></long-description>
-          <tag name="return" line="212" description="" type="\Laradic\Themes\Theme">
+          <tag name="return" line="252" description="" type="\Laradic\Themes\Theme">
             <type>\Laradic\Themes\Theme</type>
           </tag>
         </docblock>
@@ -1738,14 +1647,14 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="223" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="263" package="Laradic\Themes">
         <name>has</name>
         <full_name>\Laradic\Themes\ThemeFactory::has()</full_name>
-        <docblock line="223">
+        <docblock line="263">
           <description>Check if a theme is present</description>
           <long-description></long-description>
-          <tag name="param" line="223" description="" type="" variable="$slug"/>
-          <tag name="return" line="223" description="" type="boolean">
+          <tag name="param" line="263" description="" type="" variable="$slug"/>
+          <tag name="return" line="263" description="" type="boolean">
             <type>boolean</type>
           </tag>
         </docblock>
@@ -1755,107 +1664,118 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="234" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="275" package="Laradic\Themes">
         <name>count</name>
         <full_name>\Laradic\Themes\ThemeFactory::count()</full_name>
-        <docblock line="234">
+        <docblock line="275">
           <description>Get the number of themes</description>
           <long-description></long-description>
-          <tag name="return" line="234" description="" type="integer">
+          <tag name="return" line="275" description="" type="integer">
             <type>integer</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="245" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="286" package="Laradic\Themes">
         <name>addNamespace</name>
         <full_name>\Laradic\Themes\ThemeFactory::addNamespace()</full_name>
-        <docblock line="245">
-          <description>addNamespace</description>
+        <docblock line="286">
+          <description>Add a namespace to the theme</description>
           <long-description></long-description>
-          <tag name="param" line="245" description="" type="" variable="$id"/>
-          <tag name="param" line="245" description="" type="" variable="$dirName"/>
+          <tag name="param" line="286" description="" type="string" variable="$name">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="286" description="" type="string" variable="$dirName">
+            <type>string</type>
+          </tag>
         </docblock>
         <argument line="0" by_reference="false">
-          <name>$id</name>
+          <name>$name</name>
           <default></default>
-          <type/>
+          <type>string</type>
         </argument>
         <argument line="0" by_reference="false">
           <name>$dirName</name>
           <default></default>
-          <type/>
+          <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="259" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="300" package="Laradic\Themes">
         <name>getPath</name>
         <full_name>\Laradic\Themes\ThemeFactory::getPath()</full_name>
-        <docblock line="259">
-          <description>getPath</description>
+        <docblock line="300">
+          <description>Get a path by type, as configured in config.</description>
           <long-description></long-description>
-          <tag name="param" line="259" description="" type="" variable="$type"/>
-          <tag name="return" line="259" description="" type="mixed">
-            <type>mixed</type>
+          <tag name="param" line="300" description="&lt;p&gt;views, assets, namespaces or packages&lt;/p&gt;" type="string" variable="$type">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="300" description="" type="string">
+            <type>string</type>
           </tag>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$type</name>
           <default></default>
-          <type/>
+          <type>string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="273" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="314" package="Laradic\Themes">
         <name>getCascadedPaths</name>
         <full_name>\Laradic\Themes\ThemeFactory::getCascadedPaths()</full_name>
-        <docblock line="273">
-          <description>getCascadedPaths</description>
+        <docblock line="314">
+          <description>Get paths cascadingly for the defined options.</description>
           <long-description></long-description>
-          <tag name="param" line="273" description="" type="" variable="$cascadeType"/>
-          <tag name="param" line="273" description="" type="null" variable="$cascadeName">
-            <type>null</type>
+          <tag name="param" line="314" description="&lt;p&gt;The type, either namespaces, packages&lt;/p&gt;" type="string" variable="$cascadeType">
+            <type>string</type>
           </tag>
-          <tag name="param" line="273" description="" type="null" variable="$pathType">
+          <tag name="param" line="314" description="&lt;p&gt;The namespaced or package name&lt;/p&gt;" type="null|string" variable="$cascadeName">
             <type>null</type>
+            <type>string</type>
           </tag>
-          <tag name="param" line="273" description="" type="null" variable="$theme">
+          <tag name="param" line="314" description="&lt;p&gt;The path type like views or assets&lt;/p&gt;" type="null|string" variable="$pathType">
             <type>null</type>
+            <type>string</type>
           </tag>
-          <tag name="return" line="273" description="" type="array">
+          <tag name="param" line="314" description="" type="null|string" variable="$theme">
+            <type>null</type>
+            <type>string</type>
+          </tag>
+          <tag name="return" line="314" description="" type="array">
             <type>array</type>
           </tag>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$cascadeType</name>
           <default></default>
-          <type/>
+          <type>string</type>
         </argument>
         <argument line="0" by_reference="false">
           <name>$cascadeName</name>
           <default>null</default>
-          <type>null</type>
+          <type>null|string</type>
         </argument>
         <argument line="0" by_reference="false">
           <name>$pathType</name>
           <default>null</default>
-          <type>null</type>
+          <type>null|string</type>
         </argument>
         <argument line="0" by_reference="false">
           <name>$theme</name>
           <default>null</default>
-          <type>null</type>
+          <type>null|string</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="Laradic\Themes" line="314" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Laradic\Themes" line="355" package="Laradic\Themes">
         <name>getThemePath</name>
         <full_name>\Laradic\Themes\ThemeFactory::getThemePath()</full_name>
-        <docblock line="314">
-          <description>getThemePath</description>
+        <docblock line="355">
+          <description>Get the path tot the theme</description>
           <long-description></long-description>
-          <tag name="param" line="314" description="" type="" variable="$path"/>
-          <tag name="param" line="314" description="" type="" variable="$key"/>
-          <tag name="param" line="314" description="" type="null" variable="$area">
+          <tag name="param" line="355" description="" type="" variable="$path"/>
+          <tag name="param" line="355" description="" type="" variable="$key"/>
+          <tag name="param" line="355" description="" type="null" variable="$area">
             <type>null</type>
           </tag>
-          <tag name="return" line="314" description="" type="string">
+          <tag name="return" line="355" description="" type="string">
             <type>string</type>
           </tag>
         </docblock>
@@ -1875,69 +1795,79 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type>null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="343" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="384" package="Laradic\Themes">
         <name>addPackagePublisher</name>
         <full_name>\Laradic\Themes\ThemeFactory::addPackagePublisher()</full_name>
-        <docblock line="343">
-          <description>addPackagePublisher</description>
+        <docblock line="384">
+          <description>Register/add a theme publisher that publishes as a package</description>
           <long-description></long-description>
-          <tag name="param" line="343" description="" type="" variable="$package"/>
-          <tag name="param" line="343" description="" type="" variable="$sourcePath"/>
-          <tag name="param" line="343" description="" type="null" variable="$theme">
+          <tag name="param" line="384" description="&lt;p&gt;Package name&lt;/p&gt;" type="string" variable="$package">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="384" description="&lt;p&gt;Path to the theme&lt;/p&gt;" type="string" variable="$sourcePath">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="384" description="&lt;p&gt;Exclude to a specific theme using tthis slug&lt;/p&gt;" type="string|null" variable="$theme">
+            <type>string</type>
             <type>null</type>
           </tag>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$package</name>
           <default></default>
-          <type/>
+          <type>string</type>
         </argument>
         <argument line="0" by_reference="false">
           <name>$sourcePath</name>
           <default></default>
-          <type/>
+          <type>string</type>
         </argument>
         <argument line="0" by_reference="false">
           <name>$theme</name>
           <default>null</default>
-          <type>null</type>
+          <type>string|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="360" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="401" package="Laradic\Themes">
         <name>addNamespacePublisher</name>
         <full_name>\Laradic\Themes\ThemeFactory::addNamespacePublisher()</full_name>
-        <docblock line="360">
-          <description>addNamespacePublisher</description>
+        <docblock line="401">
+          <description>Register/add a theme publisher that publishes as a namespace</description>
           <long-description></long-description>
-          <tag name="param" line="360" description="" type="" variable="$namespace"/>
-          <tag name="param" line="360" description="" type="" variable="$sourcePath"/>
-          <tag name="param" line="360" description="" type="null" variable="$theme">
+          <tag name="param" line="401" description="&lt;p&gt;Name&lt;/p&gt;" type="string" variable="$namespace">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="401" description="&lt;p&gt;Path to the theme&lt;/p&gt;" type="string" variable="$sourcePath">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="401" description="&lt;p&gt;Exclude to a specific theme using tthis slug&lt;/p&gt;" type="string|null" variable="$theme">
+            <type>string</type>
             <type>null</type>
           </tag>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$namespace</name>
           <default></default>
-          <type/>
+          <type>string</type>
         </argument>
         <argument line="0" by_reference="false">
           <name>$sourcePath</name>
           <default></default>
-          <type/>
+          <type>string</type>
         </argument>
         <argument line="0" by_reference="false">
           <name>$theme</name>
           <default>null</default>
-          <type>null</type>
+          <type>string|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="375" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="416" package="Laradic\Themes">
         <name>publish</name>
         <full_name>\Laradic\Themes\ThemeFactory::publish()</full_name>
-        <docblock line="375">
-          <description>publish</description>
+        <docblock line="416">
+          <description>Publish an namespace or package</description>
           <long-description></long-description>
-          <tag name="param" line="375" description="" type="null" variable="$namespaceOrPackage">
+          <tag name="param" line="416" description="" type="null" variable="$namespaceOrPackage">
             <type>null</type>
           </tag>
         </docblock>
@@ -1947,46 +1877,46 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type>null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="402" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="443" package="Laradic\Themes">
         <name>getPublishers</name>
         <full_name>\Laradic\Themes\ThemeFactory::getPublishers()</full_name>
-        <docblock line="402">
+        <docblock line="443">
           <description>Get the value of publishers</description>
           <long-description></long-description>
-          <tag name="return" line="402" description="" type="array&lt;mixed,\Laradic\Themes\Publisher&gt;">
+          <tag name="return" line="443" description="" type="array&lt;mixed,\Laradic\Themes\Publisher&gt;">
             <type>array&lt;mixed,\Laradic\Themes\Publisher&gt;</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="415" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="457" package="Laradic\Themes">
         <name>boot</name>
         <full_name>\Laradic\Themes\ThemeFactory::boot()</full_name>
-        <docblock line="415">
-          <description>boot</description>
+        <docblock line="457">
+          <description>Boot the active theme</description>
           <long-description></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="428" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="470" package="Laradic\Themes">
         <name>getApplication</name>
         <full_name>\Laradic\Themes\ThemeFactory::getApplication()</full_name>
-        <docblock line="428">
+        <docblock line="470">
           <description>getApplication</description>
           <long-description></long-description>
-          <tag name="return" line="428" description="" type="\Illuminate\Contracts\Foundation\Application">
+          <tag name="return" line="470" description="" type="\Illuminate\Contracts\Foundation\Application">
             <type>\Illuminate\Contracts\Foundation\Application</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="439" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="481" package="Laradic\Themes">
         <name>setApplication</name>
         <full_name>\Laradic\Themes\ThemeFactory::setApplication()</full_name>
-        <docblock line="439">
+        <docblock line="481">
           <description>setApplication</description>
           <long-description></long-description>
-          <tag name="param" line="439" description="" type="\Illuminate\Contracts\Foundation\Application" variable="$app">
+          <tag name="param" line="481" description="" type="\Illuminate\Contracts\Foundation\Application" variable="$app">
             <type>\Illuminate\Contracts\Foundation\Application</type>
           </tag>
-          <tag name="return" line="439" description="" type="\Laradic\Themes\ThemeFactory">
+          <tag name="return" line="481" description="" type="\Laradic\Themes\ThemeFactory">
             <type>\Laradic\Themes\ThemeFactory</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -1997,28 +1927,28 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type>\Illuminate\Contracts\Foundation\Application</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="451" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="493" package="Laradic\Themes">
         <name>getFinder</name>
         <full_name>\Laradic\Themes\ThemeFactory::getFinder()</full_name>
-        <docblock line="451">
-          <description>getFinder</description>
+        <docblock line="493">
+          <description>Get the theme view finder instance</description>
           <long-description></long-description>
-          <tag name="return" line="451" description="" type="\Illuminate\View\ViewFinderInterface">
-            <type>\Illuminate\View\ViewFinderInterface</type>
+          <tag name="return" line="493" description="" type="\Laradic\Themes\ThemeViewFinder">
+            <type>\Laradic\Themes\ThemeViewFinder</type>
           </tag>
           <tag name="inherited_from" description="\Laradic\Themes\Contracts\ThemeFactory::getFinder()" refers="\Laradic\Themes\Contracts\ThemeFactory::getFinder()" link="/classes/Laradic.Themes.Contracts.ThemeFactory.html#method_getFinder"/>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="462" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="504" package="Laradic\Themes">
         <name>setFinder</name>
         <full_name>\Laradic\Themes\ThemeFactory::setFinder()</full_name>
-        <docblock line="462">
+        <docblock line="504">
           <description>setFinder</description>
           <long-description></long-description>
-          <tag name="param" line="462" description="" type="\Laradic\Themes\ThemeViewFinder" variable="$finder">
+          <tag name="param" line="504" description="" type="\Laradic\Themes\ThemeViewFinder" variable="$finder">
             <type>\Laradic\Themes\ThemeViewFinder</type>
           </tag>
-          <tag name="return" line="462" description="" type="\Laradic\Themes\ThemeFactory">
+          <tag name="return" line="504" description="" type="\Laradic\Themes\ThemeFactory">
             <type>\Laradic\Themes\ThemeFactory</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -2029,25 +1959,25 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type>\Laradic\Themes\ThemeViewFinder</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="474" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="516" package="Laradic\Themes">
         <name>getFiles</name>
         <full_name>\Laradic\Themes\ThemeFactory::getFiles()</full_name>
-        <docblock line="474">
-          <description>getFiles</description>
+        <docblock line="516">
+          <description>Get the filesystem object</description>
           <long-description></long-description>
-          <tag name="return" line="474" description="" type="\Illuminate\Filesystem\Filesystem">
+          <tag name="return" line="516" description="" type="\Illuminate\Filesystem\Filesystem">
             <type>\Illuminate\Filesystem\Filesystem</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="485" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="527" package="Laradic\Themes">
         <name>setFiles</name>
         <full_name>\Laradic\Themes\ThemeFactory::setFiles()</full_name>
-        <docblock line="485">
-          <description>setFiles</description>
+        <docblock line="527">
+          <description>Set the filesystem object</description>
           <long-description></long-description>
-          <tag name="param" line="485" description="" type="" variable="$files"/>
-          <tag name="return" line="485" description="" type="\Laradic\Themes\ThemeFactory">
+          <tag name="param" line="527" description="" type="" variable="$files"/>
+          <tag name="return" line="527" description="" type="\Laradic\Themes\ThemeFactory">
             <type>\Laradic\Themes\ThemeFactory</type>
           </tag>
           <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
@@ -2058,16 +1988,16 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="498" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="540" package="Laradic\Themes">
         <name>offsetExists</name>
         <full_name>\Laradic\Themes\ThemeFactory::offsetExists()</full_name>
-        <docblock line="498">
+        <docblock line="540">
           <description>offsetExists</description>
           <long-description></long-description>
-          <tag name="param" line="498" description="" type="mixed" variable="$key">
+          <tag name="param" line="540" description="" type="mixed" variable="$key">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="498" description="" type="boolean">
+          <tag name="return" line="540" description="" type="boolean">
             <type>boolean</type>
           </tag>
         </docblock>
@@ -2077,16 +2007,16 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="509" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="551" package="Laradic\Themes">
         <name>offsetGet</name>
         <full_name>\Laradic\Themes\ThemeFactory::offsetGet()</full_name>
-        <docblock line="509">
+        <docblock line="551">
           <description>offsetGet</description>
           <long-description></long-description>
-          <tag name="param" line="509" description="" type="mixed" variable="$key">
+          <tag name="param" line="551" description="" type="mixed" variable="$key">
             <type>mixed</type>
           </tag>
-          <tag name="return" line="509" description="" type="mixed">
+          <tag name="return" line="551" description="" type="mixed">
             <type>mixed</type>
           </tag>
         </docblock>
@@ -2096,16 +2026,16 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="520" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="562" package="Laradic\Themes">
         <name>offsetSet</name>
         <full_name>\Laradic\Themes\ThemeFactory::offsetSet()</full_name>
-        <docblock line="520">
+        <docblock line="562">
           <description>offsetSet</description>
           <long-description></long-description>
-          <tag name="param" line="520" description="" type="mixed" variable="$key">
+          <tag name="param" line="562" description="" type="mixed" variable="$key">
             <type>mixed</type>
           </tag>
-          <tag name="param" line="520" description="" type="mixed" variable="$value">
+          <tag name="param" line="562" description="" type="mixed" variable="$value">
             <type>mixed</type>
           </tag>
         </docblock>
@@ -2120,13 +2050,13 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="537" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="579" package="Laradic\Themes">
         <name>offsetUnset</name>
         <full_name>\Laradic\Themes\ThemeFactory::offsetUnset()</full_name>
-        <docblock line="537">
+        <docblock line="579">
           <description>offsetUnset</description>
           <long-description></long-description>
-          <tag name="param" line="537" description="" type="mixed" variable="$key">
+          <tag name="param" line="579" description="" type="mixed" variable="$key">
             <type>mixed</type>
           </tag>
         </docblock>
@@ -2136,38 +2066,38 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type>mixed</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="547" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="589" package="Laradic\Themes">
         <name>getIterator</name>
         <full_name>\Laradic\Themes\ThemeFactory::getIterator()</full_name>
-        <docblock line="547">
+        <docblock line="589">
           <description>getIterator</description>
           <long-description></long-description>
-          <tag name="return" line="547" description="" type="\ArrayIterator">
+          <tag name="return" line="589" description="" type="\ArrayIterator">
             <type>\ArrayIterator</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="557" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="599" package="Laradic\Themes">
         <name>getNavigation</name>
         <full_name>\Laradic\Themes\ThemeFactory::getNavigation()</full_name>
-        <docblock line="557">
-          <description>Get the value of navigation</description>
+        <docblock line="599">
+          <description>Get the NavigationFactory instance</description>
           <long-description></long-description>
-          <tag name="return" line="557" description="" type="\Laradic\Themes\Contracts\NavigationFactory">
+          <tag name="return" line="599" description="" type="\Laradic\Themes\Contracts\NavigationFactory">
             <type>\Laradic\Themes\Contracts\NavigationFactory</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="568" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="610" package="Laradic\Themes">
         <name>setNavigation</name>
         <full_name>\Laradic\Themes\ThemeFactory::setNavigation()</full_name>
-        <docblock line="568">
-          <description>Sets the value of navigation</description>
+        <docblock line="610">
+          <description>Sets the NavigationFactory instance</description>
           <long-description></long-description>
-          <tag name="param" line="568" description="" type="\Laradic\Themes\Contracts\NavigationFactory" variable="$navigation">
+          <tag name="param" line="610" description="" type="\Laradic\Themes\Contracts\NavigationFactory" variable="$navigation">
             <type>\Laradic\Themes\Contracts\NavigationFactory</type>
           </tag>
-          <tag name="return" line="568" description="" type="\Laradic\Themes\Contracts\NavigationFactory">
+          <tag name="return" line="610" description="" type="\Laradic\Themes\Contracts\NavigationFactory">
             <type>\Laradic\Themes\Contracts\NavigationFactory</type>
           </tag>
         </docblock>
@@ -2177,27 +2107,27 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type>\Laradic\Themes\Contracts\NavigationFactory</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="580" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="622" package="Laradic\Themes">
         <name>getBreadcrumbs</name>
         <full_name>\Laradic\Themes\ThemeFactory::getBreadcrumbs()</full_name>
-        <docblock line="580">
+        <docblock line="622">
           <description>Get the value of breadcrumbs</description>
           <long-description></long-description>
-          <tag name="return" line="580" description="" type="\DaveJamesMiller\Breadcrumbs\Manager">
+          <tag name="return" line="622" description="" type="\DaveJamesMiller\Breadcrumbs\Manager">
             <type>\DaveJamesMiller\Breadcrumbs\Manager</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="591" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="633" package="Laradic\Themes">
         <name>setBreadcrumbs</name>
         <full_name>\Laradic\Themes\ThemeFactory::setBreadcrumbs()</full_name>
-        <docblock line="591">
+        <docblock line="633">
           <description>Sets the value of breadcrumbs</description>
           <long-description></long-description>
-          <tag name="param" line="591" description="" type="\DaveJamesMiller\Breadcrumbs\Manager" variable="$breadcrumbs">
+          <tag name="param" line="633" description="" type="\DaveJamesMiller\Breadcrumbs\Manager" variable="$breadcrumbs">
             <type>\DaveJamesMiller\Breadcrumbs\Manager</type>
           </tag>
-          <tag name="return" line="591" description="" type="\DaveJamesMiller\Breadcrumbs\Manager">
+          <tag name="return" line="633" description="" type="\DaveJamesMiller\Breadcrumbs\Manager">
             <type>\DaveJamesMiller\Breadcrumbs\Manager</type>
           </tag>
         </docblock>
@@ -2207,29 +2137,30 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type>\DaveJamesMiller\Breadcrumbs\Manager</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="603" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="645" package="Laradic\Themes">
         <name>getAssets</name>
         <full_name>\Laradic\Themes\ThemeFactory::getAssets()</full_name>
-        <docblock line="603">
-          <description>Get the value of assets</description>
+        <docblock line="645">
+          <description>Get the asset factory instance</description>
           <long-description></long-description>
-          <tag name="return" line="603" description="" type="\Laradic\Themes\Assets\AssetFactory">
+          <tag name="return" line="645" description="" type="\Laradic\Themes\Assets\AssetFactory">
             <type>\Laradic\Themes\Assets\AssetFactory</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="614" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="656" package="Laradic\Themes">
         <name>setAssets</name>
         <full_name>\Laradic\Themes\ThemeFactory::setAssets()</full_name>
-        <docblock line="614">
+        <docblock line="656">
           <description>Sets the value of assets</description>
           <long-description></long-description>
-          <tag name="param" line="614" description="" type="\Laradic\Themes\Assets\AssetFactory" variable="$assets">
+          <tag name="param" line="656" description="" type="\Laradic\Themes\Assets\AssetFactory" variable="$assets">
             <type>\Laradic\Themes\Assets\AssetFactory</type>
           </tag>
-          <tag name="return" line="614" description="" type="\Laradic\Themes\Assets\AssetFactory">
-            <type>\Laradic\Themes\Assets\AssetFactory</type>
+          <tag name="return" line="656" description="" type="\Laradic\Themes\ThemeFactory">
+            <type>\Laradic\Themes\ThemeFactory</type>
           </tag>
+          <tag name="fluent" description="This method is part of a fluent interface and will return the same instance"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$assets</name>
@@ -2239,21 +2170,11 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
       </method>
     </class>
     <parse_markers>
-      <error line="203" code="PPC:ERR-50008">No summary for method all()</error>
-      <error line="212" code="PPC:ERR-50015">Argument $slug is missing from the Docblock of get</error>
-      <error line="57" code="PPC:ERR-50007">No summary for property $files</error>
-      <error line="62" code="PPC:ERR-50007">No summary for property $finder</error>
-      <error line="67" code="PPC:ERR-50007">No summary for property $dispatcher</error>
-      <error line="72" code="PPC:ERR-50007">No summary for property $app</error>
-      <error line="81" code="PPC:ERR-50007">No summary for property $config</error>
-      <error line="84" code="PPC:ERR-50007">No summary for property $publishers</error>
-      <error line="87" code="PPC:ERR-50007">No summary for property $navigation</error>
-      <error line="90" code="PPC:ERR-50007">No summary for property $breadcrumbs</error>
-      <error line="93" code="PPC:ERR-50007">No summary for property $assets</error>
+      <error line="252" code="PPC:ERR-50015">Argument $slug is missing from the Docblock of get</error>
     </parse_markers>
-    <source>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</source>
+    <source>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</source>
   </file>
-  <file path="ThemeViewFinder.php" generated-path="ThemeViewFinder.html" hash="75f3c2a5dfde11fde0873cb2c5df30c9" package="Default">
+  <file path="ThemeViewFinder.php" generated-path="ThemeViewFinder.html" hash="989ab431eb5f98a840545a1845a7c09c" package="Default">
     <docblock line="0">
       <description>Part of the Robin Radic's PHP packages.</description>
       <long-description>MIT License and copyright information bundled with this package
@@ -2304,22 +2225,22 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="102" package="Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="99" package="Themes">
         <name>getThemes</name>
         <full_name>\Laradic\Themes\ThemeViewFinder::getThemes()</full_name>
-        <docblock line="102">
+        <docblock line="99">
           <description></description>
           <long-description></long-description>
-          <tag name="inheritdoc" line="102" description=""/>
+          <tag name="inheritdoc" line="99" description=""/>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="108" package="Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes" line="105" package="Themes">
         <name>setThemes</name>
         <full_name>\Laradic\Themes\ThemeViewFinder::setThemes()</full_name>
-        <docblock line="108">
+        <docblock line="105">
           <description></description>
           <long-description></long-description>
-          <tag name="inheritdoc" line="108" description=""/>
+          <tag name="inheritdoc" line="105" description=""/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$themes</name>
@@ -2331,11 +2252,11 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
     <parse_markers>
       <error line="35" code="PPC:ERR-50015">Argument $name is missing from the Docblock of find</error>
       <error line="35" code="PPC:ERR-50008">No summary for method find()</error>
-      <error line="102" code="PPC:ERR-50008">No summary for method getThemes()</error>
-      <error line="108" code="PPC:ERR-50015">Argument $themes is missing from the Docblock of setThemes</error>
-      <error line="108" code="PPC:ERR-50008">No summary for method setThemes()</error>
+      <error line="99" code="PPC:ERR-50008">No summary for method getThemes()</error>
+      <error line="105" code="PPC:ERR-50015">Argument $themes is missing from the Docblock of setThemes</error>
+      <error line="105" code="PPC:ERR-50008">No summary for method setThemes()</error>
     </parse_markers>
-    <source>eJytVttu2zgQfddXTFEXkgPHShboS7zNtkgT1OgFQRLsPtTFgpYoi6hECiTl1Cj87zukKFnRZZG0IYJEIWfOzJy5kH/+VaSFFx4deXAE10RqEAnolMKNWDMONyRmka/g+sM1FCT6TjZUzVHUSH9e3sEnFlGuKBAeQySKnWSbVAPjiZA50UxwWJc8zmgM90ynCMxUjWMg0IKx9Wl5cfnl9hISllEQErZMMQ2p1sVZGErjwjxn+jirjM0jkaNy6HGSU4VoCECs1Ooupbi18LwSfVpmWZkzTjRd3ZZFIaRefak14qWm+Q1VIttSueiK/83o/eoKnTEfV4zHjQzfkozF7+SmzCnXlz8iWpgoq9OHXqwuBNeSRFpVG1f4KeTuMaIHs0AUdLZqWYzSpe3OsIo/hsqufpQR1WTsraMe3Kqs2xOkQZl0uXU6P5mf2ANS6hRTUq9WWdhjl5P6uFUT9vhQE3b9cXL6ejaAwb/DYZm8K0z8BiumXJtsh9JoSKcQejaoXqj0h6Y8VvAwccDyIqMmW6NMej89zxi2dJpl+CASJtryA6tOttrpdAqh/VtIoWmksdqd6qIBhreMp1QyHYuoES/XSB8kJY9sqyToVTAxVT215z+9mhK7CW9AafmvpEWGFRz4c38Gfoi/KhVnyyyWQPCCKUV1MDEtd3xeuTOdNiIHbLMk1aXk2JkSeTo7azmyaOT2B/yJdJ2DLnF6D2NtVctnTKEnCE7Q2S3yP0XFBuT4HO0q+pHugl4kuma457KJ0YVogFuh9WU78hUlKcOS+GqVv3W0hxFs5IraXN3tCpMPvxlByl8MKxREp8r98wYepOP4fEP1BVERiWl8beSCNiByVVHmG8qUP+1b2Pd2aGY675diqef7M0XSwD0iDlwvn2LAIptGrmxVFTBET2/Llt8B3VT6kjsUczRzbnTQHhLdI7lPsAvmETyNklK5+ju+7iEM4R+KN3OZxdzXdsLYa8JCl4rxDYhSmq3cfKudwgZu9COioxSCsVsPJnRsoLT7dpigx4ycPvNP8WgkMTi32dZcWEO5eWcPg6FsJCTL1lh5g3rvaULKTAft2VWv/59Uw15aiwiuzG2Nc7+QOK2SwLdXD3x9pb5VKbRfNr3AhYY1hUTgg8s9rJyoPxvEtzZaM8BdJLOaIhvYbVZugr7HZj37PBqN93lC/f3gels6leLeXoFjFRnUUY03afPlWsL2diW9f9L7ASOqXihB9/1QI7fr9lcsqMZC+w1Uv3Z6r5a2uaptWo+irl+1P3vvPx+ocas=</source>
+    <source>eJytVm1v2zYQ/q5fccM8SA4cKy2wL/GatsgSzFhXBEnQfaiLgpYoi6hMCSTl1Cj833tHUbIsyZjTlTBih7x77rnnji9/vC7SwgvPzjw4gzumDOQJmJTDfb4UEu5ZLCJfw91fd1Cw6AtbcT1FU7L+Z/4I70TEpebAZAxRXmyVWKUGhExytWZG5BKWpYwzHsOTMCkCC13jEARGoFjv5tc37x9uIBEZh1zBRmhhIDWmuAxDRRSma2HOsyrYNMrX6Bx6kq25RjQEYNZq8ZhynJp5Xomc5llWroVkhi8eyqLIlVm8rz3iueHre67zbMPVrGv+QfCnxS2SoR+3QsaNjdywTMRv1apcc2luvka8oCyr1UMWi+tcGsUio6uJW/yZq+0ppvuwwDR0pmpbzNKV7ZFUxQ9J2fWPMqabir1x0oMbVXS7gjJoKpcbL6YX0wu7wEqTYknq0WoLu+xqUi+3esIu73vCjpcXL36fDGDIL7AfVHeNhV9hx5RLqnaoyEM5h9CzSfVS5V8Nl7GGw8KBWBcZp2odVdL75nkU2MpJg/RgCkbG6gOLTrXa5XQOof0uVG54ZLDbneusAYY3QqZcCRPnUWNeLlE+SEoZ2a2SIKtgRF09tuvfvFoSOwmvQBv1WfEiww4O/Kk/AT/EP5WLi0VDJBDAL9gSmptgRJvu/KoiNIZxY7WHp6G4KZXEzalQqsvLFpdZY7fbhxgpt3mQleRPcGxn1faZ0EgFwRny3WAJxujYgJxfYVzN/+bboJeMqUXuUbZpuiQJuZ1c37rrUcmSCmyMj2D94VMXYRjF5q+5LdrjtqDC+M1ZpP3ZsEPBTKrdP6/goCrnVyturpmOWMzjO7IL2oATcML5JJz2x/0Iu94Mz2gL/lAu9UH/kzJp4E7Ig8avz4lgoWlLV8GqPhjSpzdlu3CPTg0/lw6FliaORgftUOmeyn2FXTInCHVUlYrq/+G6gzCEfzne0WUWS9/Ys8ZeGBa61EKuIC8VTa3pt95q3MeNf8RMlEJw7P6DET92rrS377BAp5w8feWfw+hIYfAEFxu6uoZq89YuBkPVSFiWLbHzBv3+5AkrMxO0j7B6/NeBNczTxkR4TTc33gGFwjMrCfxrqiXI3BXTFvLjb/oTvarsN77k6Lu+ISYHG31S529ZP2TlKhj/9INlgPWHhmbU8F9ySHJ8J9bMW4xP49ibMqnKn+zFdKxBgprc8T2zh3UtavdaZb571s2O7Ku3Q9C92Wvkdh/9SATdRGi/Tup3SO890Q5XtXHrudLlVfPZed8BhXpfFA==</source>
   </file>
   <file path="Facades/Asset.php" generated-path="Facades.Asset.html" hash="642c598ecc79690b204289cfbefec470" package="Default">
     <docblock line="0">
@@ -2369,14 +2290,14 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
     </parse_markers>
     <source>eJw1jM0KwjAQhO95ir1Vn6GC9CII3vTYy7IZbaBNQnYDgvTd7Y/OZWDmmzmd85Ap8gTNLKAbF/ZB+seAJeovLOyhrXNVQddxrFOIbOjvNedU7A/8fOFkZFXqVGGEtyF6pb10H0eLckkGMXhSYwtCzxrFQor0gu1kJwLVVA7HbbHvVhVYLZEaXu+1abdidrP7Anx4Qng=</source>
   </file>
-  <file path="Console/ThemePublishCommand.php" generated-path="Console.ThemePublishCommand.html" hash="bbb37ce84e0025e70c1c01a50d559f9b" package="Default">
+  <file path="Console/ThemePublishCommand.php" generated-path="Console.ThemePublishCommand.html" hash="438a6ea7695760bb5b037f66c35fb0dd" package="Default">
     <docblock line="0">
       <description>Part of the Robin Radic's PHP packages.</description>
       <long-description>MIT License and copyright information bundled with this package
 in the LICENSE file or visit http://radic.mit-license.com</long-description>
       <tag name="package" line="0" description="Default"/>
     </docblock>
-    <namespace-alias name="AbstractConsoleCommand">\Laradic\Console\Command</namespace-alias>
+    <namespace-alias name="Command">\Laradic\Console\Command</namespace-alias>
     <namespace-alias name="InputArgument">\Symfony\Component\Console\Input\InputArgument</namespace-alias>
     <class final="false" abstract="false" namespace="Laradic\Themes\Console" line="23" package="Laradic\Themes">
       <extends>\Laradic\Console\Command</extends>
@@ -2433,7 +2354,7 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
       <error line="26" code="PPC:ERR-50007">No summary for property $name</error>
       <error line="28" code="PPC:ERR-50007">No summary for property $description</error>
     </parse_markers>
-    <source>eJxtVO9v2jAQ/Z6/4tYhBRAEOmlfYGuHUKUhsRYVvpVqchKHWDi2ZTusqOr/vrNx+KFyQkjJvXu+e++cH/eqVNGg242gCwuiLcgCbEnhWaZMwDPJWRYbWPxegCLZlmyoSRDq0H9mK5izjApDgYgcMqn2mm1KC0wUUlfEMikgrUXOaQ7/mC2RmJmGx1HgCe6s+Wz68Lh8gIJxClLDjhlmobRWjQYD7VpIKmb7/HBYkskKiweRIBU1yIYExKPWq5Liq/VUCiM5HUdRbU7JZa2U1HY9SY3VJLMBNZVVhe2PPXa5rwop9shQKSmosA3XeiZUbQ//E72pK8whfxBu5ebCnxvG97CoU85MGbgh48QcdfsVBIAQl817xI5q48QLcZsMk6FPkNqWKFATZyb5dFCoSZ855NMnh3x8G95+713hEFs4hXPBoA0b9K9OnfYD7Sp0KBhEfrirY9M3S0Vu4Lri0XsUuROUlpZmFnek5RyFnxBbL8VIHeji8SdgTk2mmfIbhvhwLhyR7jmDohaZhxRM03bHp96jZrJWoKcaKVpuNft3JFjbjo/JuDP2JV99zQGW15Vqn+oDwgVRqh3ajzv9uwC5jg1k7ra0b8IIONwNJND+wsxfUXN+Xgn35z2PICacx51A+HF98g09rqv5pICmttYCXo4vXLycjd6Di4UfjZ4Wq9nT42TegxgNh9MNxKVs1tpKCAwJzAoQ0jrndiyneQ8orvYe5xYb/CJwDiltwDRPYFrSbAuX7uNVAPycANkRxknqvhDedxO/Hvt+bTT4iP4DnpCF2Q==</source>
+    <source>eJxtVFFv2jAQfs+vuHVIAQRJO2kvsLWrUKUhsRa1vLXVZBInsXBsy3ZYUdX/vrNxAqicEFF833133905P25UpaJ0OIxgCEuiLcgCbEXhUa6ZgEeSsyw2sPy9BEWyDSmpSRDq0H/mK1iwjApDgYgcMql2mpWVBSYKqWtimRSwbkTOaQ7/mK2QmJmWx1FgBpdrMZ/d3T/dQcE4BalhywyzUFmrJmmqXQlJzeyY75MlmawxOI0EqalBNiQgHvWyqigevcykMJLTaRQ15uAMp/isa6x36p1Pu7qQYucOlRRU2A42F6qx+/9bXTY1+pAwdGrlhODPVe+TLps1Z6YK3JBxYrpG/QqKIdhptR6xpdq4bgW7Si6TS+8gja2wI60dTcW7Q0ta99FIvPswEm/fLq++j85wiA0czLXdYN9LHFizds1OtYvQISCNvLizsumbpSI3EN6j9yhylEpLSzOLW9BzM4OfEFuvfaL28fH0EzCnJtNM+R1CfEgEHdK9Z1A0IvOQgmnaH3jXe9RK6QV6qpGi55ZvfE3CLPtx54wHUx/y1cfsYXlTq/4hPiCcEaX6ofx4ML4OkPPYQObuQ/8iSEBxF5BA/wszf0XD+XEk3BzXPIGYcB4PAuHHeeUl7fbTfOqAprbRAp67A2fPR9JHcLLhk8nDcjV/uL9djCDGCcPhjuEWtntsJQSGBOYFCGnd5LYsp/kIKO7yDnWLEu8857CmLZjmCcwqmm3gdPq4+4AfDCBbwjhZu2+An7uJX7u6X9sefET/AW/xeaE=</source>
   </file>
   <file path="Contracts/ThemeViewFinder.php" generated-path="Contracts.ThemeViewFinder.html" hash="a518b364a8d57108d54d7bbfd7bb5602" package="Default">
     <docblock line="0">
@@ -2564,7 +2485,7 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
     </parse_markers>
     <source>eJx1kEFPwzAMhe/5Fb4BlWjvDImhaUClgaoybr2kqdtatE6VuKAJ8d9JyiZxYD7G733PL7d3Uz+pLEkUJFBoJ2BbkB6htDUxlLohc+GheCpg0uZdd+jTII3q53wPOzLIHkFzA8ZOB0ddL0DcWjdqIctQz9wM2MAnSR/A5E+ciAgJMWuXb7Yvr1toaUCwDj7Ik0AvMt1kmYsnpCPJ9fAblho7BnOmWI/oAy0A9KKq9j2Gp2pjWZw24lfqVC1nQddG7b33KA9ha93h2GR9POksZ4mjfxHwpSBMiIG1Q5kdQ5UPwzwSa8GqtLMQd9WbGx6R0engibDomeY6VIJ2ZrN8VYfyV3Z5tVLf6ge8T4r0</source>
   </file>
-  <file path="Assets/AssetFactory.php" generated-path="Assets.AssetFactory.html" hash="5facf497bc96387bb6299700c3903cdf" package="Default">
+  <file path="Assets/AssetFactory.php" generated-path="Assets.AssetFactory.html" hash="24a5420e8c4373c76734201a138e174d" package="Default">
     <docblock line="0">
       <description>Part of the Robin Radic's PHP packages.</description>
       <long-description>MIT License and copyright information bundled with this package
@@ -2620,78 +2541,58 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           </tag>
         </docblock>
       </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes\Assets" line="40" package="Laradic\Themes">
+      <property static="false" visibility="protected" namespace="Laradic\Themes\Assets" line="41" package="Laradic\Themes">
         <name>$assetClass</name>
         <full_name>\Laradic\Themes\Assets\AssetFactory::assetClass</full_name>
         <default></default>
-        <docblock line="40">
+        <docblock line="41">
           <description></description>
           <long-description></long-description>
-        </docblock>
-      </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes\Assets" line="42" package="Laradic\Themes">
-        <name>$assetManager</name>
-        <full_name>\Laradic\Themes\Assets\AssetFactory::assetManager</full_name>
-        <default></default>
-        <docblock line="42">
-          <description></description>
-          <long-description></long-description>
-        </docblock>
-      </property>
-      <property static="false" visibility="protected" namespace="Laradic\Themes\Assets" line="44" package="Laradic\Themes">
-        <name>$assetGroups</name>
-        <full_name>\Laradic\Themes\Assets\AssetFactory::assetGroups</full_name>
-        <default>array()</default>
-        <docblock line="44">
-          <description></description>
-          <long-description></long-description>
+          <tag name="var" line="41" description="" type="string" variable="">
+            <type>string</type>
+          </tag>
         </docblock>
       </property>
       <property static="false" visibility="protected" namespace="Laradic\Themes\Assets" line="47" package="Laradic\Themes">
+        <name>$assetManager</name>
+        <full_name>\Laradic\Themes\Assets\AssetFactory::assetManager</full_name>
+        <default></default>
+        <docblock line="47">
+          <description>The assetic asset manager instance</description>
+          <long-description></long-description>
+          <tag name="var" line="47" description="" type="\Assetic\AssetManager" variable="">
+            <type>\Assetic\AssetManager</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="false" visibility="protected" namespace="Laradic\Themes\Assets" line="52" package="Laradic\Themes">
+        <name>$assetGroups</name>
+        <full_name>\Laradic\Themes\Assets\AssetFactory::assetGroups</full_name>
+        <default>array()</default>
+        <docblock line="52">
+          <description></description>
+          <long-description></long-description>
+          <tag name="var" line="52" description="" type="array&lt;mixed,\Laradic\Themes\Assets\AssetGroup&gt;" variable="">
+            <type>array&lt;mixed,\Laradic\Themes\Assets\AssetGroup&gt;</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="false" visibility="protected" namespace="Laradic\Themes\Assets" line="55" package="Laradic\Themes">
         <name>$urlGenerator</name>
         <full_name>\Laradic\Themes\Assets\AssetFactory::urlGenerator</full_name>
         <default></default>
-        <docblock line="47">
+        <docblock line="55">
           <description></description>
           <long-description></long-description>
-          <tag name="var" line="47" description="" type="\Illuminate\Contracts\Routing\UrlGenerator" variable="">
+          <tag name="var" line="55" description="" type="\Illuminate\Contracts\Routing\UrlGenerator" variable="">
             <type>\Illuminate\Contracts\Routing\UrlGenerator</type>
           </tag>
         </docblock>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="53" package="Laradic\Themes">
-        <name>__construct</name>
-        <full_name>\Laradic\Themes\Assets\AssetFactory::__construct()</full_name>
-        <docblock line="53">
-          <description></description>
-          <long-description></long-description>
-          <tag name="param" line="53" description="" type="\Illuminate\Contracts\Container\Container" variable="$container">
-            <type>\Illuminate\Contracts\Container\Container</type>
-          </tag>
-          <tag name="param" line="53" description="" type="\Laradic\Themes\Contracts\ThemeFactory" variable="$themes">
-            <type>\Laradic\Themes\Contracts\ThemeFactory</type>
-          </tag>
-        </docblock>
-        <argument line="0" by_reference="false">
-          <name>$app</name>
-          <default></default>
-          <type>\Illuminate\Contracts\Foundation\Application</type>
-        </argument>
-        <argument line="0" by_reference="false">
-          <name>$themes</name>
-          <default></default>
-          <type>\Laradic\Themes\Contracts\ThemeFactory</type>
-        </argument>
-        <argument line="0" by_reference="false">
-          <name>$urlGenerator</name>
-          <default></default>
-          <type>\Illuminate\Contracts\Routing\UrlGenerator</type>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="64" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="74" package="Laradic\Themes">
         <name>___call</name>
         <full_name>\Laradic\Themes\Assets\AssetFactory::___call()</full_name>
-        <docblock line="64">
+        <docblock line="74">
           <description></description>
           <long-description></long-description>
         </docblock>
@@ -2706,13 +2607,13 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="74" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="84" package="Laradic\Themes">
         <name>make</name>
         <full_name>\Laradic\Themes\Assets\AssetFactory::make()</full_name>
-        <docblock line="74">
+        <docblock line="84">
           <description></description>
           <long-description></long-description>
-          <tag name="return" line="74" description="" type="\Laradic\Themes\Assets\Asset">
+          <tag name="return" line="84" description="" type="\Laradic\Themes\Assets\Asset">
             <type>\Laradic\Themes\Assets\Asset</type>
           </tag>
         </docblock>
@@ -2722,89 +2623,125 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="79" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="95" package="Laradic\Themes">
         <name>url</name>
         <full_name>\Laradic\Themes\Assets\AssetFactory::url()</full_name>
-        <docblock line="79">
-          <description></description>
+        <docblock line="95">
+          <description>url</description>
           <long-description></long-description>
+          <tag name="param" line="95" description="" type="string" variable="$assetPath">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="95" description="" type="string">
+            <type>string</type>
+          </tag>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$assetPath</name>
-          <default>""</default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="84" package="Laradic\Themes">
-        <name>uri</name>
-        <full_name>\Laradic\Themes\Assets\AssetFactory::uri()</full_name>
-        <docblock line="84">
-          <description></description>
-          <long-description></long-description>
-        </docblock>
-        <argument line="0" by_reference="false">
-          <name>$assetPath</name>
-          <default>""</default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="89" package="Laradic\Themes">
-        <name>style</name>
-        <full_name>\Laradic\Themes\Assets\AssetFactory::style()</full_name>
-        <docblock line="89">
-          <description></description>
-          <long-description></long-description>
-        </docblock>
-        <argument line="0" by_reference="false">
-          <name>$assetPath</name>
-          <default>""</default>
-          <type/>
-        </argument>
-        <argument line="0" by_reference="false">
-          <name>$attributes</name>
-          <default>array()</default>
-          <type/>
-        </argument>
-        <argument line="0" by_reference="false">
-          <name>$secure</name>
-          <default>false</default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="94" package="Laradic\Themes">
-        <name>script</name>
-        <full_name>\Laradic\Themes\Assets\AssetFactory::script()</full_name>
-        <docblock line="94">
-          <description></description>
-          <long-description></long-description>
-        </docblock>
-        <argument line="0" by_reference="false">
-          <name>$assetPath</name>
-          <default>""</default>
-          <type/>
-        </argument>
-        <argument line="0" by_reference="false">
-          <name>$attributes</name>
-          <default>array()</default>
-          <type/>
-        </argument>
-        <argument line="0" by_reference="false">
-          <name>$secure</name>
-          <default>false</default>
-          <type/>
+          <default>''</default>
+          <type>string</type>
         </argument>
       </method>
       <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="106" package="Laradic\Themes">
+        <name>uri</name>
+        <full_name>\Laradic\Themes\Assets\AssetFactory::uri()</full_name>
+        <docblock line="106">
+          <description>uri</description>
+          <long-description></long-description>
+          <tag name="param" line="106" description="" type="string" variable="$assetPath">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="106" description="" type="string">
+            <type>string</type>
+          </tag>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>$assetPath</name>
+          <default>''</default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="119" package="Laradic\Themes">
+        <name>style</name>
+        <full_name>\Laradic\Themes\Assets\AssetFactory::style()</full_name>
+        <docblock line="119">
+          <description>style</description>
+          <long-description></long-description>
+          <tag name="param" line="119" description="" type="string" variable="$assetPath">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="119" description="" type="array" variable="$attributes">
+            <type>array</type>
+          </tag>
+          <tag name="param" line="119" description="" type="boolean" variable="$secure">
+            <type>boolean</type>
+          </tag>
+          <tag name="return" line="119" description="" type="string">
+            <type>string</type>
+          </tag>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>$assetPath</name>
+          <default>""</default>
+          <type>string</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>$attributes</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>$secure</name>
+          <default>false</default>
+          <type>boolean</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="132" package="Laradic\Themes">
+        <name>script</name>
+        <full_name>\Laradic\Themes\Assets\AssetFactory::script()</full_name>
+        <docblock line="132">
+          <description>script</description>
+          <long-description></long-description>
+          <tag name="param" line="132" description="" type="string" variable="$assetPath">
+            <type>string</type>
+          </tag>
+          <tag name="param" line="132" description="" type="array" variable="$attributes">
+            <type>array</type>
+          </tag>
+          <tag name="param" line="132" description="" type="boolean" variable="$secure">
+            <type>boolean</type>
+          </tag>
+          <tag name="return" line="132" description="" type="string">
+            <type>string</type>
+          </tag>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>$assetPath</name>
+          <default>""</default>
+          <type>string</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>$attributes</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>$secure</name>
+          <default>false</default>
+          <type>boolean</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="144" package="Laradic\Themes">
         <name>group</name>
         <full_name>\Laradic\Themes\Assets\AssetFactory::group()</full_name>
-        <docblock line="106">
+        <docblock line="144">
           <description>group</description>
           <long-description></long-description>
-          <tag name="param" line="106" description="" type="" variable="$name"/>
-          <tag name="param" line="106" description="" type="callable" variable="$cb">
+          <tag name="param" line="144" description="" type="" variable="$name"/>
+          <tag name="param" line="144" description="" type="callable" variable="$cb">
             <type>callable</type>
           </tag>
-          <tag name="return" line="106" description="" type="\Laradic\Themes\Assets\AssetGroup">
+          <tag name="return" line="144" description="" type="\Laradic\Themes\Assets\AssetGroup">
             <type>\Laradic\Themes\Assets\AssetGroup</type>
           </tag>
         </docblock>
@@ -2814,12 +2751,16 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="119" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="163" package="Laradic\Themes">
         <name>relativePath</name>
         <full_name>\Laradic\Themes\Assets\AssetFactory::relativePath()</full_name>
-        <docblock line="119">
-          <description></description>
+        <docblock line="163">
+          <description>relativePath</description>
           <long-description></long-description>
+          <tag name="param" line="163" description="" type="" variable="$path"/>
+          <tag name="return" line="163" description="" type="string">
+            <type>string</type>
+          </tag>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$path</name>
@@ -2827,12 +2768,16 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="130" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="180" package="Laradic\Themes">
         <name>toUrl</name>
         <full_name>\Laradic\Themes\Assets\AssetFactory::toUrl()</full_name>
-        <docblock line="130">
-          <description></description>
+        <docblock line="180">
+          <description>toUrl</description>
           <long-description></long-description>
+          <tag name="param" line="180" description="" type="" variable="$path"/>
+          <tag name="return" line="180" description="" type="string">
+            <type>string</type>
+          </tag>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$path</name>
@@ -2840,31 +2785,41 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="140" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="196" package="Laradic\Themes">
         <name>getPath</name>
         <full_name>\Laradic\Themes\Assets\AssetFactory::getPath()</full_name>
-        <docblock line="140">
-          <description></description>
+        <docblock line="196">
+          <description>getPath</description>
           <long-description></long-description>
+          <tag name="param" line="196" description="" type="null" variable="$key">
+            <type>null</type>
+          </tag>
+          <tag name="return" line="196" description="" type="string">
+            <type>string</type>
+          </tag>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$key</name>
           <default>null</default>
-          <type/>
+          <type>null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="189" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="250" package="Laradic\Themes">
         <name>getThemes</name>
         <full_name>\Laradic\Themes\Assets\AssetFactory::getThemes()</full_name>
-        <docblock line="189">
-          <description></description>
+        <docblock line="250">
+          <description>getThemes</description>
           <long-description></long-description>
+          <tag name="return" line="250" description="" type="\Laradic\Themes\Contracts\ThemeFactory|\Laradic\Themes\ThemeFactory">
+            <type>\Laradic\Themes\Contracts\ThemeFactory</type>
+            <type>\Laradic\Themes\ThemeFactory</type>
+          </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="194" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="255" package="Laradic\Themes">
         <name>setThemes</name>
         <full_name>\Laradic\Themes\Assets\AssetFactory::setThemes()</full_name>
-        <docblock line="194">
+        <docblock line="255">
           <description></description>
           <long-description></long-description>
         </docblock>
@@ -2874,18 +2829,18 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="201" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="262" package="Laradic\Themes">
         <name>getContainer</name>
         <full_name>\Laradic\Themes\Assets\AssetFactory::getContainer()</full_name>
-        <docblock line="201">
+        <docblock line="262">
           <description></description>
           <long-description></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="206" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="267" package="Laradic\Themes">
         <name>setContainer</name>
         <full_name>\Laradic\Themes\Assets\AssetFactory::setContainer()</full_name>
-        <docblock line="206">
+        <docblock line="267">
           <description></description>
           <long-description></long-description>
         </docblock>
@@ -2895,18 +2850,18 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="213" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="274" package="Laradic\Themes">
         <name>getAssetClass</name>
         <full_name>\Laradic\Themes\Assets\AssetFactory::getAssetClass()</full_name>
-        <docblock line="213">
+        <docblock line="274">
           <description></description>
           <long-description></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="218" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="279" package="Laradic\Themes">
         <name>setAssetClass</name>
         <full_name>\Laradic\Themes\Assets\AssetFactory::setAssetClass()</full_name>
-        <docblock line="218">
+        <docblock line="279">
           <description></description>
           <long-description></long-description>
         </docblock>
@@ -2916,19 +2871,19 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="225" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="286" package="Laradic\Themes">
         <name>getUrlGenerator</name>
         <full_name>\Laradic\Themes\Assets\AssetFactory::getUrlGenerator()</full_name>
-        <docblock line="225">
+        <docblock line="286">
           <description></description>
           <long-description></long-description>
           <tag name="inherited_from" description="\Laradic\Themes\Contracts\AssetFactory::getUrlGenerator()" refers="\Laradic\Themes\Contracts\AssetFactory::getUrlGenerator()" link="/classes/Laradic.Themes.Contracts.AssetFactory.html#method_getUrlGenerator"/>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="230" package="Laradic\Themes">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Laradic\Themes\Assets" line="291" package="Laradic\Themes">
         <name>setUrlGenerator</name>
         <full_name>\Laradic\Themes\Assets\AssetFactory::setUrlGenerator()</full_name>
-        <docblock line="230">
+        <docblock line="291">
           <description></description>
           <long-description></long-description>
         </docblock>
@@ -2940,53 +2895,29 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
       </method>
     </class>
     <parse_markers>
-      <error line="53" code="PPC:ERR-50016">The type hint of the argument is incorrect for the type definition of the @param tag with argument $app in __construct()</error>
-      <error line="53" code="PPC:ERR-50015">Argument $urlGenerator is missing from the Docblock of __construct</error>
-      <error line="53" code="PPC:ERR-50016">The type hint of the argument is incorrect for the type definition of the @param tag with argument $urlGenerator in __construct()</error>
-      <error line="53" code="PPC:ERR-50008">No summary for method __construct()</error>
-      <error line="64" code="PPC:ERR-50015">Argument $name is missing from the Docblock of ___call</error>
-      <error line="64" code="PPC:ERR-50015">Argument $arguments is missing from the Docblock of ___call</error>
-      <error line="64" code="PPC:ERR-50008">No summary for method ___call()</error>
-      <error line="74" code="PPC:ERR-50015">Argument $assetPath is missing from the Docblock of make</error>
-      <error line="74" code="PPC:ERR-50008">No summary for method make()</error>
-      <error line="79" code="PPC:ERR-50015">Argument $assetPath is missing from the Docblock of url</error>
-      <error line="79" code="PPC:ERR-50008">No summary for method url()</error>
-      <error line="84" code="PPC:ERR-50015">Argument $assetPath is missing from the Docblock of uri</error>
-      <error line="84" code="PPC:ERR-50008">No summary for method uri()</error>
-      <error line="89" code="PPC:ERR-50015">Argument $assetPath is missing from the Docblock of style</error>
-      <error line="89" code="PPC:ERR-50015">Argument $attributes is missing from the Docblock of style</error>
-      <error line="89" code="PPC:ERR-50015">Argument $secure is missing from the Docblock of style</error>
-      <error line="89" code="PPC:ERR-50008">No summary for method style()</error>
-      <error line="94" code="PPC:ERR-50015">Argument $assetPath is missing from the Docblock of script</error>
-      <error line="94" code="PPC:ERR-50015">Argument $attributes is missing from the Docblock of script</error>
-      <error line="94" code="PPC:ERR-50015">Argument $secure is missing from the Docblock of script</error>
-      <error line="94" code="PPC:ERR-50008">No summary for method script()</error>
-      <error line="119" code="PPC:ERR-50015">Argument $path is missing from the Docblock of relativePath</error>
-      <error line="119" code="PPC:ERR-50008">No summary for method relativePath()</error>
-      <error line="130" code="PPC:ERR-50015">Argument $path is missing from the Docblock of toUrl</error>
-      <error line="130" code="PPC:ERR-50008">No summary for method toUrl()</error>
-      <error line="140" code="PPC:ERR-50015">Argument $key is missing from the Docblock of getPath</error>
-      <error line="140" code="PPC:ERR-50008">No summary for method getPath()</error>
-      <error line="189" code="PPC:ERR-50008">No summary for method getThemes()</error>
-      <error line="194" code="PPC:ERR-50015">Argument $themes is missing from the Docblock of setThemes</error>
-      <error line="194" code="PPC:ERR-50008">No summary for method setThemes()</error>
-      <error line="201" code="PPC:ERR-50008">No summary for method getContainer()</error>
-      <error line="206" code="PPC:ERR-50015">Argument $container is missing from the Docblock of setContainer</error>
-      <error line="206" code="PPC:ERR-50008">No summary for method setContainer()</error>
-      <error line="213" code="PPC:ERR-50008">No summary for method getAssetClass()</error>
-      <error line="218" code="PPC:ERR-50015">Argument $assetClass is missing from the Docblock of setAssetClass</error>
-      <error line="218" code="PPC:ERR-50008">No summary for method setAssetClass()</error>
-      <error line="225" code="PPC:ERR-50008">No summary for method getUrlGenerator()</error>
-      <error line="230" code="PPC:ERR-50015">Argument $urlGenerator is missing from the Docblock of setUrlGenerator</error>
-      <error line="230" code="PPC:ERR-50008">No summary for method setUrlGenerator()</error>
+      <error line="74" code="PPC:ERR-50015">Argument $name is missing from the Docblock of ___call</error>
+      <error line="74" code="PPC:ERR-50015">Argument $arguments is missing from the Docblock of ___call</error>
+      <error line="74" code="PPC:ERR-50008">No summary for method ___call()</error>
+      <error line="84" code="PPC:ERR-50015">Argument $assetPath is missing from the Docblock of make</error>
+      <error line="84" code="PPC:ERR-50008">No summary for method make()</error>
+      <error line="255" code="PPC:ERR-50015">Argument $themes is missing from the Docblock of setThemes</error>
+      <error line="255" code="PPC:ERR-50008">No summary for method setThemes()</error>
+      <error line="262" code="PPC:ERR-50008">No summary for method getContainer()</error>
+      <error line="267" code="PPC:ERR-50015">Argument $container is missing from the Docblock of setContainer</error>
+      <error line="267" code="PPC:ERR-50008">No summary for method setContainer()</error>
+      <error line="274" code="PPC:ERR-50008">No summary for method getAssetClass()</error>
+      <error line="279" code="PPC:ERR-50015">Argument $assetClass is missing from the Docblock of setAssetClass</error>
+      <error line="279" code="PPC:ERR-50008">No summary for method setAssetClass()</error>
+      <error line="286" code="PPC:ERR-50008">No summary for method getUrlGenerator()</error>
+      <error line="291" code="PPC:ERR-50015">Argument $urlGenerator is missing from the Docblock of setUrlGenerator</error>
+      <error line="291" code="PPC:ERR-50008">No summary for method setUrlGenerator()</error>
       <error line="35" code="PPC:ERR-50007">No summary for property $themes</error>
       <error line="38" code="PPC:ERR-50007">No summary for property $container</error>
-      <error line="40" code="PPC:ERR-50007">No summary for property $assetClass</error>
-      <error line="42" code="PPC:ERR-50007">No summary for property $assetManager</error>
-      <error line="44" code="PPC:ERR-50007">No summary for property $assetGroups</error>
-      <error line="47" code="PPC:ERR-50007">No summary for property $urlGenerator</error>
+      <error line="41" code="PPC:ERR-50007">No summary for property $assetClass</error>
+      <error line="52" code="PPC:ERR-50007">No summary for property $assetGroups</error>
+      <error line="55" code="PPC:ERR-50007">No summary for property $urlGenerator</error>
     </parse_markers>
-    <source>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</source>
+    <source>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</source>
   </file>
   <file path="Widgets.php" generated-path="Widgets.html" hash="5cc0c6212373ef009011376e061a2db1" package="Default">
     <docblock line="0">
@@ -3253,7 +3184,7 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
     </parse_markers>
     <source>eJw1jrEKAjEMhvc+RbbTxRc4QVwEwU3hlltCGr3CXVuaFAW5d7e2+i+B/N9Hsj/EKYLHhSUiMVwwoXU03iYuq/GEhJalNyYLw3me8+I8Ko/XHGNI+gd+s3A0owgMzj5YBfil7K1Aq83bQElMQZmULYiiOoJ79qQueChOI49ELBLSZluN5n2TWHPy0Gn9b/dsd7q+AqtZzQdUH0Zn</source>
   </file>
-  <file path="Assets/AssetGroup.php" generated-path="Assets.AssetGroup.html" hash="eac2e81e5127906b56898987cc17ae82" package="Default">
+  <file path="Assets/AssetGroup.php" generated-path="Assets.AssetGroup.html" hash="f13453c520837d4d0d48149f5d6c78de" package="Default">
     <docblock line="0">
       <description>Part of the Robin Radic's PHP packages.</description>
       <long-description>MIT License and copyright information bundled with this package
@@ -3261,7 +3192,7 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
       <tag name="package" line="0" description="Default"/>
     </docblock>
     <namespace-alias name="Sorter">\Laradic\Support\Sorter</namespace-alias>
-    <namespace-alias name="Str">\Laradic\Support\String</namespace-alias>
+    <namespace-alias name="String">\Laradic\Support\String</namespace-alias>
     <namespace-alias name="AssetFactoryContract">\Laradic\Themes\Contracts\AssetFactory</namespace-alias>
     <class final="false" abstract="false" namespace="Laradic\Themes\Assets" line="24" package="Laradic\Themes">
       <extends/>
@@ -3443,18 +3374,7 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
       <error line="36" code="PPC:ERR-50007">No summary for property $styles</error>
       <error line="38" code="PPC:ERR-50007">No summary for property $sorter</error>
     </parse_markers>
-    <source>eJx9Vm1P2zAQ/p5fccomJUVtwybtC9CyadoL0jahwbe2QsZxG4/UyWwHVlX97/PZTpqEgFW12Hd+7rnnzjYXl2VWBsnJSQAncE2khmINOmPwu7jnAn6TlNNIwfX3aygJfSAbpqbGFb1/Xt3CD06ZUAyISIEW5U7yTaaBi3Uht0TzQsB9JdKcpfDEdWaAuapxEMJEwFg/rj5/+XXzBdY8Z1BIeOSKa8i0Ls+SRCKF6ZbrSe6CTWmxNZuTQJAtUwbNABDrtbzNmFlaflKKaXUeBJU62m6qsiykXt6YLybPh226Z/CAnwuhJaHaQ381fxZyB0RBe157mcBe0FvM13wwSev5TRZVCTQnqpHxo9cD/OiGth6PTCrU0o9309PpqTWQSmdGr3q0ambNXrDa3CqYNR8LZsf703cfxgMY4gGOA4uiTFU2ppzVPZYikbhD+g1JYJNrZRvsgwB3lrLQjGrTCm+xcOdu1QqFA9MkEpaDpezI7v2TPuramc+fhVNU8lIrmMFiNWDVu5y9aPTN4tare6MorCtBbWvf3dFCKC0rquOhPmgojV3KI4uyD2ot3+JxmMzRhNNZLUzP7kHQ3qTYc3E0EUKwJ3AdHo+c22GYPEnT2MYz5ChRlKQsvSY6M9OUlUykTpJnnAkmilw65CbzLXlgcQdp1Ka5K5nN0G6fzDdM35ol5NjPZR/urftBhYeFZbhCJo0bjgiXIyva3Kk27tptmMjb7aTngBEaAJz07F6DyNr9pPFYtVhLpispHPlXBTcpxy7ScDe0gQZVeBVdGoKm5nZPH/lN0ybuIIybuW39xs9c2ozQDOI+h/CAV51lcRR01Ozbd6TrtORkbvrsSrNt02t276LRd9XqkkPQa7P6VL5EsI6Bv/Go4fgSM3PXuEvGHta6lf1F0o1sO6NOBStnXoazM8XFpspJLXNdyIVvtxbTVg6LlUXCAzCbQeQ0j+ASogt7t2aSrWdhBNPmcFQyN9lMIQoBt81Czf7phCoVmjLns9BBZIzpcB7BmQFyhW17/yGPxK2GoCR9KcD8InFe82iwDr4p+bbMi5TF4VKEY5/X69eLZH8rLplydVfPW3JjX0LXBkzQXRus9Sh8M7XA1/OR5BXD/00Qzhubh8Oz3PJ/LO2+Ds/P4C+zP3797B1v4UNwCP4D+EelnA==</source>
-  </file>
-  <file path="resources/config/radic_themes.php" generated-path="resources.config.radic_themes.html" hash="d42e27d7cb4e176aac1fc7f094e3bede" package="Default">
-    <docblock line="0">
-      <description></description>
-      <long-description></long-description>
-      <tag name="package" line="0" description="Default"/>
-    </docblock>
-    <parse_markers>
-      <error line="0" code="PPC:ERR-50000">No summary was found for this file</error>
-    </parse_markers>
-    <source>eJyFU02P3CAMvedXWOqBnVEk7v2ueu2xUi+RKoc4CVqGICCz3a72v5dACGik2XIJzrP9Hv74+MXMpmks+dVqQGvx+aGBcPgZBurXaZJ6gjOP/1j8wyCeT59hROWoBc5BjuDtGu6DdNgrcoBKgbFk7CLIuZCkhYvUcnxuQcwoZgLyIjMZ9LM7WFB4eSWWWdhoF+1JD3ygEVflWZvVJPM/fvx8hq9DUEICPQ0HTVCvehSPLIXrVakcAN8VOgcaL1TJco58BFik67ofaHGQout+zhQ8u+7b5pK/WabfwLfj4jf7P8lhClnejviVnHJMLGBpTNXHIsGxO/B2zNorKX5veR5OB3Jq85XFWhgUtGuq7MNpm4Qg0NHeULQElhRu7QS/QJABUUrEw3yNUoeGYL9cqYgNSR9xyjyHVVjeVS5wz4ldJT1VJdntNsncJwToz/v96TzViL8E0fjKX6L5ymNUSRpnoBQy2xWt2Ga7ok12U1UzblaiX1ZvVg9lSWAxXi76Zujudo6VDYvVijtY0LRwR/ANKpZLCHe5iDfoJuQi/1KFpkc0pw/NP5a0L/0=</source>
+    <source>eJx9Vm1P2zAQ/p5fccomJUVtwybtC9CyadoL0jahwbe2QsZxG4/UyWwHVlX97/PZTpqEgFWV2nd+7rnnzjYXl2VWBsnJSQAncE2khmINOmPwu7jnAn6TlNNIwfX3aygJfSAbpqbGFb1/Xt3CD06ZUAyISIEW5U7yTaaBi3Uht0TzQsB9JdKcpfDEdWaAuapxEMJEwFg/rj5/+XXzBdY8Z1BIeOSKa8i0Ls+SRCKF6ZbrSe6CTWmxNZuTQJAtUwbNABDrtbzNmFlaflKKaXUeBJU62m6qsiykXt6YLybPh21acrHp2jzm50JoSaj26F/Nz0LugChoz2svE9treospmw/maT2/yaIqgeZENUp+9JKAH93Q1uORSYVy+vFuejo9tQZS6cxIVo9W2azZa1abWzWz5mPN7Hh/+u7DeABDPMBxYF2UKczGVLS6x2okEndIvyEJbHKtbIN9EODOUhaaUW264S3W7tytWqFwYJpEwnKwmh3ZvX/SR1078/mzcIpKXmoFM1isBqx6l7MXjb5f3Hp1bxSFdSWo7e67O1oIpWVFdTzUBw2lsUt5ZFH2Qa3lWzwRkzmacDqrhenZPQjamxR7Lo4mQgj2BK7J45FzOwyTJ2ka23iGHCWKkpSl10RnZpqykonUSfKMM8FEkUuH3GS+JQ8s7iCN2jR3JbMZ2u2T+YbpW7OEHPu57MO9dT+o8LCwDFfIpHHDEeFyZEWbO9XGXbsNE3m7nfQcMEIDgJOe3WsQWbufNB6rFmvJdCWFI/+q4Cbl2EUa7oY20KAKr6JLQ9DU3O7pI79p2sQdhHEzt63f+Jl7mxGaQdznEB7wqrMsjoKOmn37jnSdlpzMTZ9dabZtes3uXTT6rlpdcgh6bVafypcI1jHwbzxqOL7EzNw17pKxh7VuZX+RdCPbzqhTwcq5x+HsTJnvKie10nUtF77jWmRbaSxWFgzPwGwGkZM9gkuILuz1mkm2noURTJvzUcncJDSFKATcNgs1+6cTqlRoKp3PQgeRMabDeQRnBsjVtu39hzwStxqCkvSlAPOLxHnNo8FS+L7k2zIvUhaHSxGOfV6v3zCS/a24ZMqVXj3vyo19DF0nMEF3bbDWu/DNlAMf0EeSVwz/Q0E4b2zeDs9yy/+xtPtAPD+Gv8z++PXjd7yID8Eh+A/Ur6gY</source>
   </file>
   <file path="Theme.php" generated-path="Theme.html" hash="ceae522981332d1619210276eaa7f25d" package="Default">
     <docblock line="0">

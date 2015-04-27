@@ -206,10 +206,10 @@ class AssetFactory implements AssetFactoryContract
         {
             if ( array_key_exists($section, View::getFinder()->getHints()) )
             {
-                return $this->toUrl($this->themes->getActive()->getCascadedPath('namespaces', $section, 'assets')); #getNamespaceAssetsPath($section));
+                return $this->toUrl($this->themes->getActive()->getCascadedPath('namespaces', $section, 'assets'));
             }
 
-            return $this->toUrl($this->themes->getActive()->getCascadedPath('packages', $section, 'assets')); #getPackageAssetsPath($section));
+            return $this->toUrl($this->themes->getActive()->getCascadedPath('packages', $section, 'assets'));
 
         }
 
@@ -217,16 +217,16 @@ class AssetFactory implements AssetFactoryContract
         {
             if ( array_key_exists($section, View::getFinder()->getHints()) )
             {
-                $paths = $this->themes->getCascadedPaths('namespaces', $section, 'assets'); # getCascadedNamespaceAssetPaths
+                $paths = $this->themes->getCascadedPaths('namespaces', $section, 'assets');
             }
             else
             {
-                $paths = $this->themes->getCascadedPaths('packages', $section, 'assets'); # getCascadedPackageAssetPaths
+                $paths = $this->themes->getCascadedPaths('packages', $section, 'assets');
             }
         }
         else
         {
-            $paths = $this->themes->getCascadedPaths(null, null, 'assets'); #getCascadedAssetPaths();
+            $paths = $this->themes->getCascadedPaths(null, null, 'assets');
         }
 
         foreach ($paths as $path)
