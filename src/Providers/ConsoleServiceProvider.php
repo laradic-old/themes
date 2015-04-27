@@ -7,7 +7,7 @@
  */
 namespace Laradic\Themes\Providers;
 
-use Laradic\Support\AbstractConsoleProvider;
+use Laradic\Console\AggregateConsoleProvider;
 
 /**
  * This is the ConsoleServiceProvider class.
@@ -19,7 +19,7 @@ use Laradic\Support\AbstractConsoleProvider;
  * @copyright      2015, Robin Radic
  * @link           https://github.com/robinradic
  */
-class ConsoleServiceProvider extends AbstractConsoleProvider {
+class ConsoleServiceProvider extends AggregateConsoleProvider {
 
     protected $namespace = 'Laradic\Themes\Console';
 

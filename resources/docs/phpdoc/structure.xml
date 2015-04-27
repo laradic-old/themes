@@ -394,9 +394,9 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
 in the LICENSE file or visit http://radic.mit-license.com</long-description>
       <tag name="package" line="0" description="Default"/>
     </docblock>
-    <namespace-alias name="AbstractConsoleCommand">\Laradic\Support\AbstractConsoleCommand</namespace-alias>
+    <namespace-alias name="AbstractConsoleCommand">\Laradic\Console\Command</namespace-alias>
     <class final="false" abstract="false" namespace="Laradic\Themes\Console" line="22" package="Laradic\Themes">
-      <extends>\Laradic\Support\AbstractConsoleCommand</extends>
+      <extends>\Laradic\Console\Command</extends>
       <name>ThemePublishersCommand</name>
       <full_name>\Laradic\Themes\Console\ThemePublishersCommand</full_name>
       <docblock line="22">
@@ -958,9 +958,9 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
 in the LICENSE file or visit http://radic.mit-license.com</long-description>
       <tag name="package" line="0" description="Default"/>
     </docblock>
-    <namespace-alias name="AbstractConsoleProvider">\Laradic\Support\AbstractConsoleProvider</namespace-alias>
+    <namespace-alias name="AbstractConsoleProvider">\Laradic\Console\AggregateConsoleProvider</namespace-alias>
     <class final="false" abstract="false" namespace="Laradic\Themes\Providers" line="22" package="Laradic\Themes">
-      <extends>\Laradic\Support\AbstractConsoleProvider</extends>
+      <extends>\Laradic\Console\AggregateConsoleProvider</extends>
       <name>ConsoleServiceProvider</name>
       <full_name>\Laradic\Themes\Providers\ConsoleServiceProvider</full_name>
       <docblock line="22">
@@ -2376,10 +2376,10 @@ in the LICENSE file or visit http://radic.mit-license.com</long-description>
 in the LICENSE file or visit http://radic.mit-license.com</long-description>
       <tag name="package" line="0" description="Default"/>
     </docblock>
-    <namespace-alias name="AbstractConsoleCommand">\Laradic\Support\AbstractConsoleCommand</namespace-alias>
+    <namespace-alias name="AbstractConsoleCommand">\Laradic\Console\Command</namespace-alias>
     <namespace-alias name="InputArgument">\Symfony\Component\Console\Input\InputArgument</namespace-alias>
     <class final="false" abstract="false" namespace="Laradic\Themes\Console" line="23" package="Laradic\Themes">
-      <extends>\Laradic\Support\AbstractConsoleCommand</extends>
+      <extends>\Laradic\Console\Command</extends>
       <name>ThemePublishCommand</name>
       <full_name>\Laradic\Themes\Console\ThemePublishCommand</full_name>
       <docblock line="23">

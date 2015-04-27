@@ -12,7 +12,7 @@
 [![Goto Repository](http://img.shields.io/badge/goto-repo-orange.svg?style=flat-square)](https://github.com/laradic/themes)
 
 
-Version 0.1 preview
+Version 0.2.0
 -----------
 
 **Laravel 5** package providing multi-theme inherited cascading support.
@@ -29,7 +29,7 @@ Version 0.1 preview
 
 #### My other packages
 | Package | Description | |
-|----|----|
+|----|----|----|
 | [laradic/extensions](https://github.com/laradic/extensions) | Modular and manageable approach to extending your app | [doc](http://docs.radic.nl/extensions) |
 | [laradic/config](https://github.com/laradic/config) | Laravel 5 Config exras like namespaces, saving to db/file. yaml/php array parser etc | [doc](http://docs.radic.nl/config) |
 | [laradic/docit](https://github.com/laradic/docit) | A documentation generator for your code, live preview [docs.radic.nl](http://docs.radic.nl/) | [doc](http://docs.radic.nl/docit) |
@@ -40,7 +40,7 @@ Version 0.1 preview
 #### Installation  
 ###### Composer
 ```JSON
-"laradic/themes": "~0.1"
+"laradic/themes": "~0.2"
 ```
 ###### Laravel
 ```php

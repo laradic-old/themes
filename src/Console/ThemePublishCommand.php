@@ -7,7 +7,7 @@
  */
 namespace Laradic\Themes\Console;
 
-use Laradic\Support\AbstractConsoleCommand;
+use Laradic\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
 /**
@@ -20,7 +20,7 @@ use Symfony\Component\Console\Input\InputArgument;
  * @copyright      2015, Robin Radic
  * @link           https://github.com/robinradic
  */
-class ThemePublishCommand extends AbstractConsoleCommand
+class ThemePublishCommand extends Command
 {
 
     protected $name = 'themes:publish';

@@ -7,7 +7,7 @@
  */
 namespace Laradic\Themes\Console;
 
-use Laradic\Support\AbstractConsoleCommand;
+use Laradic\Console\Command;
 
 /**
  * This is the ThemePublishersCommand class.
@@ -19,7 +19,7 @@ use Laradic\Support\AbstractConsoleCommand;
  * @copyright      2015, Robin Radic
  * @link           https://github.com/robinradic
  */
-class ThemePublishersCommand extends AbstractConsoleCommand
+class ThemePublishersCommand extends Command
 {
 
     protected $name = 'themes:publishers';

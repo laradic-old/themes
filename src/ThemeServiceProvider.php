@@ -29,7 +29,7 @@ class ThemeServiceProvider extends ServiceProvider
     protected $configFiles = ['radic_themes'];
 
     /** @inheritdoc */
-    protected $dir = __DIR__;
+    protected $dir = __DIR__ . '/../';
 
     protected $providers = [
         'Laradic\Themes\Providers\BusServiceProvider',
