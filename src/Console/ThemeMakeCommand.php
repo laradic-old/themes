@@ -61,6 +61,8 @@ class ThemeMakeCommand extends Command
         {
             $this->mkdir(Path::join($path, $dir));
         }
+
+        $this->files->copy(__DIR__ . '/../../resources/theme.php', $path . '/theme.php');
         $this->info('');
     }
 
