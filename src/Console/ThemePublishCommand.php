@@ -9,6 +9,7 @@ namespace Laradic\Themes\Console;
 
 use Laradic\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * This is the ThemePublishCommand class.
@@ -30,15 +31,23 @@ class ThemePublishCommand extends Command
     public function fire()
     {
         $publisher = $this->argument('publisher');
-    #    $this->dump($publisher);
-        app('themes')->publish($publisher);
-        $this->info("Published " . (!is_null($publisher) ? $publisher : 'all'));
+        $theme = $this->option('theme');
+
+        app('themes')->publish($publisher, $theme);
+        $this->info('Published ' . (!is_null($publisher) ? $publisher : 'all') . (!is_null($theme) ? " to theme $theme" : null));
     }
 
     public function getArguments()
     {
         return [
             ['publisher', InputArgument::OPTIONAL, 'The namespace or package to publish. If not provided, everything will be published. Check themes:publishers for available options']
+        ];
+    }
+
+    public function getOptions()
+    {
+        return [
+            ['theme', 't', InputOption::VALUE_OPTIONAL, 'The theme you want to publish to', null]
         ];
     }
 }

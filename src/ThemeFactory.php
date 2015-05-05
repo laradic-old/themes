@@ -289,6 +289,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
         $view     = $this->app->make('view');
         $view->addLocation($location);
         $view->addNamespace($name, $location);
+
         return $this;
     }
 
@@ -390,6 +391,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
             ->asPackage($package)
             ->from($sourcePath)
             ->toTheme($theme);
+
         return $this;
     }
 
@@ -408,6 +410,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
             ->asNamespace($namespace)
             ->from($sourcePath)
             ->toTheme($theme);
+
         return $this;
     }
 
@@ -416,12 +419,16 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
      *
      * @param null $namespaceOrPackage
      */
-    public function publish($namespaceOrPackage = null)
+    public function publish($namespaceOrPackage = null, $theme = null)
     {
         if ( is_null($namespaceOrPackage) )
         {
             foreach ( $this->publishers as $publisher )
             {
+                if ( ! is_null($theme) )
+                {
+                    $publisher->toTheme($theme instanceof Theme ? $theme : $this->resolveTheme($theme));
+                }
                 $publisher->publish();
             }
         }
@@ -429,6 +436,10 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
         {
             if ( isset($this->publishers[ $namespaceOrPackage ]) )
             {
+                if ( ! is_null($theme) )
+                {
+                    $this->publishers[ $namespaceOrPackage ]->toTheme($theme instanceof Theme ? $theme : $this->resolveTheme($theme));
+                }
                 $this->publishers[ $namespaceOrPackage ]->publish();
             }
             else

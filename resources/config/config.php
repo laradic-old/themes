@@ -2,17 +2,17 @@
 
 return array(
     /* debugging */
-    'debug'        => true, // if true, disables all minify, chache and concenation etc
+    'debug'           => true, // if true, disables all minify, chache and concenation etc
     /* paths */
-    'active'       => 'frontend/default',
-    'default'      => 'frontend/default',
+    'active'          => 'frontend/default',
+    'default'         => 'frontend/default',
     /** @deprecated */
-    'fallback'     => null,
+    'fallback'        => null,
     /* Class names */
-    'assetClass'   => '\\Laradic\\Themes\\Assets\\Asset',
-    'themeClass'   => '\\Laradic\\Themes\\Theme',
-    'widgetsClass' => '\\Laradic\\Themes\\Widgets',
-    'paths'        => array(
+    'assetClass'      => '\\Laradic\\Themes\\Assets\\Asset',
+    'assetGroupClass' => '\\Laradic\\Themes\\Assets\\AssetGroup',
+    'themeClass'      => '\\Laradic\\Themes\\Theme',
+    'paths'           => array(
         'themes'     => array(
             public_path()
         ),

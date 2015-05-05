@@ -15,7 +15,6 @@ use Illuminate\Support\NamespacedItemResolver;
 use Illuminate\View\Factory as ViewFactory;
 use Laradic\Themes\Contracts\AssetFactory as AssetFactoryContract;
 use Laradic\Themes\Contracts\ThemeFactory;
-use Laradic\Themes\Contracts\ThemeViewFinder;
 use Stringy\Stringy;
 
 /**
@@ -42,6 +41,9 @@ class AssetFactory implements AssetFactoryContract
     /** @var string */
     protected $assetClass;
 
+    /** @var string */
+    protected $assetGroupClass;
+
     /**
      * @var AssetGroup[]
      */
@@ -64,8 +66,9 @@ class AssetFactory implements AssetFactoryContract
 
         $this->themes = $themes;
 
-        $this->assetClass = config('laradic/themes::assetClass');
-        $this->cacheDir   = config('laradic/themes::paths.cache');
+        $this->assetClass      = config('laradic/themes::assetClass');
+        $this->assetGroupClass = config('laradic/themes::assetGroupClass');
+        $this->cacheDir        = config('laradic/themes::paths.cache');
 
         $themes->setAssets($this);
     }
@@ -139,7 +142,7 @@ class AssetFactory implements AssetFactoryContract
         }
         else
         {
-            $this->assetGroups[ $name ] = new AssetGroup($this, $this->files, $name);
+            $this->assetGroups[ $name ] = new $this->assetGroupClass($this, $name);
 
             return $this->assetGroups[ $name ];
         }
