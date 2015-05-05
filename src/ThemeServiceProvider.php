@@ -30,6 +30,7 @@ class ThemeServiceProvider extends ServiceProvider
     protected $providers = [
         'Laradic\Themes\Providers\BusServiceProvider',
         'Laradic\Themes\Providers\EventServiceProvider',
+        'Laradic\Themes\Providers\ConsoleServiceProvider',
         'Radic\BladeExtensions\BladeExtensionsServiceProvider',
         'DaveJamesMiller\Breadcrumbs\ServiceProvider',
         'Collective\Html\HtmlServiceProvider'
@@ -71,11 +72,6 @@ class ThemeServiceProvider extends ServiceProvider
         $this->registerThemes();
         $this->registerViewFinder();
 
-        if ( $app->runningInConsole() )
-        {
-            $app->register('Laradic\Themes\Providers\ConsoleServiceProvider');
-        }
-
         $app->make('events')->listen('creating: *', function (\Illuminate\Contracts\View\View $view) use ($app)
         {
             $app->make('themes')->boot();
@@ -86,10 +82,6 @@ class ThemeServiceProvider extends ServiceProvider
     {
         $this->app->singleton('assets', 'Laradic\Themes\Assets\AssetFactory');
         $this->app->alias('assets', 'Laradic\Themes\Contracts\AssetFactory');
-        $this->app->booting(function ()
-        {
-            $this->alias('Asset', 'Laradic\Themes\Facades\Asset');
-        });
     }
 
     public function registerThemes()
@@ -102,22 +94,12 @@ class ThemeServiceProvider extends ServiceProvider
             return $themeFactory;
         });
         $this->app->alias('themes', 'Laradic\Themes\Contracts\ThemeFactory');
-
-        $this->app->booting(function ()
-        {
-            $this->alias('Themes', 'Laradic\Themes\Facades\Themes');
-        });
     }
 
     public function registerWidgets()
     {
         $this->app->singleton('themes.widgets', $this->app->make('config')->get('radic_themes.widgetsClass'));
         $this->app->alias('themes.widgets', 'Laradic\Themes\Contracts\Widgets');
-
-        $this->app->booting(function ()
-        {
-            $this->alias('Widgets', 'Laradic\Themes\Facades\Widgets');
-        });
 
         $this->app->make('themes.widgets')->registerDirectives();
     }
@@ -159,10 +141,6 @@ class ThemeServiceProvider extends ServiceProvider
     {
         $this->app->singleton('navigation', 'Laradic\Themes\Navigation\Factory');
         $this->app->bind('Laradic\Themes\Contracts\NavigationFactory', 'navigation');
-        $this->app->booting(function ()
-        {
-            $this->alias('Navigation', 'Laradic\Themes\Facades\Navigation');
-        });
 
 
         /** @var \Illuminate\View\Compilers\BladeCompiler $blade */
