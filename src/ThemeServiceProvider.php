@@ -50,6 +50,7 @@ class ThemeServiceProvider extends ServiceProvider
 
 
         $config = $app->make('config');
+
         $themes = $app->make('themes');
 
         $themes->setConfig($config->get('laradic/themes::config'));

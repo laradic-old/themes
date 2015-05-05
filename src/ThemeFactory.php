@@ -162,8 +162,10 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     {
         if ( ! $theme instanceof Theme )
         {
-            $this->active = $this->resolveTheme($theme);
+            $theme = $this->resolveTheme($theme);
         }
+
+        $this->active = $theme;
 
         return $this;
     }
@@ -221,13 +223,13 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
         $resolver = new NamespacedItemResolver;
         list($area, $key) = $resolver->parseKey($slug);
 
-        foreach ( $this->paths as $path )
+        foreach ( $this->paths['themes'] as $path )
         {
-            $themePath = $this->getThemePath($path[ 0 ], $key, $area);
+            $themePath = $this->getThemePath($path, $key, $area);
 
             if ( $this->files->isDirectory($themePath) )
             {
-                $class = Config::get('radic_themes.themeClass');
+                $class = Config::get('laradic/themes::themeClass');
 
                 return $this->themes[ $slug ] = new $class($this, $this->dispatcher, $themePath);
             }

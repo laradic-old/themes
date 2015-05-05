@@ -14,6 +14,7 @@ return array(
     'themeClass'      => '\\Laradic\\Themes\\Theme',
     'paths'           => array(
         'themes'     => array(
+            public_path('themes'),
             public_path()
         ),
         // These paths are relative to the theme path defined above
