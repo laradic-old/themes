@@ -94,6 +94,10 @@ class ThemeServiceProvider extends ServiceProvider
             return $themeFactory;
         });
         $this->app->alias('themes', 'Laradic\Themes\Contracts\ThemeFactory');
+        $this->app->booting(function ()
+        {
+            $this->alias('Themes', 'Laradic\Themes\Facades\Themes');
+        });
     }
 
     public function registerWidgets()

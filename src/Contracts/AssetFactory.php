@@ -13,6 +13,4 @@ namespace Laradic\Themes\Contracts;
  * @package Laradic\Themes\Contracts
  */
 interface AssetFactory {
-    /** @return \Illuminate\Routing\UrlGenerator */
-    public function getUrlGenerator();
 }

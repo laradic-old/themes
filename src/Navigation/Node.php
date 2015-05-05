@@ -20,7 +20,7 @@ use Tree\Node\Node as BaseNode;
  * @copyright      2015, Robin Radic
  * @link           https://github.com/robinradic
  */
-class Node extends BaseNode implements NavigationNode
+class Node extends BaseNode
 {
 
     /**

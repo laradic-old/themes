@@ -2,33 +2,26 @@
 
 return array(
     /* debugging */
-    'debug'      => false, // if true, disables all preprocessing, minify, chache etc
+    'debug'        => true, // if true, disables all minify, chache and concenation etc
     /* paths */
-    'active'     => 'frontend/default',
-    'default'    => 'frontend/default',
+    'active'       => 'frontend/default',
+    'default'      => 'frontend/default',
     /** @deprecated */
-    'fallback'   => null,
+    'fallback'     => null,
     /* Class names */
-    'assetClass' => '\\Laradic\\Themes\\Assets\\Asset',
-    'themeClass' => '\\Laradic\\Themes\\Theme',
+    'assetClass'   => '\\Laradic\\Themes\\Assets\\Asset',
+    'themeClass'   => '\\Laradic\\Themes\\Theme',
     'widgetsClass' => '\\Laradic\\Themes\\Widgets',
-    'paths'      => array(
+    'paths'        => array(
         'themes'     => array(
             public_path()
         ),
-       'namespaces' => 'namespaces',
         // These paths are relative to the theme path defined above
-        'packages' => 'packages',
-        #'packages'   => 'packages',
+        'namespaces' => 'namespaces',
+        'packages'   => 'packages',
         'views'      => 'views',    //default ex: public/themes/{area}/{theme}/views
         'assets'     => 'assets',
+        // relative to public_path
         'cache'      => 'cache'
-    ),
-    /* default output processing options */
-    'assets'     => array(
-        'preprocess' => true,
-        'minify'     => true,
-        'compress'   => true,
-        'optimize'   => true
     )
 );

@@ -7,7 +7,14 @@
  */
 namespace Laradic\Themes\Assets;
 
+use Illuminate\Support\NamespacedItemResolver;
+use Laradic\Support\String;
 use Laradic\Themes\Contracts\AssetFactory as AssetFactoryContract;
+use File;
+use HTML;
+use Themes;
+use URL;
+use View;
 
 /**
  * This is the Asset class.
@@ -26,7 +33,7 @@ class Asset
     protected $assetPath;
 
     /** @var \Laradic\Themes\Assets\AssetFactory */
-    protected $assets;
+    protected $factory;
 
     /**
      * @var string
@@ -39,13 +46,13 @@ class Asset
     protected $ext;
 
     /**
-     * @param \Laradic\Themes\Contracts\AssetFactory $assets
+     * @param \Laradic\Themes\Contracts\AssetFactory $factory
      * @param                                        $assetPath
      */
-    public function __construct(AssetFactoryContract $assets, $assetPath)
+    public function __construct(AssetFactoryContract $factory, $assetPath)
     {
-        $this->assets    = $assets;
-        $this->assetPath = $assetPath;
+        $this->factory   = $factory;
+        $this->assetPath = $this->getPath($assetPath);
         $this->ext       = $this->resolveExtension($assetPath);
         $this->type      = $this->resolveType($this->ext);
     }
@@ -67,7 +74,7 @@ class Asset
      */
     public function url()
     {
-        return $this->assets->toUrl($this->assetPath);
+        return $this->toUrl($this->assetPath);
     }
 
     /**
@@ -77,7 +84,7 @@ class Asset
      */
     public function uri()
     {
-        return $this->assets->relativePath($this->assetPath);
+        return $this->relativePath($this->assetPath);
     }
 
     /**
@@ -89,7 +96,7 @@ class Asset
      */
     public function script($attr = [ ], $secure = false)
     {
-        return \HTML::script($this->url(), $attr, $secure);
+        return HTML::script($this->url(), $attr, $secure);
     }
 
     /**
@@ -101,7 +108,27 @@ class Asset
      */
     public function style($attr = [ ], $secure = false)
     {
-        return \HTML::style($this->url(), $attr, $secure);
+        return HTML::style($this->url(), $attr, $secure);
+    }
+
+    /**
+     * Get the value of type
+     *
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Get the value of ext
+     *
+     * @return mixed
+     */
+    public function getExt()
+    {
+        return $this->ext;
     }
 
     /**
@@ -140,23 +167,92 @@ class Asset
         return 'other';
     }
 
+
     /**
-     * Get the value of type
+     * relativePath
      *
-     * @return mixed
+     * @param $path
+     * @return string
      */
-    public function getType()
+    public function relativePath($path)
     {
-        return $this->type;
+        $path = String::create($path)->removeLeft(public_path());
+        if ( $path->endsWith('.') )
+        {
+            $path = $path->removeRight('.');
+        }
+
+        return (string)$path;
     }
 
     /**
-     * Get the value of ext
+     * toUrl
      *
-     * @return mixed
+     * @param $path
+     * @return string
      */
-    public function getExt()
+    public function toUrl($path)
     {
-        return $this->ext;
+        if ( String::create($path)->startsWith(public_path()) )
+        {
+            $path = $this->relativePath($path);
+        }
+
+        return URL::to($path);
+    }
+
+
+    /**
+     * getPath
+     *
+     * @param null $key
+     * @return string
+     */
+    public function getPath($key = null)
+    {
+        list($section, $relativePath, $extension) = with(new NamespacedItemResolver)->parseKey($key);
+
+        if ( $key === null )
+        {
+            return $this->toUrl(Themes::getActive()->getPath('assets'));
+        }
+
+        if ( $relativePath === null or strlen($relativePath) === 0 )
+        {
+            if ( array_key_exists($section, View::getFinder()->getHints()) )
+            {
+                return $this->toUrl(Themes::getActive()->getCascadedPath('namespaces', $section, 'assets'));
+            }
+
+            return $this->toUrl(Themes::getActive()->getCascadedPath('packages', $section, 'assets'));
+        }
+
+        if ( isset($section) )
+        {
+            if ( array_key_exists($section, View::getFinder()->getHints()) )
+            {
+                $paths = Themes::getCascadedPaths('namespaces', $section, 'assets');
+            }
+            else
+            {
+                $paths = Themes::getCascadedPaths('packages', $section, 'assets');
+            }
+        }
+        else
+        {
+            $paths = Themes::getCascadedPaths(null, null, 'assets');
+        }
+
+        foreach ( $paths as $path )
+        {
+            $file = rtrim($path, '/') . '/' . $relativePath . '.' . $extension;
+
+            if ( File::exists($file) )
+            {
+                return $file;
+            }
+        }
+
+        return $file;
     }
 }

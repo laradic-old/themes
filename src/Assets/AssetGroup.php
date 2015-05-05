@@ -7,9 +7,11 @@
  */
 namespace Laradic\Themes\Assets;
 
+use File;
 use Laradic\Support\Sorter;
 use Laradic\Support\String;
 use Laradic\Themes\Contracts\AssetFactory as AssetFactoryContract;
+use MatthiasMullie\Minify;
 
 /**
  * This is the AssetGroup class.
@@ -31,25 +33,27 @@ class AssetGroup
      */
     protected $factory;
 
-    protected $scripts = [];
+    protected $scripts = [ ];
 
-    protected $styles = [];
+    protected $styles = [ ];
 
     protected $sorter;
+
+    protected $debug;
 
     public function __construct(AssetFactoryContract $factory, $name)
     {
         $this->name    = $name;
         $this->factory = $factory;
-        $this->sorter  = new Sorter();
+        $this->debug   = config('laradic/themes::debug');
     }
 
-    public function add($name, $cascadedPath, $depends = [])
+    public function add($name, $cascadedPath, $depends = [ ])
     {
         $asset = $this->factory->make($cascadedPath);
         $type  = $asset->getType();
 
-        $this->{"{$type}s"}[$name] = [
+        $this->{"{$type}s"}[ $name ] = [
             'name'    => $name,
             'asset'   => $asset,
             'type'    => $type,
@@ -61,32 +65,87 @@ class AssetGroup
 
     public function get($type, $name)
     {
-        return $this->{"{$type}s"}[$name];
+        return $this->{"{$type}s"}[ $name ];
     }
 
-    public function render($type)
+    public function render($type, $debug = null)
     {
-        # $this->scripts, $this->styles
-        foreach ($this->{"{$type}"} as $name => $asset)
+        if ( is_null($debug) )
         {
-            $this->sorter->addItem($name, $asset['depends']);
+            $debug = $this->debug;
         }
 
-        $assets = [];
-        foreach ($this->sorter->sort() as $name)
+        return $debug ? $this->renderPlain($type) : $this->renderCombinedMinified($type);
+    }
+
+    protected function renderPlain($type)
+    {
+        $assets = [ ];
+        foreach ( $this->getSorted($type) as $asset )
         {
-            /** @var Asset $asset */
-            $asset    = $this->get(String::singular($type), $name)['asset'];
-            $assets[] = $type == 'styles' ? '<link href="' . $asset->url() . '" type="text/css" rel="stylesheet">' : '<script type="text/javascript" src="' . $asset->url() . '"></script>';
+            $assets[ ] = $type === 'styles' ? '<link href="' . $asset->url() . '" type="text/css" rel="stylesheet">' : '<script type="text/javascript" src="' . $asset->url() . '"></script>';
         }
 
-        return implode("\n",$assets);
+        return implode("\n", $assets);
     }
 
-    public function requires($names)
+    protected function renderCombinedMinified($type)
     {
-        # group dependency
+        $minifier = null;
+        if ( $type === 'scripts' )
+        {
+            $minifier = new Minify\JS();
+        }
+        elseif ( $type === 'styles' )
+        {
+            $minifier = new Minify\CSS();
+        }
+        else
+        {
+            throw new \Exception('Invalid asset group render type specified');
+        }
+
+        $lastModified = '';
+        foreach ( $this->getSorted($type) as $asset )
+        {
+            $lastModified .= (string)File::lastModified($asset->path());
+            $minifier->add($asset->path());
+        }
+
+        $fileName = md5($lastModified);
+        $webPath  = $this->factory->getCacheDir() . '/' . $fileName . ($type === 'scripts' ? '.js' : '.css');
+        $filePath = public_path($webPath);
+        if ( ! File::exists($filePath) )
+        {
+            File::put($filePath, $minifier->minify());
+        }
+
+        return $type === 'scripts' ? \HTML::script($webPath) : \HTML::style($webPath);
     }
+
+    /**
+     * getSorted
+     *
+     * @param $type
+     * @return Asset[]
+     */
+    protected function getSorted($type)
+    {
+        $sorter = new Sorter();
+        foreach ( $this->{"{$type}"} as $name => $asset )
+        {
+            $sorter->addItem($name, $asset[ 'depends' ]);
+        }
+
+        $assets = [ ];
+        foreach ( $sorter->sort() as $name )
+        {
+            $assets[ ] = $this->get(String::singular($type), $name)[ 'asset' ];
+        }
+
+        return $assets;
+    }
+
 
     /**
      * Get the value of name

@@ -7,16 +7,16 @@
  */
 namespace Laradic\Themes\Assets;
 
-use Closure;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\NamespacedItemResolver;
+use Illuminate\View\Factory as ViewFactory;
 use Laradic\Themes\Contracts\AssetFactory as AssetFactoryContract;
 use Laradic\Themes\Contracts\ThemeFactory;
+use Laradic\Themes\Contracts\ThemeViewFinder;
 use Stringy\Stringy;
-use Assetic\AssetManager;
-use View;
 
 /**
  * This is the AssetFactory class.
@@ -34,56 +34,46 @@ class AssetFactory implements AssetFactoryContract
     /** @var \Laradic\Themes\ThemeFactory */
     protected $themes;
 
-    /** @var Container */
-    protected $container;
+    /**
+     * @var string
+     */
+    protected $cacheDir;
 
     /** @var string */
     protected $assetClass;
 
     /**
-     * The assetic asset manager instance
-     * @var \Assetic\AssetManager
-     */
-    protected $assetManager;
-
-    /**
      * @var AssetGroup[]
      */
-    protected $assetGroups = [];
+    protected $assetGroups = [ ];
 
-    /** @var UrlGenerator */
-    protected $urlGenerator;
 
     /**
-     * @param \Illuminate\Contracts\Foundation\Application $app
-     * @param ThemeFactory                                 $themes
-     * @param \Illuminate\Contracts\Routing\UrlGenerator   $urlGenerator
+     * @param ThemeFactory                               $themes
+     * @param \Illuminate\Contracts\Routing\UrlGenerator $urlGenerator
+     * @param \Illuminate\Filesystem\Filesystem          $files
+     * @param \Illuminate\View\Factory                   $view
+     * @internal param \Illuminate\Contracts\Foundation\Application $app
+     * @internal param \Laradic\Themes\Contracts\ThemeViewFinder $viewFinder
+     * @internal param \Illuminate\Contracts\View\Factory $view
      * @internal param \Illuminate\Contracts\Container\Container $container
      */
-    public function __construct(Application $app, ThemeFactory $themes, UrlGenerator $urlGenerator)
+    public function __construct(ThemeFactory $themes)
     {
-        $this->app          = $app;
-        $this->themes       = $themes;
-        $this->assetClass   = $app->make('config')->get('radic_themes.assetClass');
-        $this->urlGenerator = $urlGenerator;
-        $this->assetManager = new AssetManager();
+        /** @var \Laradic\Themes\ThemeFactory $themes */
+
+        $this->themes = $themes;
+
+        $this->assetClass = config('laradic/themes::assetClass');
+        $this->cacheDir   = config('laradic/themes::paths.cache');
 
         $themes->setAssets($this);
     }
 
-    function ___call($name, $arguments)
-    {
-        if(in_array($name, ['url', 'uri', 'style', 'script']))
-        {
-            #call_user_func_array([$this->make($name),
-        }
-    }
-
-
     /** @return Asset */
     public function make($assetPath)
     {
-        return new $this->assetClass($this, $this->getPath($assetPath));
+        return new $this->assetClass($this, $assetPath);
     }
 
     /**
@@ -116,7 +106,7 @@ class AssetFactory implements AssetFactoryContract
      * @param bool   $secure
      * @return string
      */
-    public function style($assetPath = "", array $attributes = [], $secure = false)
+    public function style($assetPath = "", array $attributes = [ ], $secure = false)
     {
         return $this->make($assetPath)->style($attributes, $secure);
     }
@@ -129,7 +119,7 @@ class AssetFactory implements AssetFactoryContract
      * @param bool   $secure
      * @return string
      */
-    public function script($assetPath = "", array $attributes = [], $secure = false)
+    public function script($assetPath = "", array $attributes = [ ], $secure = false)
     {
         return $this->make($assetPath)->script($attributes, $secure);
     }
@@ -143,104 +133,23 @@ class AssetFactory implements AssetFactoryContract
      */
     public function group($name)
     {
-        if(isset($this->assetGroups[$name]))
+        if ( isset($this->assetGroups[ $name ]) )
         {
-            return $this->assetGroups[$name];
+            return $this->assetGroups[ $name ];
         }
         else
         {
-            $this->assetGroups[$name] = new AssetGroup($this, $name);
-            return $this->assetGroups[$name];
+            $this->assetGroups[ $name ] = new AssetGroup($this, $this->files, $name);
+
+            return $this->assetGroups[ $name ];
         }
     }
 
-    /**
-     * relativePath
-     *
-     * @param $path
-     * @return string
-     */
-    public function relativePath($path)
-    {
-        $path = Stringy::create($path)->removeLeft(public_path());
-        if ( $path->endsWith('.') )
-        {
-            $path = $path->removeRight('.');
-        }
 
-        return $path->__toString();
-    }
 
-    /**
-     * toUrl
-     *
-     * @param $path
-     * @return string
-     */
-    public function toUrl($path)
-    {
-        if ( Stringy::create($path)->startsWith(public_path()) )
-        {
-            $path = $this->relativePath($path);
-        }
-
-        return $this->urlGenerator->to($path);
-    }
-
-    /**
-     * getPath
-     *
-     * @param null $key
-     * @return string
-     */
-    public function getPath($key = null)
-    {
-        list($section, $relativePath, $extension) = with(new NamespacedItemResolver)->parseKey($key);
-
-        if ( $key === null )
-        {
-            return $this->toUrl($this->themes->getActive()->getPath('assets'));
-        }
-
-        if ( $relativePath === null or strlen($relativePath) === 0 )
-        {
-            if ( array_key_exists($section, View::getFinder()->getHints()) )
-            {
-                return $this->toUrl($this->themes->getActive()->getCascadedPath('namespaces', $section, 'assets'));
-            }
-
-            return $this->toUrl($this->themes->getActive()->getCascadedPath('packages', $section, 'assets'));
-
-        }
-
-        if ( isset($section) )
-        {
-            if ( array_key_exists($section, View::getFinder()->getHints()) )
-            {
-                $paths = $this->themes->getCascadedPaths('namespaces', $section, 'assets');
-            }
-            else
-            {
-                $paths = $this->themes->getCascadedPaths('packages', $section, 'assets');
-            }
-        }
-        else
-        {
-            $paths = $this->themes->getCascadedPaths(null, null, 'assets');
-        }
-
-        foreach ($paths as $path)
-        {
-            $file = rtrim($path, '/') . '/' . $relativePath . '.' . $extension;
-
-            if ( $this->themes->getFiles()->exists($file) )
-            {
-                return $file;
-            }
-        }
-
-        return $file;
-    }
+    //
+    /* GETTERS & SETTERS */
+    //
 
     /**
      * getThemes
@@ -252,48 +161,29 @@ class AssetFactory implements AssetFactoryContract
         return $this->themes;
     }
 
-    public function setThemes($themes)
-    {
-        $this->themes = $themes;
-
-        return $this;
-    }
-
-    public function getContainer()
-    {
-        return $this->container;
-    }
-
-    public function setContainer($container)
-    {
-        $this->container = $container;
-
-        return $this;
-    }
-
     public function getAssetClass()
     {
         return $this->assetClass;
     }
 
-    public function setAssetClass($assetClass)
+    /**
+     * get cacheDir value
+     *
+     * @return mixed
+     */
+    public function getCacheDir()
     {
-        $this->assetClass = $assetClass;
-
-        return $this;
+        return $this->cacheDir;
     }
 
-    public function getUrlGenerator()
+    /**
+     * get assetGroups value
+     *
+     * @return AssetGroup[]
+     */
+    public function getAssetGroups()
     {
-        return $this->urlGenerator;
+        return $this->assetGroups;
     }
-
-    public function setUrlGenerator($urlGenerator)
-    {
-        $this->urlGenerator = $urlGenerator;
-
-        return $this;
-    }
-
 
 }
