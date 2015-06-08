@@ -47,7 +47,9 @@ class ThemeServiceProvider extends ServiceProvider
         /** @var \Illuminate\Foundation\Application $app */
         $app = parent::boot();
 
-        $app->make('themes')->setActive(config('laradic.themes.active'));
+        $app->make('themes')
+            ->setActive(config('laradic.themes.active'))
+            ->setDefault(config('laradic.themes.default'));
     }
 
     /**

@@ -2,10 +2,8 @@
 
 return array(
     /* paths */
-    'active'          => 'frontend/default',
-    'default'         => 'frontend/default',
-    /** @deprecated */
-    'fallback'        => null,
+    'active'          => 'example/main',
+    'default'         => 'example/default',
     /* Class names */
     'assetClass'      => '\\Laradic\\Themes\\Assets\\Asset',
     'assetGroupClass' => '\\Laradic\\Themes\\Assets\\AssetGroup',

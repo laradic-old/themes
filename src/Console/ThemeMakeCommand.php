@@ -10,6 +10,7 @@ namespace Laradic\Themes\Console;
 use Laradic\Console\Command;
 use Laradic\Console\Traits\SlugPackageTrait;
 use Laradic\Support\Path;
+use Laradic\Themes\ThemeGenerator;
 use Symfony\Component\Console\Input\InputArgument;
 
 /**
@@ -43,29 +44,16 @@ class ThemeMakeCommand extends Command
         {
             return $this->error('Invalid slug');
         }
-        $this->files = app('files');
-        $path = Path::join(head(config('laradic.themes.paths.themes')), $slug);
 
-        if($this->files->exists($path))
+        $gen = new ThemeGenerator(app('blade.compiler'));
+        $success = $gen->generateTheme($slug, $slug . ' Theme');
+
+        if(!$success)
         {
             return $this->error('theme already exists');
         }
 
-        $this->mkdir($path);
-        $dirs = [ 'assets', 'namespaces', 'packages', 'view'];
-
-        foreach($dirs as $dir)
-        {
-            $this->mkdir(Path::join($path, config('laradic.themes.paths.' . $dir)));
-        }
-
-        $this->files->copy(__DIR__ . '/../../resources/theme.php', $path . '/theme.php');
-        $this->info('');
-    }
-
-    protected function mkdir($path)
-    {
-        $this->files->makeDirectory($path, 0755, true);
+        $this->info('Successfully created theme');
     }
 
     public function getArguments()

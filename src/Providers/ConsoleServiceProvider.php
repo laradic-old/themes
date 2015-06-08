@@ -26,7 +26,8 @@ class ConsoleServiceProvider extends AggregateConsoleProvider {
     protected $commands = [
         'ThemePublish' => 'commands.themes.publish',
         'ThemePublishers' => 'commands.themes.publishers',
-        'ThemeMake' => 'commands.themes.make'
+        'ThemeMake' => 'commands.themes.make',
+        'ThemeInit' => 'commands.themes.init'
     ];
 
 }

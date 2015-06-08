@@ -1,12 +1,15 @@
-<?php
 
 use Illuminate\Contracts\Foundation\Application;
 use Laradic\Themes\Theme;
 
 return [
+    @if($parent)
+    'parent'   => '{{ $parent }}',
+    @else
     'parent'   => null,
-    'name'     => 'Default theme',
-    'slug'     => 'frontend/default',
+    @endif
+    'name'     => '{{ $name }}',
+    'slug'     => '{{ $slug }}',
     'version'  => '0.0.1',
     'register' => function (Application $app, Theme $theme)
     {
