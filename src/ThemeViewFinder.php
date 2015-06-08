@@ -10,7 +10,7 @@ namespace Laradic\Themes;
 use Illuminate\Support\NamespacedItemResolver;
 use Illuminate\View\FileViewFinder;
 use InvalidArgumentException;
-use Laradic\Themes\Contracts\ThemeFactory;
+use Laradic\Themes\Contracts\ThemeFactory as ThemeFactoryContract;
 use Laradic\Themes\Contracts\ThemeViewFinder as ThemeViewFinderContract;
 
 /**
@@ -102,7 +102,7 @@ class ThemeViewFinder extends FileViewFinder implements ThemeViewFinderContract
     }
 
     /** @inheritdoc */
-    public function setThemes(ThemeFactory $themes)
+    public function setThemes(ThemeFactoryContract $themes)
     {
         $this->themes = $themes;
 

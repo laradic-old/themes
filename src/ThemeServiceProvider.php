@@ -105,7 +105,7 @@ class ThemeServiceProvider extends ServiceProvider
     {
         $this->app->singleton('themes', function (Application $app)
         {
-            $themeFactory = new ThemeFactory($app, $app->make('files'), $app->make('events'));
+            $themeFactory = new ThemeFactory($app->make('files'), $app->make('events'));
             $themeFactory->setPaths(config('laradic.themes.paths'));
             $themeFactory->setThemeClass(config('laradic.themes.themeClass'));
             $themeFactory->setNavigation($app->make('navigation'));

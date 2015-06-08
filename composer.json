@@ -36,5 +36,10 @@
         "psr-4": {
             "Laradic\\Themes\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Laradic\\Tests\\Themes\\": "tests/"
+        }
     }
 }

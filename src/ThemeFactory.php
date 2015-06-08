@@ -75,12 +75,6 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
      */
     protected $dispatcher;
 
-    /**
-     * Laravel's application instance
-     *
-     * @var \Illuminate\Contracts\Foundation\Application
-     */
-    protected $app;
 
     /**
      * Filesystem paths to directories where themes are installed
@@ -126,9 +120,8 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
      * @param \Illuminate\Filesystem\Filesystem            $files
      * @param \Illuminate\Contracts\Events\Dispatcher      $events
      */
-    public function __construct(Application $app, Filesystem $files, Dispatcher $events)
+    public function __construct(Filesystem $files, Dispatcher $events)
     {
-        $this->app        = $app;
         $this->files      = $files;
         $this->dispatcher = $events;
     }
@@ -269,9 +262,10 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     public function addNamespace($name, $dirName)
     {
         $location = $this->getPath('namespaces') . '/' . $dirName;
-        $view     = $this->app->make('view');
-        $view->addLocation($location);
-        $view->addNamespace($name, $location);
+        //$view     = app('view');
+
+        app('view')->addLocation($location);
+        app('view')->addNamespace($name, $location);
 
         return $this;
     }
@@ -470,28 +464,6 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     //
     /* GETTERS AND SETTERS */
     //
-    /**
-     * getApplication
-     *
-     * @return \Illuminate\Contracts\Foundation\Application
-     */
-    public function getApplication()
-    {
-        return $this->app;
-    }
-
-    /**
-     * setApplication
-     *
-     * @param \Illuminate\Contracts\Foundation\Application $app
-     * @return $this
-     */
-    public function setApplication(Application $app)
-    {
-        $this->app = $app;
-
-        return $this;
-    }
 
     /**
      * Get the theme view finder instance

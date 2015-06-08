@@ -91,7 +91,7 @@ class Theme
 
         if ( isset($this->config['register']) && $this->config['register'] instanceof Closure )
         {
-            $this->config['register']($this->themes->getApplication(), $this);
+            $this->config['register'](app(), $this);
         }
     }
 
@@ -161,7 +161,7 @@ class Theme
 
         if ( isset($this->config['boot']) && $this->config['boot'] instanceof Closure )
         {
-            $this->config['boot']($this->themes->getApplication(), $this);
+            $this->config['boot'](app(), $this);
         }
 
 
