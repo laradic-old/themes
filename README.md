@@ -27,26 +27,40 @@ Version 0.2.0
 
 -----------
   
-<a name="overview"></a>
-### Overview <sub>[^](#top)</sub>
-- [Features](#top)
-- [Overview](#overview)
-- [Installation](#installation)
-- [First time usage guide](#first-time)
-- [Views/Themes](#viewsthemes-)
-- [Assets](#assets)
-- [The theme.php file](#assets)
-- [Navigation/Breadcrumbs](#navigation)
-- [Console Commands](#console)
-- [Todo](#todo)
-- [Copyright/license](#copyright)
+  
+### Overview
+ * [Overview](#overview)
+  * [Installation](#installation)
+        * [Composer](#composer)
+        * [Laravel](#laravel)
+      * [Configuration](#configuration)
+  * [First time usage guide and explenation](#first-time-usage-guide-and-explenation)
+    * [Inheritance system basics](#inheritance-system-basics)
+    * [Cascade system basics](#cascade-system-basics)
+      * [To create a namespace](#to-create-a-namespace)
+      * [To create package](#to-create-package)
+  * [Views/Themes](#viewsthemes)
+    * [Common methods overview](#common-methods-overview)
+      * [Themes (Facade =&gt; ThemeFactory)](#themes-facade--themefactory)
+      * [Theme (instance of a theme)](#theme-instance-of-a-theme)
+  * [Assets](#assets)
+      * [AssetGroup](#assetgroup)
+  * [The theme file](#the-theme-file)
+  * [Navigation/Breadcrumbs](#navigationbreadcrumbs)
+  * [Console Commands](#console-commands)
+        * [List publishers](#list-publishers)
+        * [Publish a theme](#publish-a-theme)
+        * [Creating a theme](#creating-a-theme)
+        * [Creating the initial theme structure (ment as example)](#creating-the-initial-theme-structure-ment-as-example)
+  * [Todo](#todo)
+  * [Copyright/License](#copyrightlicense)
+
   
 -----------
   
   
 
-<a name="installation"></a>
-### Installation  <sub>[^](#top)</sub>
+### Installation
 ###### Composer
 ```JSON
 "laradic/themes": "~0.2"
@@ -69,10 +83,9 @@ array(
 ```sh
 php artisan vendor:publish --tag="config"
 ```
+` <sub>[^](#top)</sub>`
 
-
-<a name="first-time"></a>
-### First time usage guide and explenation <sub>[^](#top)</sub>
+### First time usage guide and explenation
 
 Open up the `laradic.config.php` file. **For first time use**, just change the theme folder path to your desired location.
 ```php
@@ -147,7 +160,7 @@ View::make('foo/bar::subdir.otherhakker')
 
 **The same goes for assets**
 
-### Views/Themes <sub>[^](#top)</sub>
+### Views/Themes 
 
 The active and default theme can be set in the configuration by altering the `active` and `default` keys.  
 You can set the active theme on the fly by using `Theme::setActive('theme/slug')`.  
@@ -209,8 +222,8 @@ Check out the API documentation for the full list of methods.
 | `Theme::getCascadedPath()`    | string  | .. |
 
 
-<a name="assets"></a>
-### Assets <sub>[^](#top)</sub>
+
+### Assets
  
 The `Asset` **Facade** links to `AssetFactory`. It should not be confused with the `Asset` class that `Asset::make` returns, which actually holds asset data.
   
@@ -321,7 +334,7 @@ $group->getName(); // get the name of group ('base')
     
 ```
 
-### The theme.php file <sub>[^](#top)</sub>
+### The theme file
 Beside the obvious fields, the boot field is rather important.
 Use the **boot** field closure to register namespaces for your theme, define assets and asset groups, and other global stuff.
 ```php
@@ -357,11 +370,11 @@ return [
     }
 ];
 ```
-<a name="navigation"></a>
-### Navigation/Breadcrumbs <sub>[^](#top)</sub>
 
-<a name="console"></a>
-### Console Commands <sub>[^](#top)</sub>
+### Navigation/Breadcrumbs
+
+
+### Console Commands
 
 
 ###### List publishers
@@ -386,13 +399,13 @@ php artisan themes:init
 
 
 
-<a name="todo"></a>
-### Todo <sub>[^](#top)</sub>
+
+### Todo
 - [ ] Finishing Navigation & Breadcrumb helper
 - [ ] Proper documentation (not this README.md file)
 - [ ] Unit tests
   
   
-<a name="copyright"></a>
-### Copyright/License <sub>[^](#top)</sub>
+  
+### Copyright/License
 Copyright 2015 [Robin Radic](https://github.com/RobinRadic) - [MIT Licensed](http://radic.mit-license.org)
