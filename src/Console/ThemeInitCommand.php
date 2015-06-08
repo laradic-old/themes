@@ -33,7 +33,7 @@ class ThemeInitCommand extends Command
     public function fire()
     {
         $themes = [
-            ['example/default', 'Example Default Theme', null, 'admin.blade.php'],
+            ['example/default', 'Example Default Theme', null, 'layout.blade.php'],
             ['example/main', 'Example Main Theme', null, 'index.blade.php'],
             ['example/other', 'Example Other Theme', 'example/main', 'something.blade.php'],
             ['another-example/admin', 'Another Example Admin Theme', null, 'admin.blade.php']

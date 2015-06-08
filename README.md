@@ -1,4 +1,4 @@
-![Laravel logo](http://laravel.com/assets/img/laravel-logo.png)  Laradic Themes for Laravel 5
+<a name="top"></a>![Laravel logo](http://laravel.com/assets/img/laravel-logo.png)  Laradic Themes for Laravel 5
 ========================
 
 [![Build Status](https://img.shields.io/travis/laradic/themes.svg?branch=master&style=flat-square)](https://travis-ci.org/laradic/themes)
@@ -25,20 +25,28 @@ Version 0.2.0
 - **And so much more**...
   
 
-[**Check the documentation for all features and options**](http://docs.radic.nl/themes/)
-
-
-#### My other packages
-| Package | Description | |
-|----|----|----|
-| [radic/blade-extensions](https://github.com/radic/blade-extensions) | A collection of usefull Laravel blade extensions, like $loop data in foreach, view partials, etc | [doc](http://docs.radic.nl/blade-extensions) |
-| [laradic/extensions](https://github.com/laradic/extensions) | Modular and manageable approach to extending your app | [doc](http://docs.radic.nl/extensions) |
-| [laradic/config](https://github.com/laradic/config) | Laravel 5 Config exras like namespaces, saving to db/file. yaml/php array parser etc | [doc](http://docs.radic.nl/config) |
-| [laradic/docit](https://github.com/laradic/docit) | A documentation generator for your code, live preview [docs.radic.nl](http://docs.radic.nl/) | [doc](http://docs.radic.nl/docit) |
-| [laradic/themes](https://github.com/laradic/themes) | Laravel 5 theme package | [doc](http://docs.radic.nl/themes) |
- 
+-----------
   
-#### Installation  
+<a name="overview"></a>
+### Overview <sub>[^](#top)</sub>
+- [Features](#top)
+- [Overview](#overview)
+- [Installation](#installation)
+- [First time usage guide](#first-time)
+- [Views/Themes](#viewsthemes-)
+- [Assets](#assets)
+- [The theme.php file](#assets)
+- [Navigation/Breadcrumbs](#navigation)
+- [Console Commands](#console)
+- [Todo](#todo)
+- [Copyright/license](#copyright)
+  
+-----------
+  
+  
+
+<a name="installation"></a>
+### Installation  <sub>[^](#top)</sub>
 ###### Composer
 ```JSON
 "laradic/themes": "~0.2"
@@ -46,7 +54,7 @@ Version 0.2.0
 ###### Laravel
 Add the ThemesServiceProvider to your config.
 ```php
-'Laradic\Themes\ThemesServiceProvider'
+'Laradic\Themes\ThemeServiceProvider'
 ```
 
 Optionally, you can add any of the Facades below:
@@ -59,170 +67,179 @@ array(
 ```
 ##### Configuration
 ```sh
-php artisan vendor:publish laradic/themes --tag="config"
+php artisan vendor:publish --tag="config"
 ```
 
-```php
 
+<a name="first-time"></a>
+### First time usage guide and explenation <sub>[^](#top)</sub>
+
+Open up the `laradic.config.php` file. **For first time use**, just change the theme folder path to your desired location.
+```php
 return array(
-    /* debugging */
-    'debug'           => false, // if true, disables all minify, chache and concenation etc
-    /* paths */
-    'active'          => 'frontend/default',
-    'default'         => 'frontend/default',
-    /** @deprecated */
-    'fallback'        => null,
-    /* Class names */
-    'assetClass'      => '\\Laradic\\Themes\\Assets\\Asset',
-    'assetGroupClass' => '\\Laradic\\Themes\\Assets\\AssetGroup',
-    'themeClass'      => '\\Laradic\\Themes\\Theme',
+    // ...
     'paths'           => array(
         'themes'     => array(
-            public_path('themes'),
+            public_path('themes'), // change this to the desired location
             public_path()
         ),
-        // These paths are relative to the theme path defined above
-        'namespaces' => 'namespaces',
-        'packages'   => 'packages',
-        'views'      => 'views',    //default ex: public/themes/{area}/{theme}/views
-        'assets'     => 'assets',
-        // relative to public_path
-        'cache'      => 'cache'
-    ),
-    'assets' => array(
-        /* Assetic Filters that should be applied to all assets with the given extension
-           Note that adding global filters can also be done by using Asset::addGlobalFilter('css', 'FilterFQClassName....') */
-        'globalFilters' => array(
-            'css' => array('Laradic\Themes\Assets\Filters\UriRewriteFilter'),
-            'js' => array('Laradic\Themes\Assets\Filters\UriRewriteFilter'),
-            'scss' => array('Assetic\Filter\ScssphpFilter', 'Laradic\Themes\Assets\Filters\UriRewriteFilter')
-        )
+        // ...
     )
 );
 ```
-  
 
-#### Some examples
-These are just some basic operations, there's a lot more stuff you can do which is covered in the [**documentation**](http://docs.radic.nl/themes/).
-  
-By default, Laradic Themes will search your `public` folder for themes. 
-You can add paths in the config file or do it on the fly using `Themes::addPath('/path/to/dir')`.
-  
-###### Default theme folder structure
-```
-- public (as defined in config paths.themes)
-- - frontend
-- - - default
-- - - - packages
-- - - - - {vendor-name}
-- - - - - - {package-name}
-- - - - - - - assets
-- - - - - - - views
-- - - - namespaces
-- - - - - {namespace}
-- - - - - - assets
-- - - - - - views
-- - - - assets
-- - - - views
-- - - - theme.php
-- - - - composer.json
-```
-  
-###### theme.php
-A perfect place to define/manage your assets(groups)
-  
+Save it and run `php artisan themes:init`. This will generate a few folders and files matching the default config settings.
+It only serves as an example, showing the directory structure for a theme and theme view inheritance.
+
+Loading a view file is the same as normal.
 ```php
-
-use Illuminate\Contracts\Foundation\Application;
-use Laradic\Themes\Assets\AssetGroup;
-use Laradic\Themes\Theme;
-
-return [
-    'parent'   => null,
-    'name'     => 'Default theme',
-    'slug'     => 'backend/admin',
-    'version'  => '0.0.1',
-    'register' => function (Application $app, Theme $theme)
-    {
-    },
-    'boot'     => function (Application $app, Theme $theme)
-    {
-        Asset::addGlobalFilter('css', 'Laradic\Themes\Assets\Filters\UriRewriteFilter')
-            ->addGlobalFilter('js', 'Laradic\Themes\Assets\Filters\UriRewriteFilter')
-            ->addGlobalFilter('scss', 'Laradic\Themes\Assets\Filters\UriRewriteFilter')
-            ->addGlobalFilter('scss', 'Assetic\Filters\ScssphpFilter');
-            
-        Asset::group('base')
-            ->addFilter('ts', 'Some\Random\FilterClass')
-            ->add('jquery', 'scripts/plugins/jquery.js')
-            ->add('bootstrap', 'scripts/plugins/bootstrap.custom.js', ['jquery'])
-            ->add('bootstrap', 'scripts/plugins/bootstrap.custom.css')
-            ->add('bootbox', 'scripts/plugins/bootbox.js', ['jquery', 'bootstrap'])
-            ->add('bootbox3', 'scripts/plugins/bootbox.js', ['jquery', 'bootstrap', 'bootbox2'])
-            ->add('bootbox2', 'scripts/plugins/bootbox.js', ['jquery', 'bootstrap', 'bootbox1'])
-            ->add('bootbox1', 'scripts/plugins/bootbox.js', ['jquery', 'bootstrap', 'bootbox']);
-
-        Asset::group('red')->add('bootbox', 'scripts/plugins/bootbox.js');
-    }
-];
+// The active theme is 'example/main'.
+// It contains the index.blade.php file in the view folder.
+// Which can be loaded like:
+View::make('index');
 ```
 
-###### Loading theme views
-The active and default theme can be set in the configuration by altering the `active` and `default` keys.
-`View::make` will return the first found view using the following order:
+#### Inheritance system basics
 
-- public/{area}/{theme}/views/view-file.EXT 
-- (parent theme views folder)
-- resources/views/view-file.EXT
-- (default theme views folder)
-    
-You can set the active theme on the fly by using `Theme::setActive('theme/slug')`
-  
+**Load priority**
+[`Active Theme View Folder`]() **>** [`Parent Theme View Folder`(if set)]() **>** [`Default Theme View Folder`]() **>** [`Default Laravel View Folder`]()
+
+If you understand that, skip these points. Otherwise, more details about this:
+- If you open the `index.blade.php` file, you see it @extends layout.
+- If there was a `layout.blade.php` file in the same folder, it would use that one (duhh).
+- However, that's not the case right now. So the Theme manager will start looking in other theme directories if they have the file (with the same relative path).
+- It will first check the parent theme of 'example/main', defined in the theme.php file (or not, its optional).
+- If its not there either, it will check the default theme. Which in this case, has the layout.blade.php file.
+- If by any chance, the default folder doesn't have that file either, it will lastly check the standard Laravel view folder for that file.
+
+The same goes for loading Views, Assets, etc.
+
+#### Cascade system basics
+To put it simply, every theme can have "sub-themes". Inside a theme folder, you notice the `namespaces` and `packages` folder. 
+
+##### To create a namespace  
+For example: 
+- create the `lingo` folder inside the `namespaces` folder of the `example/main` theme. 
+- Inside that folder, create the `assets` and `views` folder.
+- Create a `myview.blade.php` inside the `view` folder
 ```php
-// public/{active/theme}/views/view-file.EXT
-$view = View::make('view-file');  
+View::make('lingo::myview')
+```
 
-// public/{area}/{theme}/namespaces/my-namespace/views/view-file.EXT
-$view = View::make('my-namespace::view-file'); 
+- Create a `subdir/otherview.blade.php` inside the `view` folder
+```php
+View::make('lingo::subdir.otherview')
+```
 
-// public/{area}/{theme}/packages/vendor-name/package-name/views/view-file.EXT
-$view = View::make('vendor-name/package-name::view-file'); 
+##### To create package
+A package need to be in 2 directories. 
+- So create the `foo/bar` folder inside the `packages` folder of the `example/main` theme.
+- Inside that folder, create the `assets` and `views` folder.
+- Create a `hakker.blade.php` inside the `view` folder
+```php
+View::make('foo/bar::hakker')
+```
 
-Themes::setActive('backend/admin');
-$view = View::make('view-file'); // -> public/backend/admin/views/view-file.EXT
+- Create a `subdir/otherhakker.blade.php` inside the `view` folder
+```php
+View::make('foo/bar::subdir.otherhakker')
+```
+
+**The same goes for assets**
+
+### Views/Themes <sub>[^](#top)</sub>
+
+The active and default theme can be set in the configuration by altering the `active` and `default` keys.  
+You can set the active theme on the fly by using `Theme::setActive('theme/slug')`.  
+You can set the default theme on the fly by using `Theme::setDefault('theme/slug')`.  
+
+```php
+// public/themes/{active/theme}/views/view-file.EXT
+$view = View::make("view-file");
+
+// public/themes/{active/theme}/namespaces/my-namespace/views/view-file.EXT
+$view = View::make("my-namespace::view-file");
+
+// public/themes/{active/theme}/packages/vendor-name/package-name/views/view-file.EXT
+$view = View::make("vendor-name/package-name::view-file");
+
+Themes::setActive("backend/admin");
+$view = View::make("view-file"); // -> public/backend/admin/views/view-file.EXT
 // etc
 ```
 
-###### Getting, setting and interacting with the themes
+#### Common methods overview
+Check out the API documentation for the full list of methods.
+
+##### Themes (Facade => ThemeFactory)
+ 
+| Function call | Return type | Description |
+|:--------------|:------------|:------------|
+| `Themes::setActive($theme)`   | self  | Set the active theme, `$theme` can be a Theme instance or the slug string of that theme |
+| `Themes::getActive()`         | Theme | Returns the active theme |
+| `Themes::setDefault($theme)`  | self  | Set the default theme, `$theme` can be a Theme instance or the slug string of that theme |
+| `Themes::getDefault()`        | Theme | Returns the default theme |
+| `Themes::resolveTheme($slug)` | Theme | Resolve a theme using it's slug. It will check all theme paths for the required theme. |
+| `Themes::all()`               | string[] | Returns all resolved theme slugs |
+| `Themes::get($slug)`          | Theme | Returns the theme instance if the theme is found |
+| `Themes::has($slug)`          | bool  | Check if a theme exists |
+| `Themes::count()`             | int   | Get the number of themes |
+| `Themes::addNamespace($name, $dirName)`      | self   | Add a namespace to the theme |
+| `Themes::getPath($type)`      | string   | Get a path for the type (assets, views, namespaces, packages) |
+
+
+##### Theme (instance of a theme)
+ 
+| Function call | Return type | Description |
+|:--------------|:------------|:------------|
+| `Theme::getConfig()`          | array  | The array from `theme.php` |
+| `Theme::getParentTheme()`     | Theme  | .. |
+| `Theme::getParentSlug()`      | string  | .. |
+| `Theme::hasParent()`          | bool  | .. |
+| `Theme::getSlug()`            | string  | .. |
+| `Theme::getSlugKey()`         | string  | .. |
+| `Theme::getSlugProvider()`    | string  | .. |
+| `Theme::getName()`            | string  | .. |
+| `Theme::isActive()`           | bool  | .. |
+| `Theme::isDefault()`          | bool  | .. |
+| `Theme::isBooted()`           | bool  | .. |
+| `Theme::boot()`               | void  | .. |
+| `Theme::getVersion()`         | SemVer  | .. |
+| `Theme::getPath()`            | string  | .. |
+| `Theme::getCascadedPath()`    | string  | .. |
+
+
+<a name="assets"></a>
+### Assets <sub>[^](#top)</sub>
+ 
+The `Asset` **Facade** links to `AssetFactory`. It should not be confused with the `Asset` class that `Asset::make` returns, which actually holds asset data.
   
+**Note** `$path` is the same as with Views (namespaces, packages, etc)
+
+| Function call | Return type | Description |
+|:--------------|:------------|:------------|
+| `Asset::make($path);` | [`Asset<FileAsset>`](blob/master/Assets/Asset.php) | Returns the asset instance |
+| `Asset::url($path);` | string | Returns the asset URL |
+| `Asset::uri($path);` | string | Returns the asset uri |
+| `Asset::script($path, array $attr = [ ], $secure = false));` | string | Renders the asset in a `<script src="">` tag |
+| `Asset::style($path, array $attr = [ ], $secure = false));` | string | Renders the asset in a `<link ..>` tag |
+| `Asset::group($name);` | [`AssetGroup`](blob/master/Assets/AssetGroup.php) | Returns an AssetGroup, more details below |
+| `Asset::addGlobalFilter($extension, $callback);` | void | Add global `Assetic` filter, to be applied on all assets with matching extension |
+| `Asset::setCachePath($path);` | string | Returns the filesystem path to the asset file |
+| `Asset::getCachePath();` | string | Returns the filesystem path to the asset file |
+| `Asset::deleteAllCached();` | string | Returns the filesystem path to the asset file |
+| `Asset::setAssetClass("Full\Class\Name");` | string | Returns the filesystem path to the asset file |
+| `Asset::setAssetGroupClass("Full\Class\Name");` | string | Returns the filesystem path to the asset file |
+
+
+##### AssetGroup
+Is used to group assets. Has several features you could use:
+- Depencency management
+- Minifaction & concenation
+- Caching
+
 ```php
-// Getting themes
-$theme  = Themes::getActive(); // -> returns instance of Theme
-$theme  = Themes::getDefault();
-$exists = Theme::has('backend/admin'); // -> returns bool
-$theme  = Themes::get('backend/admin');
-$themeSlugs = Themes::all(); // -> returns array with theme slugs eg: ['frontend/default', 'backend/admin']
-
-// Theme methods
-$theme->getName();
-$theme->getSlug();
-$theme->hasParent();
-$theme->getParentTheme();
-$theme->getParentSlug();
-$theme->getConfig();
-
-
-// To distribute themes in namespaces/packages using themes:publish 
-// you can use the following methods (usually in a service provider of a seperate package)
-Themes::addNamespace('');
-Themes::addNamespacePublisher('');
-Themes::addPackagePublisher('');
-
-
-// Assets
-Asset::addGlobalFilter('css', 'Laradic\Themes\Assets\Filters\UriRewriteFilter')
-    ->addGlobalFilter('js', 'Laradic\Themes\Assets\Filters\UriRewriteFilter');
-
+// I would advice to do this in theme.php its boot closure!
 Asset::group('base')
     ->add('jquery', 'plugins/jquery/dist/jquery.min.js')
     ->add('bootstrap', 'plugins/bootstrap/dist/js/bootstrap.min.js', [ 'jquery' ])
@@ -232,43 +249,150 @@ Asset::group('base')
     ->add('modernizr', 'plugins/modernizr/modernizr.js')
     ->add('moment', 'plugins/moment/moment.js')
     ->add('highlightjs', 'plugins/highlightjs/highlight.pack.js')
-    ->add('highlightjs', 'plugins/highlightjs/styles/zenburn.css');
+    ->add('highlightjs', 'plugins/highlightjs/styles/zenburn.css')
+    ->add('sassStyle', 'sassStyle.scss');
 
 Asset::group('ie9')
     ->add('respond', 'plugins/respond/dest/respond.min.js')
     ->add('html5shiv', 'plugins/html5shiv/dist/html5shiv.js');
     
-{!! Asset::group('base')->add('style', 'style.css')->render('styles') !!}
+// And continue somewhere else 
+Asset::group('base')
+    ->add('name', 'path');
+    
+    
+// Other functions
+$group = Asset::group('base');
 
-<!--[if lt IE 9]>
-{!! Asset::group('ie9')->render('scripts') !!}
-<![endif]-->
-{!! Asset::group('base')->render('scripts') !!}
+$group->addFilter('scss', 'Assetic\Filters\ScssphpFilter')
+$group->render($type, $combine = true); // type can be either: 'scripts' or 'styles'
+$group->getFilters($fileExtension);
+$group->get($type, $handle); // $handle is the name of the asset, which u entered as first parameter with add()
+$group->getSorted($type); // get all assets of $type sorted by dependency
+$group->getAssets($type); // get all assets of $type
+$group->getName(); // get the name of group ('base')
+```
 
 
-{!! Asset::script('something::bootbox/bootbox.js') !!}
-<!--
-Get the URL
-{!! Asset::url('something::bootbox/bootbox.js') !!}
+```php
+// then in the view files you could do
+<html>
+<head>
+    <link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
+    {!! Asset::group('base')->add('style', 'style.css')->render('styles') !!}
 
-Get the URI
-{!! Asset::uri('something::bootbox/bootbox.js') !!}
+</head>
+<body>
+		<div class="container">
+			<div class="content">
+                <div class="info">
+                    Using theme: {{ Themes::getActive()->getName() }}.
+                    @if(Themes::getActive()->hasParent())
+                        Using parent theme: {{ Themes::getActive()->getParentTheme()->getName() }}
+                    @endif
+                </div>
+				<div class="title">
+                    @section('content')
+                        The layout
+                    @show
+                </div>
+			</div>
+		</div>
 
-Dump the content
-{!! Asset::make('bootbox', 'something::bootbox/bootbox.js')->dump() !!}
+    <!--[if lt IE 9]>
+    {!! Asset::group('ie9')->render('scripts') !!}
+    <![endif]-->
+    {!! Asset::group('base')->render('scripts') !!}
+    {!! Asset::script('something::bootbox/bootbox.js') !!}
+    
+    <!-- Get the URL -->
+    {!! Asset::url('something::bootbox/bootbox.js') !!}
 
-Dump some scss converted to css
-@if(class_exists('Leafo\ScssPhp\Compiler'))
-{!! Asset::make('sassStyle', 'sassStyle.scss')->dump() !!}
+    <!-- Get the URI -->
+    {!! Asset::uri('something::bootbox/bootbox.js') !!}
+
+    <!-- Dump the content -->
+    Asset::make('bootbox', 'something::bootbox/bootbox.js')->dump()
+
+    <!-- Dump some scss converted to css -->
+    {!! Asset::make('sassStyle', 'sassStyle.scss')->dump() !!}
+</body>
+</html>
+    
+```
+
+### The theme.php file <sub>[^](#top)</sub>
+Beside the obvious fields, the boot field is rather important.
+Use the **boot** field closure to register namespaces for your theme, define assets and asset groups, and other global stuff.
+```php
+use Illuminate\Contracts\Foundation\Application;
+use Laradic\Themes\Theme;
+
+return [
+    'parent'   => null,
+    'name'     => 'Example theme',
+    'slug'     => 'example/theme',
+    'version'  => '0.0.1',
+    'register' => function (Application $app, Theme $theme)
+    {
+    },
+    'boot'     => function (Application $app, Theme $theme)
+    {
+        Themes::addNamespace('something', 'something');
+        
+        Asset::group('base')
+            ->add('jquery', 'plugins/jquery/dist/jquery.min.js')
+            ->add('bootstrap', 'plugins/bootstrap/dist/js/bootstrap.min.js', [ 'jquery' ])
+            ->add('bootstrap', 'plugins/bootstrap/dist/css/bootstrap.min.css')
+            ->add('bootbox', 'something::bootbox/bootbox.js', [ 'jquery', 'bootstrap' ])
+            ->add('slimscroll', 'plugins/jquery-slimscroll/jquery.slimscroll.js', [ 'jquery' ])
+            ->add('modernizr', 'plugins/modernizr/modernizr.js')
+            ->add('moment', 'plugins/moment/moment.js')
+            ->add('highlightjs', 'plugins/highlightjs/highlight.pack.js')
+            ->add('highlightjs', 'plugins/highlightjs/styles/zenburn.css');
+
+        Asset::group('ie9')
+            ->add('respond', 'plugins/respond/dest/respond.min.js')
+            ->add('html5shiv', 'plugins/html5shiv/dist/html5shiv.js');
+    }
+];
+```
+<a name="navigation"></a>
+### Navigation/Breadcrumbs <sub>[^](#top)</sub>
+
+<a name="console"></a>
+### Console Commands <sub>[^](#top)</sub>
+
+
+###### List publishers
+```sh
+php artisan themes:publishers
 ```
   
-###### Console commands
+###### Publish a theme 
 ```sh
-php artisan themes:publishers ## List all available publishers
 php artisan themes:publish <publisher>
 ```
   
-And much, much more.. Check out the [**documentation**](http://docs.radic.nl/themes/).
+###### Creating a theme
+```sh
+php artisan themes:create <theme/slug> [path]
+```
+  
+###### Creating the initial theme structure (ment as example)
+```sh
+php artisan themes:init
+```
 
-### Copyright/License
+
+
+<a name="todo"></a>
+### Todo <sub>[^](#top)</sub>
+- [ ] Finishing Navigation & Breadcrumb helper
+- [ ] Proper documentation (not this README.md file)
+- [ ] Unit tests
+  
+  
+<a name="copyright"></a>
+### Copyright/License <sub>[^](#top)</sub>
 Copyright 2015 [Robin Radic](https://github.com/RobinRadic) - [MIT Licensed](http://radic.mit-license.org)

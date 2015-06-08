@@ -48,6 +48,7 @@ class ThemeGenerator extends StubGenerator
             $to = Path::join($path, config('laradic.themes.paths.views'),$viewFile);
             #VarDumper::dump(compact('from', 'to'));
             $this->files->copy($from, $to);
+
         }
 
         return true;
