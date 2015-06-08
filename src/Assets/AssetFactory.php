@@ -7,18 +7,17 @@
  */
 namespace Laradic\Themes\Assets;
 
-use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\Routing\UrlGenerator;
-use Illuminate\Filesystem\Filesystem;
+use File;
+use HTML;
 use Illuminate\Support\NamespacedItemResolver;
-use Illuminate\View\Factory as ViewFactory;
+use Laradic\Support\String;
 use Laradic\Themes\Contracts\AssetFactory as AssetFactoryContract;
 use Laradic\Themes\Contracts\ThemeFactory;
-use Stringy\Stringy;
+use URL;
+use View;
 
 /**
- * This is the AssetFactory class.
+ * This is the AssetFactory.
  *
  * @package        Laradic\Themes
  * @version        1.0.0
@@ -30,13 +29,15 @@ use Stringy\Stringy;
 class AssetFactory implements AssetFactoryContract
 {
 
-    /** @var \Laradic\Themes\ThemeFactory */
+    /**
+     * @var \Laradic\Themes\ThemeFactory
+     */
     protected $themes;
 
     /**
      * @var string
      */
-    protected $cacheDir;
+    protected $cachePath;
 
     /** @var string */
     protected $assetClass;
@@ -49,34 +50,48 @@ class AssetFactory implements AssetFactoryContract
      */
     protected $assetGroups = [ ];
 
+    protected $globalFilters = [ ];
 
-    /**
-     * @param ThemeFactory                               $themes
-     * @param \Illuminate\Contracts\Routing\UrlGenerator $urlGenerator
-     * @param \Illuminate\Filesystem\Filesystem          $files
-     * @param \Illuminate\View\Factory                   $view
-     * @internal param \Illuminate\Contracts\Foundation\Application $app
-     * @internal param \Laradic\Themes\Contracts\ThemeViewFinder $viewFinder
-     * @internal param \Illuminate\Contracts\View\Factory $view
-     * @internal param \Illuminate\Contracts\Container\Container $container
+
+    /** Instantiates the class
+     *
+     * @param \Laradic\Themes\Contracts\ThemeFactory $themes
      */
     public function __construct(ThemeFactory $themes)
     {
-        /** @var \Laradic\Themes\ThemeFactory $themes */
-
-        $this->themes = $themes;
-
+        $this->themes          = $themes;
         $this->assetClass      = config('laradic/themes::assetClass');
         $this->assetGroupClass = config('laradic/themes::assetGroupClass');
-        $this->cacheDir        = config('laradic/themes::paths.cache');
+        $this->cachePath       = public_path(config('laradic/themes::paths.cache'));
 
-        $themes->setAssets($this);
+        foreach ( config('laradic/themes::assets.globalFilters') as $extension => $filters )
+        {
+            foreach ( $filters as $filter )
+            {
+                $this->addGlobalFilter($extension, $filter);
+            }
+        }
     }
 
-    /** @return Asset */
-    public function make($assetPath)
+    /**
+     * Create a single Asset
+     *
+     * @param string $handle       The ID/key for this asset
+     * @param string $path         File location path
+     * @param array  $dependencies Optional dependencies
+     * @return \Laradic\Themes\Assets\Asset
+     */
+    public function make($handle, $path, array $dependencies = [ ])
     {
-        return new $this->assetClass($this, $assetPath);
+        /** @var Asset $asset */
+        $asset   = new $this->assetClass($handle, $this->getPath($path), $dependencies);
+        $filters = $this->getGlobalFilters($asset->getExt());
+        foreach ( $filters as $filter )
+        {
+            $asset->ensureFilter($filter);
+        }
+
+        return $asset;
     }
 
     /**
@@ -87,7 +102,7 @@ class AssetFactory implements AssetFactoryContract
      */
     public function url($assetPath = '')
     {
-        return $this->make($assetPath)->url();
+        return $this->toUrl($this->getPath($assetPath));
     }
 
     /**
@@ -98,33 +113,66 @@ class AssetFactory implements AssetFactoryContract
      */
     public function uri($assetPath = '')
     {
-        return $this->make($assetPath)->uri();
-    }
-
-    /**
-     * style
-     *
-     * @param string $assetPath
-     * @param array  $attributes
-     * @param bool   $secure
-     * @return string
-     */
-    public function style($assetPath = "", array $attributes = [ ], $secure = false)
-    {
-        return $this->make($assetPath)->style($attributes, $secure);
+        return $this->relativePath($this->getPath($assetPath));
     }
 
     /**
      * script
      *
      * @param string $assetPath
-     * @param array  $attributes
+     * @param array  $attr
      * @param bool   $secure
      * @return string
      */
-    public function script($assetPath = "", array $attributes = [ ], $secure = false)
+    public function script($assetPath = '', array $attr = [ ], $secure = false)
     {
-        return $this->make($assetPath)->script($attributes, $secure);
+        return HTML::script($this->url($assetPath), $attr, $secure);
+    }
+
+    /**
+     * style
+     *
+     * @param string $assetPath
+     * @param array  $attr
+     * @param bool   $secure
+     * @return string
+     */
+    public function style($assetPath = '', array $attr = [ ], $secure = false)
+    {
+        return HTML::style($this->url($assetPath), $attr, $secure);
+    }
+
+    public function addGlobalFilter($extension, $callback)
+    {
+        if ( is_string($callback) )
+        {
+            $callback = function () use ($callback)
+            {
+                return new $callback;
+            };
+        }
+        elseif ( ! $callback instanceof \Closure )
+        {
+            throw new \InvalidArgumentException('Callback is not a closure or reference string.');
+        }
+        $this->globalFilters[ $extension ][ ] = $callback;
+
+        return $this;
+    }
+
+    public function getGlobalFilters($extension)
+    {
+        $filters = array();
+        if ( ! isset($this->globalFilters[ $extension ]) )
+        {
+            return array();
+        }
+        foreach ( $this->globalFilters[ $extension ] as $cb )
+        {
+            $filters[ ] = $cb();
+        }
+
+        return $filters;
     }
 
     /**
@@ -148,6 +196,92 @@ class AssetFactory implements AssetFactoryContract
         }
     }
 
+    /**
+     * getPath
+     *
+     * @param null $key
+     * @return string
+     */
+    public function getPath($key = null)
+    {
+        list($section, $relativePath, $extension) = with(new NamespacedItemResolver)->parseKey($key);
+
+        if ( $key === null )
+        {
+            return $this->toUrl($this->themes->getActive()->getPath('assets'));
+        }
+
+        if ( $relativePath === null or strlen($relativePath) === 0 )
+        {
+            if ( array_key_exists($section, View::getFinder()->getHints()) )
+            {
+                return $this->toUrl($this->themes->getActive()->getCascadedPath('namespaces', $section, 'assets'));
+            }
+
+            return $this->toUrl($this->themes->getActive()->getCascadedPath('packages', $section, 'assets'));
+        }
+
+        if ( isset($section) )
+        {
+            if ( array_key_exists($section, View::getFinder()->getHints()) )
+            {
+                $paths = $this->themes->getCascadedPaths('namespaces', $section, 'assets');
+            }
+            else
+            {
+                $paths = $this->themes->getCascadedPaths('packages', $section, 'assets');
+            }
+        }
+        else
+        {
+            $paths = $this->themes->getCascadedPaths(null, null, 'assets');
+        }
+
+        foreach ( $paths as $path )
+        {
+            $file = rtrim($path, '/') . '/' . $relativePath . '.' . $extension;
+
+            if ( File::exists($file) )
+            {
+                return $file;
+            }
+        }
+
+        return $file;
+    }
+
+    /**
+     * relativePath
+     *
+     * @param $path
+     * @return string
+     */
+    protected function relativePath($path)
+    {
+        $path = String::create($path)->removeLeft(public_path());
+        if ( $path->endsWith('.') )
+        {
+            $path = $path->removeRight('.');
+        }
+
+        return (string)$path;
+    }
+
+    /**
+     * toUrl
+     *
+     * @param $path
+     * @return string
+     */
+    protected function toUrl($path)
+    {
+        if ( String::startsWith($path, public_path()) )
+        {
+            $path = $this->relativePath($path);
+        }
+
+        return URL::to($path);
+    }
 
 
     //
@@ -174,19 +308,10 @@ class AssetFactory implements AssetFactoryContract
      *
      * @return mixed
      */
-    public function getCacheDir()
+    public function getCachePath()
     {
-        return $this->cacheDir;
+        return $this->cachePath;
     }
 
-    /**
-     * get assetGroups value
-     *
-     * @return AssetGroup[]
-     */
-    public function getAssetGroups()
-    {
-        return $this->assetGroups;
-    }
 
 }

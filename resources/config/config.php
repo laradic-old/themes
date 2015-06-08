@@ -2,7 +2,7 @@
 
 return array(
     /* debugging */
-    'debug'           => true, // if true, disables all minify, chache and concenation etc
+    'debug'           => false, // if true, disables all minify, chache and concenation etc
     /* paths */
     'active'          => 'frontend/default',
     'default'         => 'frontend/default',
@@ -24,5 +24,14 @@ return array(
         'assets'     => 'assets',
         // relative to public_path
         'cache'      => 'cache'
+    ),
+    'assets' => array(
+        /* Assetic Filters that should be applied to all assets with the given extension
+           Note that adding global filters can also be done by using Asset::addGlobalFilter('css', 'FilterFQClassName....') */
+        'globalFilters' => array(
+            'css' => array('Laradic\Themes\Assets\Filters\UriRewriteFilter'),
+            'js' => array('Laradic\Themes\Assets\Filters\UriRewriteFilter'),
+            'scss' => array('Assetic\Filter\ScssphpFilter', 'Laradic\Themes\Assets\Filters\UriRewriteFilter')
+        )
     )
 );

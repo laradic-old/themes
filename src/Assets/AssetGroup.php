@@ -7,10 +7,13 @@
  */
 namespace Laradic\Themes\Assets;
 
+
+use Closure;
 use File;
+use HTML;
+use InvalidArgumentException;
 use Laradic\Support\Sorter;
 use Laradic\Support\String;
-use Laradic\Themes\Contracts\AssetFactory as AssetFactoryContract;
 use MatthiasMullie\Minify;
 
 /**
@@ -41,111 +44,215 @@ class AssetGroup
 
     protected $debug;
 
-    public function __construct(AssetFactoryContract $factory, $name)
+    protected $filters = [ ];
+
+    public function __construct(AssetFactory $factory, $name)
     {
-        $this->name    = $name;
-        $this->factory = $factory;
-        $this->debug   = config('laradic/themes::debug');
+        $this->name       = $name;
+        $this->factory    = $factory;
+        $this->debug      = config('laradic/themes::debug');
+        $this->collection = new AssetCollection();
     }
 
-    public function add($name, $cascadedPath, $depends = [ ])
+    public function add($handle, $path = null, array $dependencies = [ ])
     {
-        $asset = $this->factory->make($cascadedPath);
-        $type  = $asset->getType();
 
-        $this->{"{$type}s"}[ $name ] = [
-            'name'    => $name,
+        if ( $handle instanceof Asset )
+        {
+            $asset  = $handle;
+            $handle = $asset->getHandle();
+        }
+        elseif ( ! is_null($path) )
+        {
+            $asset = $this->factory->make($handle, $path);
+
+        }
+        else
+        {
+            throw new \InvalidArgumentException("Parameter path was null: $path");
+        }
+
+
+
+
+        $type = $this->resolveType($asset->getExt());
+
+        if(count($dependencies) > 0 and false == true)
+        {
+            $_deps = [ ];
+            foreach ( $dependencies as $dep )
+            {
+                if ( isset($this->{"{$type}s"}[ $dep ]) )
+                {
+                    $_deps [ ] = $this->{"{$type}s"}[ $dep ][ 'asset' ];
+                }
+            }
+            $asset->setDependencies($dependencies);
+        }
+        $asset->setDependencies($dependencies);
+        $this->{"{$type}s"}[ $handle ] = [
+            'handle'  => $handle,
             'asset'   => $asset,
             'type'    => $type,
-            'depends' => $depends
+            'depends' => $dependencies
         ];
+
+        #$this->collection->add($asset);
 
         return $this;
     }
 
-    public function get($type, $name)
+    /**
+     * resolveType
+     *
+     * @param $ext
+     * @return string
+     */
+    protected function resolveType($ext)
     {
-        return $this->{"{$type}s"}[ $name ];
+        $style  = [ 'css', 'scss', 'sass', 'less' ];
+        $script = [ 'js', 'ts', 'cs' ];
+
+        if ( in_array($ext, $style) )
+        {
+            return 'style';
+        }
+        if ( in_array($ext, $script) )
+        {
+            return 'script';
+        }
+
+        return 'other';
     }
 
-    public function render($type, $debug = null)
-    {
-        if ( is_null($debug) )
-        {
-            $debug = $this->debug;
-        }
 
-        return $debug ? $this->renderPlain($type) : $this->renderCombinedMinified($type);
+    public function addFilter($extension, $callback)
+    {
+        if ( is_string($callback) )
+        {
+            $callback = function () use ($callback)
+            {
+                return new $callback;
+            };
+        }
+        elseif ( ! $callback instanceof Closure )
+        {
+            throw new InvalidArgumentException('Callback is not a closure or reference string.');
+        }
+        $this->filters[ $extension ][ ] = $callback;
+        return $this;
     }
 
-    protected function renderPlain($type)
+    public function getFilters($extension)
     {
-        $assets = [ ];
-        foreach ( $this->getSorted($type) as $asset )
+        $filters = array();
+        if ( ! isset($this->filters[ $extension ]) )
         {
-            $assets[ ] = $type === 'styles' ? '<link href="' . $asset->url() . '" type="text/css" rel="stylesheet">' : '<script type="text/javascript" src="' . $asset->url() . '"></script>';
+            return array();
+        }
+        foreach ( $this->filters[ $extension ] as $cb )
+        {
+            $filters[ ] = new $cb();
         }
 
-        return implode("\n", $assets);
+        return $filters;
     }
 
-    protected function renderCombinedMinified($type)
+    public function render($type, $combine = true)
     {
-        $minifier = null;
-        if ( $type === 'scripts' )
+        $assets = $this->getSorted($type);
+        $assets = $combine ? new AssetCollection($assets) : $assets;
+
+        foreach ( ($combine ? $assets->all() : $assets) as $asset )
         {
-            $minifier = new Minify\JS();
+            if ( ! $asset instanceof Asset )
+            {
+                continue;
+            }
+            foreach ( $this->getFilters($asset->getExt()) as $filter )
+            {
+                $asset->ensureFilter($filter);
+            }
         }
-        elseif ( $type === 'styles' )
+        if ( $combine )
         {
-            $minifier = new Minify\CSS();
-        }
-        else
-        {
-            throw new \Exception('Invalid asset group render type specified');
+            $assets = array( $assets );
         }
 
-        $lastModified = '';
-        foreach ( $this->getSorted($type) as $asset )
+        $urls = [];
+        $cachePath = $this->factory->getCachePath();
+        $cachedAssets = \File::files($this->factory->getCachePath());
+        $theme = $this->factory->getThemes()->getActive();
+        $renderExt = $type === 'styles' ? 'css' : 'js';
+
+        foreach ($assets as $asset)
         {
-            $lastModified .= (string)File::lastModified($asset->path());
-            $minifier->add($asset->path());
+
+            $filename = String::replace($theme->getSlug(), '/', '.') . '.' . $asset->getHandle() . '.' . md5($asset->getCacheKey()) . '.' . $renderExt;
+            $path = $cachePath.'/'.$filename;
+            if (! File::exists($path))
+            {
+                $asset->load();
+                preg_match('/.*_/', $filename, $pattern);
+                $pattern = head($pattern);
+                foreach ($cachedAssets as $cachedAsset)
+                {
+                    if (strpos($cachedAsset, $pattern) !== false)
+                    {
+                        //File::delete($cachedAsset);
+                    }
+                }
+                File::put($path, $asset->dump());
+            }
+            $urls[] = String::removeLeft($path, public_path());
         }
 
-        $fileName = md5($lastModified);
-        $webPath  = $this->factory->getCacheDir() . '/' . $fileName . ($type === 'scripts' ? '.js' : '.css');
-        $filePath = public_path($webPath);
-        if ( ! File::exists($filePath) )
+        $htmlTags = '';
+        foreach($urls as $url)
         {
-            File::put($filePath, $minifier->minify());
+            $htmlTags .= $type === 'scripts' ? HTML::script($url) : HTML::style($url);
         }
+        return $htmlTags;
+    }
 
-        return $type === 'scripts' ? \HTML::script($webPath) : \HTML::style($webPath);
+    public function get($type, $handle)
+    {
+        return $this->{"{$type}s"}[ $handle ];
     }
 
     /**
      * getSorted
      *
-     * @param $type
+     * @param string $type 'scripts' or 'styles'
      * @return Asset[]
      */
-    protected function getSorted($type)
+    public function getSorted($type)
     {
         $sorter = new Sorter();
-        foreach ( $this->{"{$type}"} as $name => $asset )
+        foreach ( $this->{"{$type}"} as $handle => $assetData )
         {
-            $sorter->addItem($name, $asset[ 'depends' ]);
+            $sorter->addItem($assetData['asset']);
         }
 
         $assets = [ ];
-        foreach ( $sorter->sort() as $name )
+        foreach ( $sorter->sort() as $handle )
         {
-            $assets[ ] = $this->get(String::singular($type), $name)[ 'asset' ];
+            $assets[ ] = $this->get(String::singular($type), $handle)[ 'asset' ];
         }
 
         return $assets;
     }
 
+    /**
+     * getAssets
+     *
+     * @param string $type 'scripts' or 'styles'
+     * @return mixed
+     */
+    public function getAssets($type)
+    {
+        return $this->{"{$type}"};
+    }
 
     /**
      * Get the value of name

@@ -7,17 +7,13 @@
  */
 namespace Laradic\Themes\Assets;
 
-use Illuminate\Support\NamespacedItemResolver;
-use Laradic\Support\String;
-use Laradic\Themes\Contracts\AssetFactory as AssetFactoryContract;
-use File;
-use HTML;
-use Themes;
-use URL;
-use View;
+use Assetic\Asset\FileAsset;
+use Assetic\Filter\FilterInterface;
+use Assetic\Filter\HashableInterface;
+use Laradic\Support\Contracts\Dependable;
 
 /**
- * This is the Asset class.
+ * This is the Asset.
  *
  * @package        Laradic\Themes
  * @version        1.0.0
@@ -26,99 +22,27 @@ use View;
  * @copyright      2015, Robin Radic
  * @link           https://github.com/robinradic
  */
-class Asset
+class Asset extends FileAsset implements Dependable
 {
-
-    /** @var string */
-    protected $assetPath;
-
-    /** @var \Laradic\Themes\Assets\AssetFactory */
-    protected $factory;
-
-    /**
-     * @var string
-     */
-    protected $type;
-
-    /**
-     * @var
-     */
+    protected $handle;
+    protected $dependencies;
     protected $ext;
-
-    /**
-     * @param \Laradic\Themes\Contracts\AssetFactory $factory
-     * @param                                        $assetPath
-     */
-    public function __construct(AssetFactoryContract $factory, $assetPath)
-    {
-        $this->factory   = $factory;
-        $this->assetPath = $this->getPath($assetPath);
-        $this->ext       = $this->resolveExtension($assetPath);
-        $this->type      = $this->resolveType($this->ext);
-    }
-
-    /**
-     * path
+    /** Instantiates the class
      *
-     * @return string
+     * @param string $path
+     * @param array  $name
+     * @param array  $dependencies
+     * @internal param array $filters
+     * @internal param null $sourceRoot
+     * @internal param null $sourcePath
+     * @internal param array $vars
      */
-    public function path()
+    public function __construct($handle, $path, array $dependencies = [])
     {
-        return $this->assetPath;
-    }
 
-    /**
-     * url
-     *
-     * @return string
-     */
-    public function url()
-    {
-        return $this->toUrl($this->assetPath);
-    }
-
-    /**
-     * uri
-     *
-     * @return string
-     */
-    public function uri()
-    {
-        return $this->relativePath($this->assetPath);
-    }
-
-    /**
-     * script
-     *
-     * @param array $attr
-     * @param bool  $secure
-     * @return string
-     */
-    public function script($attr = [ ], $secure = false)
-    {
-        return HTML::script($this->url(), $attr, $secure);
-    }
-
-    /**
-     * style
-     *
-     * @param array $attr
-     * @param bool  $secure
-     * @return string
-     */
-    public function style($attr = [ ], $secure = false)
-    {
-        return HTML::style($this->url(), $attr, $secure);
-    }
-
-    /**
-     * Get the value of type
-     *
-     * @return mixed
-     */
-    public function getType()
-    {
-        return $this->type;
+        parent::__construct($path);
+        $this->handle = $handle;
+        $this->dependencies = $dependencies;
     }
 
     /**
@@ -128,131 +52,57 @@ class Asset
      */
     public function getExt()
     {
-        return $this->ext;
-    }
-
-    /**
-     * resolveExtension
-     *
-     * @param $path
-     * @return mixed
-     */
-    protected function resolveExtension($path)
-    {
-        $arr = preg_split('/\./', $path);
-
-        return end($arr);
-    }
-
-    /**
-     * resolveType
-     *
-     * @param $ext
-     * @return string
-     */
-    protected function resolveType($ext)
-    {
-        $style  = [ 'css', 'scss', 'sass', 'less' ];
-        $script = [ 'js', 'ts', 'cs' ];
-
-        if ( in_array($ext, $style) )
-        {
-            return 'style';
-        }
-        if ( in_array($ext, $script) )
-        {
-            return 'script';
-        }
-
-        return 'other';
+        return pathinfo($this->getSourcePath(), PATHINFO_EXTENSION);
     }
 
 
     /**
-     * relativePath
+     * get dependencies
      *
-     * @param $path
-     * @return string
+     * @return array
      */
-    public function relativePath($path)
+    public function getDependencies()
     {
-        $path = String::create($path)->removeLeft(public_path());
-        if ( $path->endsWith('.') )
-        {
-            $path = $path->removeRight('.');
-        }
+        return $this->dependencies;
+    }
 
-        return (string)$path;
+    public function setDependencies(array $dependencies)
+    {
+        $this->dependencies = $dependencies;
     }
 
     /**
-     * toUrl
+     * get item key/identifier
      *
-     * @param $path
-     * @return string
+     * @return string|mixed
      */
-    public function toUrl($path)
+    public function getHandle()
     {
-        if ( String::create($path)->startsWith(public_path()) )
-        {
-            $path = $this->relativePath($path);
-        }
+        return $this->handle;
+    }
 
-        return URL::to($path);
+    public function getCacheKey()
+    {
+        $key = $this->handle . $this->getSourcePath();
+        foreach($this->getFilters() as $filter)
+        {
+            $key .= $filter instanceof HashableInterface ? $filter->hash() : serialize($filter);
+        }
+        return $key;
     }
 
 
-    /**
-     * getPath
-     *
-     * @param null $key
-     * @return string
-     */
-    public function getPath($key = null)
+
+    public function load(FilterInterface $additionalFilter = null)
     {
-        list($section, $relativePath, $extension) = with(new NamespacedItemResolver)->parseKey($key);
+        parent::load($additionalFilter);
+        return $this;
+    }
 
-        if ( $key === null )
-        {
-            return $this->toUrl(Themes::getActive()->getPath('assets'));
-        }
 
-        if ( $relativePath === null or strlen($relativePath) === 0 )
-        {
-            if ( array_key_exists($section, View::getFinder()->getHints()) )
-            {
-                return $this->toUrl(Themes::getActive()->getCascadedPath('namespaces', $section, 'assets'));
-            }
-
-            return $this->toUrl(Themes::getActive()->getCascadedPath('packages', $section, 'assets'));
-        }
-
-        if ( isset($section) )
-        {
-            if ( array_key_exists($section, View::getFinder()->getHints()) )
-            {
-                $paths = Themes::getCascadedPaths('namespaces', $section, 'assets');
-            }
-            else
-            {
-                $paths = Themes::getCascadedPaths('packages', $section, 'assets');
-            }
-        }
-        else
-        {
-            $paths = Themes::getCascadedPaths(null, null, 'assets');
-        }
-
-        foreach ( $paths as $path )
-        {
-            $file = rtrim($path, '/') . '/' . $relativePath . '.' . $extension;
-
-            if ( File::exists($file) )
-            {
-                return $file;
-            }
-        }
-
-        return $file;
+    public function ensureFilter(FilterInterface $filter)
+    {
+        parent::ensureFilter($filter);
+        return $this;
     }
 }

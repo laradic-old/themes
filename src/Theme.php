@@ -113,8 +113,12 @@ class Theme
      */
     public function getCascadedPath($cascadeType = null, $cascadeName = null, $pathType = null)
     {
-        $path = $this->path . '/' . $this->themes->getPath($cascadeType);
+        $path = $this->path;
 
+        if(!is_null($cascadeType))
+        {
+            $path .= '/' . $this->themes->getPath($cascadeType);
+        }
         if ( ! is_null($cascadeName) )
         {
             $path .= '/' . $cascadeName;

@@ -38,7 +38,7 @@ class ThemeServiceProvider extends ServiceProvider
 
     protected $aliases = [
         'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
-        'Markdown'    => 'Radic\BladeExtensions\Facades\Markdown',
+        #'Markdown'    => 'Radic\BladeExtensions\Facades\Markdown',
         'Form'        => 'Collective\Html\FormFacade',
         'HTML'        => 'Collective\Html\HtmlFacade'
     ];
@@ -83,6 +83,7 @@ class ThemeServiceProvider extends ServiceProvider
     {
         $this->app->singleton('assets', 'Laradic\Themes\Assets\AssetFactory');
         $this->app->alias('assets', 'Laradic\Themes\Contracts\AssetFactory');
+
     }
 
     public function registerThemes()
@@ -97,7 +98,7 @@ class ThemeServiceProvider extends ServiceProvider
         $this->app->alias('themes', 'Laradic\Themes\Contracts\ThemeFactory');
         $this->app->booting(function ()
         {
-            $this->alias('Themes', 'Laradic\Themes\Facades\Themes');
+            #$this->alias('Themes', 'Laradic\Themes\Facades\Themes');
         });
     }
 
