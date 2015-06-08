@@ -313,5 +313,9 @@ class AssetFactory implements AssetFactoryContract
         return $this->cachePath;
     }
 
+    public function deleteAllCached()
+    {
+        File::delete(File::files($this->getCachePath()));
+    }
 
 }

@@ -469,10 +469,16 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
     /**
      * Boot the active theme
+     *
+     * @param bool $bootParent
      */
-    public function boot()
+    public function boot($bootParent = true)
     {
         $this->getActive()->boot();
+        if($bootParent and $this->getActive()->hasParent())
+        {
+            $this->getActive()->getParentTheme()->boot();
+        }
     }
 
     //
