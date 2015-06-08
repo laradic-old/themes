@@ -4,17 +4,21 @@ author: Robin Radic
 icon: fa fa-legal
 -->
 
-#### Composer
+###### Composer
 ```JSON
-"laradic/themes": "~0.1"
+"laradic/themes": "~1.0"
 ```
-  
-#### Laravel
+###### Laravel
+Add the ThemesServiceProvider to your config.
 ```php
 'Laradic\Themes\ThemesServiceProvider'
 ```
-  
-#### Publish config
-```sh
-php artisan vendor:publish laradic/themes --tag="config"
+
+Optionally, you can add any of the Facades below:
+```php
+array(
+    'Themes' => 'Laradic\Themes\Facades\Themes',
+    'Asset' => 'Laradic\Themes\Facades\Asset',
+    'Navigation' => 'Laradic\Themes\Facades\Navigation'
+);
 ```

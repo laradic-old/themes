@@ -19,7 +19,7 @@ toc:
 [![Goto Repository](http://img.shields.io/badge/goto-repo-orange.svg?style=flat-square)](https://github.com/laradic/themes)
 
 
-Version 0.1 preview
+Version 1.0
 -----------
 
 **Laravel 5** package providing multi-theme inherited cascading support.

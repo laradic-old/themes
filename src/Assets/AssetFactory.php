@@ -60,18 +60,8 @@ class AssetFactory implements AssetFactoryContract
     public function __construct(ThemeFactory $themes)
     {
         $this->themes          = $themes;
-        $this->assetClass      = config('laradic/themes::assetClass');
-        $this->assetGroupClass = config('laradic/themes::assetGroupClass');
-        $this->cachePath       = public_path(config('laradic/themes::paths.cache'));
-
-        foreach ( config('laradic/themes::assets.globalFilters') as $extension => $filters )
-        {
-            foreach ( $filters as $filter )
-            {
-                $this->addGlobalFilter($extension, $filter);
-            }
-        }
     }
+
 
     /**
      * Create a single Asset
@@ -316,6 +306,47 @@ class AssetFactory implements AssetFactoryContract
     public function deleteAllCached()
     {
         File::delete(File::files($this->getCachePath()));
+    }
+
+
+
+    /**
+     * Set the cachePath value
+     *
+     * @param string $cachePath
+     * @return AssetFactory
+     */
+    public function setCachePath($cachePath)
+    {
+        $this->cachePath = $cachePath;
+
+        return $this;
+    }
+
+    /**
+     * Set the assetClass value
+     *
+     * @param string $assetClass
+     * @return AssetFactory
+     */
+    public function setAssetClass($assetClass)
+    {
+        $this->assetClass = $assetClass;
+
+        return $this;
+    }
+
+    /**
+     * Set the assetGroupClass value
+     *
+     * @param string $assetGroupClass
+     * @return AssetFactory
+     */
+    public function setAssetGroupClass($assetGroupClass)
+    {
+        $this->assetGroupClass = $assetGroupClass;
+
+        return $this;
     }
 
 }

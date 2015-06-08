@@ -4,7 +4,7 @@ author: Robin Radic
 icon: fa fa-legal
 -->
 
-By default, Laradic Themes will search your `public` folder for themes. 
+By default, Laradic Themes will search your `public` and `public/themes` folder for themes, as defined in the config file. 
 You can add paths in the config file or do it on the fly using `Themes::addPath('/path/to/dir')`.
   
   
@@ -39,7 +39,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Laradic\Themes\Theme;
 
 return [
-    'parent'   => null,
+    'parent'   => null, // backend/parent
     'name'     => 'Default theme',
     'slug'     => 'backend/admin',
     'version'  => '0.0.1',

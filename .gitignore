@@ -31,3 +31,4 @@ radic.phar.pubkey
 /composer.lock
 .idea
 /secret.js
+/resources/config/laradic.php

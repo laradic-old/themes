@@ -44,8 +44,7 @@ class ThemeMakeCommand extends Command
             return $this->error('Invalid slug');
         }
         $this->files = app('files');
-        $config = app('config')->get('laradic/themes::config');
-        $path = Path::join(head($config['paths']['themes']), $slug);
+        $path = Path::join(head(config('laradic.themes.paths.themes')), $slug);
 
         if($this->files->exists($path))
         {
@@ -53,13 +52,11 @@ class ThemeMakeCommand extends Command
         }
 
         $this->mkdir($path);
-        $dirs = [
-            $config['paths']['assets'], $config['paths']['namespaces'], $config['paths']['packages'], $config['paths']['views']
-        ];
+        $dirs = [ 'assets', 'namespaces', 'packages', 'view'];
 
         foreach($dirs as $dir)
         {
-            $this->mkdir(Path::join($path, $dir));
+            $this->mkdir(Path::join($path, config('laradic.themes.paths.' . $dir)));
         }
 
         $this->files->copy(__DIR__ . '/../../resources/theme.php', $path . '/theme.php');

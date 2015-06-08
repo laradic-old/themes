@@ -1,8 +1,6 @@
 <?php
 
 return array(
-    /* debugging */
-    'debug'           => false, // if true, disables all minify, chache and concenation etc
     /* paths */
     'active'          => 'frontend/default',
     'default'         => 'frontend/default',
@@ -22,8 +20,8 @@ return array(
         'packages'   => 'packages',
         'views'      => 'views',    //default ex: public/themes/{area}/{theme}/views
         'assets'     => 'assets',
-        // relative to public_path
-        'cache'      => 'cache'
+        // full path to cache folder, requires to be public
+        'cache'      => public_path('cache')
     ),
     'assets' => array(
         /* Assetic Filters that should be applied to all assets with the given extension

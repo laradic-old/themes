@@ -90,13 +90,6 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     protected $paths = [ ];
 
     /**
-     * The laradic/theme config
-     *
-     * @var array
-     */
-    protected $config;
-
-    /**
      * Collection of all theme publishers that have been added
      *
      * @var Publisher[]
@@ -124,6 +117,8 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
      */
     protected $assets;
 
+    protected $themeClass;
+
     /**
      * Instantiates the class
      *
@@ -136,20 +131,6 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
         $this->app        = $app;
         $this->files      = $files;
         $this->dispatcher = $events;
-    }
-
-    /**
-     * Set the internal config array
-     *
-     * @param array $config
-     * @return $this
-     */
-    public function setConfig(array $config)
-    {
-        $this->paths  = $config[ 'paths' ];
-        $this->config = $config;
-
-        return $this;
     }
 
     /**
@@ -229,7 +210,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
             if ( $this->files->isDirectory($themePath) )
             {
-                $class = Config::get('laradic/themes::themeClass');
+                $class = Config::get('laradic.themes.themeClass');
 
                 return $this->themes[ $slug ] = new $class($this, $this->dispatcher, $themePath);
             }
@@ -681,6 +662,43 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
         return $this;
     }
+
+    /**
+     * get themeClass value
+     *
+     * @return mixed
+     */
+    public function getThemeClass()
+    {
+        return $this->themeClass;
+    }
+
+    /**
+     * Set the themeClass value
+     *
+     * @param mixed $themeClass
+     * @return ThemeFactory
+     */
+    public function setThemeClass($themeClass)
+    {
+        $this->themeClass = $themeClass;
+
+        return $this;
+    }
+
+    /**
+     * Set the paths value
+     *
+     * @param array $paths
+     * @return ThemeFactory
+     */
+    public function setPaths($paths)
+    {
+        $this->paths = $paths;
+
+        return $this;
+    }
+
 
 
 

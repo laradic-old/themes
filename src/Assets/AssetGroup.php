@@ -16,7 +16,6 @@ use HTML;
 use InvalidArgumentException;
 use Laradic\Support\Sorter;
 use Laradic\Support\String;
-use MatthiasMullie\Minify;
 
 /**
  * This is the AssetGroup class.
@@ -44,21 +43,17 @@ class AssetGroup
 
     protected $sorter;
 
-    protected $debug;
-
     protected $filters = [ ];
 
     public function __construct(AssetFactory $factory, $name)
     {
         $this->name       = $name;
         $this->factory    = $factory;
-        $this->debug      = config('laradic/themes::debug');
         $this->collection = new AssetCollection();
     }
 
     public function add($handle, $path = null, array $dependencies = [ ])
     {
-
         if ( $handle instanceof Asset )
         {
             $asset  = $handle;
@@ -67,7 +62,6 @@ class AssetGroup
         elseif ( ! is_null($path) )
         {
             $asset = $this->factory->make($handle, $path);
-
         }
         else
         {
@@ -75,11 +69,9 @@ class AssetGroup
         }
 
 
-
-
         $type = $this->resolveType($asset->getExt());
 
-        if(count($dependencies) > 0 and false == true)
+        if(count($dependencies) > 0 and false === true)
         {
             $_deps = [ ];
             foreach ( $dependencies as $dep )

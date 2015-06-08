@@ -11,6 +11,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\View\FileViewFinder;
 use Laradic\Config\Traits\ConfigProviderTrait;
 use Laradic\Support\ServiceProvider;
+use Laradic\Themes\Assets\AssetFactory;
 use View;
 
 /**
@@ -25,8 +26,6 @@ use View;
  */
 class ThemeServiceProvider extends ServiceProvider
 {
-    use ConfigProviderTrait;
-
     protected $providers = [
         'Laradic\Themes\Providers\BusServiceProvider',
         'Laradic\Themes\Providers\EventServiceProvider',
@@ -37,7 +36,7 @@ class ThemeServiceProvider extends ServiceProvider
     ];
 
     protected $aliases = [
-        'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
+       // 'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
         #'Markdown'    => 'Radic\BladeExtensions\Facades\Markdown',
         'Form'        => 'Collective\Html\FormFacade',
         'HTML'        => 'Collective\Html\HtmlFacade'
@@ -48,13 +47,7 @@ class ThemeServiceProvider extends ServiceProvider
         /** @var \Illuminate\Foundation\Application $app */
         $app = parent::boot();
 
-
-        $config = $app->make('config');
-
-        $themes = $app->make('themes');
-
-        $themes->setConfig($config->get('laradic/themes::config'));
-        $themes->setActive($config->get('laradic/themes::active'));
+        $app->make('themes')->setActive(config('laradic.themes.active'));
     }
 
     /**
@@ -66,8 +59,8 @@ class ThemeServiceProvider extends ServiceProvider
     {
         /** @var \Illuminate\Foundation\Application $app */
         $app = parent::register();
-        $config = $this->addConfigComponent('laradic/themes', 'laradic/themes', __DIR__ . '/../resources/config');
 
+        $this->linkConfig();
         $this->registerNavigation();
         $this->registerAssets();
         $this->registerThemes();
@@ -79,36 +72,67 @@ class ThemeServiceProvider extends ServiceProvider
         });
     }
 
-    public function registerAssets()
+    protected function linkConfig()
     {
-        $this->app->singleton('assets', 'Laradic\Themes\Assets\AssetFactory');
-        $this->app->alias('assets', 'Laradic\Themes\Contracts\AssetFactory');
-
+        $configPath = realpath(__DIR__.'/../resources/config/config.php');
+        $this->mergeConfigFrom($configPath, 'laradic.themes');
+        $this->publishes([ $configPath => config_path('laradic.themes.php') ], 'config');
     }
 
-    public function registerThemes()
+    protected function registerAssets()
+    {
+        $this->app->singleton('assets', function(Application $app)
+        {
+            $assetFactory = new AssetFactory($app['themes']); //Laradic\Themes\Assets\AssetFactory
+            $assetFactory->setAssetClass(config('laradic.themes.assetClass'));
+            $assetFactory->setAssetGroupClass(config('laradic.themes.assetGroupClass'));
+            $assetFactory->setCachePath(config('laradic.themes.paths.cache'));
+            foreach ( config('laradic.themes.assets.globalFilters') as $extension => $filters )
+            {
+                foreach ( $filters as $filter )
+                {
+                    $assetFactory->addGlobalFilter($extension, $filter);
+                }
+            }
+            return $assetFactory;
+        });
+        $this->app->alias('assets', 'Laradic\Themes\Contracts\AssetFactory');
+    }
+
+    protected function registerThemes()
     {
         $this->app->singleton('themes', function (Application $app)
         {
             $themeFactory = new ThemeFactory($app, $app->make('files'), $app->make('events'));
+            $themeFactory->setPaths(config('laradic.themes.paths'));
+            $themeFactory->setThemeClass(config('laradic.themes.themeClass'));
             $themeFactory->setNavigation($app->make('navigation'));
             $themeFactory->setBreadcrumbs($app->make('breadcrumbs'));
             return $themeFactory;
         });
         $this->app->alias('themes', 'Laradic\Themes\Contracts\ThemeFactory');
-        $this->app->booting(function ()
+    }
+
+    protected function registerNavigation()
+    {
+
+
+        $this->app->singleton('navigation', 'Laradic\Themes\Navigation\Factory');
+        $this->app->bind('Laradic\Themes\Contracts\NavigationFactory', 'navigation');
+
+
+        /** @var \Illuminate\View\Compilers\BladeCompiler $blade */
+        $blade = $this->app->make('view')->getEngineResolver()->resolve('blade')->getCompiler();
+
+        $blade->extend(function ($value) use ($blade)
         {
-            #$this->alias('Themes', 'Laradic\Themes\Facades\Themes');
+            $matcher = $blade->createMatcher('navigation');
+            $replace = '$1<?php echo app("navigation")->render$2 ?>';
+
+            return preg_replace($matcher, $replace, $value);
         });
     }
 
-    public function registerWidgets()
-    {
-        $this->app->singleton('themes.widgets', $this->app->make('config')->get('radic_themes.widgetsClass'));
-        $this->app->alias('themes.widgets', 'Laradic\Themes\Contracts\Widgets');
-
-        $this->app->make('themes.widgets')->registerDirectives();
-    }
 
     protected function registerViewFinder()
     {
@@ -143,21 +167,4 @@ class ThemeServiceProvider extends ServiceProvider
         View::setFinder($this->app['view.finder']);
     }
 
-    protected function registerNavigation()
-    {
-        $this->app->singleton('navigation', 'Laradic\Themes\Navigation\Factory');
-        $this->app->bind('Laradic\Themes\Contracts\NavigationFactory', 'navigation');
-
-
-        /** @var \Illuminate\View\Compilers\BladeCompiler $blade */
-        $blade = $this->app->make('view')->getEngineResolver()->resolve('blade')->getCompiler();
-
-        $blade->extend(function ($value) use ($blade)
-        {
-            $matcher = $blade->createMatcher('navigation');
-            $replace = '$1<?php echo app("navigation")->render$2 ?>';
-
-            return preg_replace($matcher, $replace, $value);
-        });
-    }
 }

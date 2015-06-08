@@ -4,36 +4,47 @@ author: Robin Radic
 icon: fa fa-legal
 -->
 
-#### Publish config
+  
+##### Configuration
 ```sh
 php artisan vendor:publish laradic/themes --tag="config"
 ```
-  
-#### Config preview
+
 ```php
+
 return array(
-    'debug'      => env('APP_DEBUG', false), // if true, disables all preprocessing, minify, chache etc
-    'active'     => 'frontend/default',
-    'default'    => 'frontend/default',    
-    // Class names, if you want to extend/override
-    'assetClass'   => '\\Laradic\\Themes\\Assets\\Asset',
-    'themeClass'   => '\\Laradic\\Themes\\Theme',
-    'widgetsClass' => '\\Laradic\\Themes\\Widgets',
-    'paths'        => array(        
+    /* paths */
+    'active'          => 'frontend/default',
+    'default'         => 'frontend/default',
+    /** @deprecated */
+    'fallback'        => null,
+    /* Class names */
+    'assetClass'      => '\\Laradic\\Themes\\Assets\\Asset',
+    'assetGroupClass' => '\\Laradic\\Themes\\Assets\\AssetGroup',
+    'themeClass'      => '\\Laradic\\Themes\\Theme',
+    'paths'           => array(
         'themes'     => array(
-            public_path() // Add paths that will be searched for themes            
+            public_path('themes'),
+            public_path()
         ),
         // These paths are relative to the theme path defined above
-        'namespaces' => 'namespaces', //ex: public/themes/{area}/{theme}/namespaces/{namespace}/views
-        'packages'   => 'packages', 
-        'views'      => 'views',      //ex: public/themes/{area}/{theme}/views
-        'assets'     => 'assets'
+        'namespaces' => 'namespaces',
+        'packages'   => 'packages',
+        'views'      => 'views',    //default ex: public/themes/{area}/{theme}/views
+        'assets'     => 'assets',
+        // full path to cache folder, requires to be public
+        'cache'      => public_path('cache')
     ),
-    'assets'     => array(
-        'preprocess' => true,
-        'minify'     => true,
-        'compress'   => true,
-        'optimize'   => true
+    'assets' => array(
+        /* Assetic Filters that should be applied to all assets with the given extension
+           Note that adding global filters can also be done by using Asset::addGlobalFilter('css', 'FilterFQClassName....') */
+        'globalFilters' => array(
+            'css' => array('Laradic\Themes\Assets\Filters\UriRewriteFilter'),
+            'js' => array('Laradic\Themes\Assets\Filters\UriRewriteFilter'),
+            'scss' => array('Assetic\Filter\ScssphpFilter', 'Laradic\Themes\Assets\Filters\UriRewriteFilter')
+        )
     )
 );
+
 ```
+  
