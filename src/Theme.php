@@ -14,6 +14,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Laradic\Themes\Exceptions\ThemesConfigurationException;
 use Stringy\Stringy;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
+use vierbergenlars\SemVer\Internal\SemVer;
 
 /**
  * This is the Theme class.
@@ -64,6 +65,8 @@ class Theme
 
     protected $dispatcher;
 
+    protected $booted = false;
+
     public function __construct(ThemeFactoryContract $themes, Dispatcher $dispatcher, $path)
     {
         $this->themes     = $themes;
@@ -91,6 +94,8 @@ class Theme
             $this->config['register']($this->themes->getApplication(), $this);
         }
     }
+
+
 
     public function asset($path)
     {
@@ -144,7 +149,6 @@ class Theme
         }
     }
 
-    protected $booted = false;
 
     public function boot()
     {
@@ -197,4 +201,38 @@ class Theme
     {
         return $this->slug;
     }
+
+    public function hasParent()
+    {
+        return isset($this->parentTheme);
+    }
+
+    public function isActive()
+    {
+        return $this->themes->getActive() instanceof $this;
+    }
+    public function isDefault()
+    {
+        return $this->themes->getDefault() instanceof $this;
+    }
+    public function getSlugProvider()
+    {
+        return explode('/', $this->slug)[0];
+    }
+
+    public function getSlugKey()
+    {
+        return explode('/', $this->slug)[1];
+    }
+
+    public function isBooted()
+    {
+        return $this->booted;
+    }
+
+    public function getVersion()
+    {
+        new SemVer($this->config['version']);
+    }
+
 }

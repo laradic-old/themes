@@ -8,6 +8,8 @@
 namespace Laradic\Themes\Assets;
 
 
+use Assetic\Filter\HashableInterface;
+use Cache;
 use Closure;
 use File;
 use HTML;
@@ -162,7 +164,7 @@ class AssetGroup
     {
         $assets = $this->getSorted($type);
         $assets = $combine ? new AssetCollection($assets) : $assets;
-
+        $lastModifiedHash = '';
         foreach ( ($combine ? $assets->all() : $assets) as $asset )
         {
             if ( ! $asset instanceof Asset )
@@ -173,11 +175,13 @@ class AssetGroup
             {
                 $asset->ensureFilter($filter);
             }
+
         }
         if ( $combine )
         {
             $assets = array( $assets );
         }
+
 
         $urls = [];
         $cachePath = $this->factory->getCachePath();
@@ -188,20 +192,24 @@ class AssetGroup
         foreach ($assets as $asset)
         {
 
+            $renewCachedFile = false;
+            $lastModifiedHash = md5($asset->getLastModified());
+            $cacheKey = $asset->getCacheKey();
+            if(Cache::has($cacheKey) and Cache::get($cacheKey) !== $lastModifiedHash)
+            {
+                $renewCachedFile = true;
+            }
+            Cache::forever($cacheKey, $lastModifiedHash);
+
             $filename = String::replace($theme->getSlug(), '/', '.') . '.' . $asset->getHandle() . '.' . md5($asset->getCacheKey()) . '.' . $renderExt;
             $path = $cachePath.'/'.$filename;
-            if (! File::exists($path))
+            if($renewCachedFile)
             {
-                $asset->load();
-                preg_match('/.*_/', $filename, $pattern);
-                $pattern = head($pattern);
-                foreach ($cachedAssets as $cachedAsset)
-                {
-                    if (strpos($cachedAsset, $pattern) !== false)
-                    {
-                        //File::delete($cachedAsset);
-                    }
-                }
+                File::delete($path);
+            }
+
+            if (! File::exists($path) )
+            {
                 File::put($path, $asset->dump());
             }
             $urls[] = String::removeLeft($path, public_path());
@@ -262,5 +270,16 @@ class AssetGroup
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getCacheKey($type)
+    {
+
+        $key = md5($this->name . $type . $this->factory->getThemes()->getActive()->getSlug());
+        foreach($this->filters as $filter)
+        {
+            $key .= $filter instanceof HashableInterface ? $filter->hash() : serialize($filter);
+        }
+        return md5($key);
     }
 }

@@ -18,9 +18,10 @@ Version 0.2.0
 **Laravel 5** package providing multi-theme inherited cascading support.
 
 - **Easy and worry free setup** Laradic Themes does not conflict with the standard Laravel view system. 
-- **Cascading & Inheritance** Themes are able to inherit all options from other themes, providing a smart and intuitive way to extend existing themes. 
-- **Composer installer** Themes can be distributed using composer
-- **Asset manager** Creating view partials and blocks. Nest them, extend them, render them.
+- **Template Languages** Works with PHP, Blade, Twig and any other engine. 
+- **Cascading & Inheritance** Themes are able to inherit all options from other themes, providing a smart and intuitive way to extend existing themes.
+- **Asset Management** Featuring: Dependable assets or asset groups, caching, minification, filters(scss, less, etc). Uses/extends kriswallsmith/assetic in the background.   
+- **Navigation & Breadcrumbs** Extra navigation helper classes that can be used in your themes.
 - **And so much more**...
   
 
@@ -30,12 +31,12 @@ Version 0.2.0
 #### My other packages
 | Package | Description | |
 |----|----|----|
+| [radic/blade-extensions](https://github.com/radic/blade-extensions) | A collection of usefull Laravel blade extensions, like $loop data in foreach, view partials, etc | [doc](http://docs.radic.nl/blade-extensions) |
 | [laradic/extensions](https://github.com/laradic/extensions) | Modular and manageable approach to extending your app | [doc](http://docs.radic.nl/extensions) |
 | [laradic/config](https://github.com/laradic/config) | Laravel 5 Config exras like namespaces, saving to db/file. yaml/php array parser etc | [doc](http://docs.radic.nl/config) |
 | [laradic/docit](https://github.com/laradic/docit) | A documentation generator for your code, live preview [docs.radic.nl](http://docs.radic.nl/) | [doc](http://docs.radic.nl/docit) |
 | [laradic/themes](https://github.com/laradic/themes) | Laravel 5 theme package | [doc](http://docs.radic.nl/themes) |
-| [radic/blade-extensions](https://github.com/radic/blade-extensions) | A collection of usefull Laravel blade extensions, like $loop data in foreach, view partials, etc | [doc](http://docs.radic.nl/blade-extensions) |
-  
+ 
   
 #### Installation  
 ###### Composer
@@ -43,39 +44,59 @@ Version 0.2.0
 "laradic/themes": "~0.2"
 ```
 ###### Laravel
+Add the ThemesServiceProvider to your config.
 ```php
 'Laradic\Themes\ThemesServiceProvider'
 ```
 
+Optionally, you can add any of the Facades below:
+```php
+array(
+    'Themes' => 'Laradic\Themes\Facades\Themes',
+    'Asset' => 'Laradic\Themes\Facades\Asset',
+    'Navigation' => 'Laradic\Themes\Facades\Navigation'
+);
+```
 ##### Configuration
 ```sh
 php artisan vendor:publish laradic/themes --tag="config"
 ```
 
 ```php
+
 return array(
-    'debug'      => env('APP_DEBUG', false), // if true, disables all preprocessing, minify, chache etc
-    'active'     => 'frontend/default',
-    'default'    => 'frontend/default',    
-    // Class names, if you want to extend/override
-    'assetClass'   => '\\Laradic\\Themes\\Assets\\Asset',
-    'themeClass'   => '\\Laradic\\Themes\\Theme',
-    'widgetsClass' => '\\Laradic\\Themes\\Widgets',
-    'paths'        => array(        
+    /* debugging */
+    'debug'           => false, // if true, disables all minify, chache and concenation etc
+    /* paths */
+    'active'          => 'frontend/default',
+    'default'         => 'frontend/default',
+    /** @deprecated */
+    'fallback'        => null,
+    /* Class names */
+    'assetClass'      => '\\Laradic\\Themes\\Assets\\Asset',
+    'assetGroupClass' => '\\Laradic\\Themes\\Assets\\AssetGroup',
+    'themeClass'      => '\\Laradic\\Themes\\Theme',
+    'paths'           => array(
         'themes'     => array(
-            public_path() // Add paths that will be searched for themes            
+            public_path('themes'),
+            public_path()
         ),
         // These paths are relative to the theme path defined above
-        'namespaces' => 'namespaces', //ex: public/themes/{area}/{theme}/namespaces/{namespace}/views
-        'packages'   => 'packages', 
-        'views'      => 'views',      //ex: public/themes/{area}/{theme}/views
-        'assets'     => 'assets'
+        'namespaces' => 'namespaces',
+        'packages'   => 'packages',
+        'views'      => 'views',    //default ex: public/themes/{area}/{theme}/views
+        'assets'     => 'assets',
+        // relative to public_path
+        'cache'      => 'cache'
     ),
-    'assets'     => array(
-        'preprocess' => true,
-        'minify'     => true,
-        'compress'   => true,
-        'optimize'   => true
+    'assets' => array(
+        /* Assetic Filters that should be applied to all assets with the given extension
+           Note that adding global filters can also be done by using Asset::addGlobalFilter('css', 'FilterFQClassName....') */
+        'globalFilters' => array(
+            'css' => array('Laradic\Themes\Assets\Filters\UriRewriteFilter'),
+            'js' => array('Laradic\Themes\Assets\Filters\UriRewriteFilter'),
+            'scss' => array('Assetic\Filter\ScssphpFilter', 'Laradic\Themes\Assets\Filters\UriRewriteFilter')
+        )
     )
 );
 ```
@@ -108,7 +129,7 @@ You can add paths in the config file or do it on the fly using `Themes::addPath(
 ```
   
 ###### theme.php
-A perfect place to manage your assets
+A perfect place to define/manage your assets(groups)
   
 ```php
 
@@ -126,7 +147,13 @@ return [
     },
     'boot'     => function (Application $app, Theme $theme)
     {
+        Asset::addGlobalFilter('css', 'Laradic\Themes\Assets\Filters\UriRewriteFilter')
+            ->addGlobalFilter('js', 'Laradic\Themes\Assets\Filters\UriRewriteFilter')
+            ->addGlobalFilter('scss', 'Laradic\Themes\Assets\Filters\UriRewriteFilter')
+            ->addGlobalFilter('scss', 'Assetic\Filters\ScssphpFilter');
+            
         Asset::group('base')
+            ->addFilter('ts', 'Some\Random\FilterClass')
             ->add('jquery', 'scripts/plugins/jquery.js')
             ->add('bootstrap', 'scripts/plugins/bootstrap.custom.js', ['jquery'])
             ->add('bootstrap', 'scripts/plugins/bootstrap.custom.css')
@@ -190,6 +217,49 @@ $theme->getConfig();
 Themes::addNamespace('');
 Themes::addNamespacePublisher('');
 Themes::addPackagePublisher('');
+
+
+// Assets
+Asset::addGlobalFilter('css', 'Laradic\Themes\Assets\Filters\UriRewriteFilter')
+    ->addGlobalFilter('js', 'Laradic\Themes\Assets\Filters\UriRewriteFilter');
+
+Asset::group('base')
+    ->add('jquery', 'plugins/jquery/dist/jquery.min.js')
+    ->add('bootstrap', 'plugins/bootstrap/dist/js/bootstrap.min.js', [ 'jquery' ])
+    ->add('bootstrap', 'plugins/bootstrap/dist/css/bootstrap.min.css')
+    ->add('bootbox', 'something::bootbox/bootbox.js', [ 'jquery', 'bootstrap' ])
+    ->add('slimscroll', 'plugins/jquery-slimscroll/jquery.slimscroll.js', [ 'jquery' ])
+    ->add('modernizr', 'plugins/modernizr/modernizr.js')
+    ->add('moment', 'plugins/moment/moment.js')
+    ->add('highlightjs', 'plugins/highlightjs/highlight.pack.js')
+    ->add('highlightjs', 'plugins/highlightjs/styles/zenburn.css');
+
+Asset::group('ie9')
+    ->add('respond', 'plugins/respond/dest/respond.min.js')
+    ->add('html5shiv', 'plugins/html5shiv/dist/html5shiv.js');
+    
+{!! Asset::group('base')->add('style', 'style.css')->render('styles') !!}
+
+<!--[if lt IE 9]>
+{!! Asset::group('ie9')->render('scripts') !!}
+<![endif]-->
+{!! Asset::group('base')->render('scripts') !!}
+
+
+{!! Asset::script('something::bootbox/bootbox.js') !!}
+<!--
+Get the URL
+{!! Asset::url('something::bootbox/bootbox.js') !!}
+
+Get the URI
+{!! Asset::uri('something::bootbox/bootbox.js') !!}
+
+Dump the content
+{!! Asset::make('bootbox', 'something::bootbox/bootbox.js')->dump() !!}
+
+Dump some scss converted to css
+@if(class_exists('Leafo\ScssPhp\Compiler'))
+{!! Asset::make('sassStyle', 'sassStyle.scss')->dump() !!}
 ```
   
 ###### Console commands
