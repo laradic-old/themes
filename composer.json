@@ -23,9 +23,9 @@
     "require": {
         "php": ">=5.4.0",
         "illuminate/support": "~5.0",
-        "laradic/support": "1.2.*",
+        "laradic/support": "^1.2.8",
         "laradic/console": "1.0.*",
-        "radic/blade-extensions": "3.0.*",
+        "radic/blade-extensions": "~4.0",
         "laravelcollective/html": "~5.0",
         "kriswallsmith/assetic": "~1.2",
         "nicmart/tree": "0.2.*",

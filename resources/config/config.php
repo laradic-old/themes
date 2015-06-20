@@ -1,8 +1,10 @@
 <?php
 
+
+
 return array(
     /* paths */
-    'active'          => 'example/main',
+    'active'          => 'frontend/default',
     'default'         => 'example/default',
     /* Class names */
     'assetClass'      => '\\Laradic\\Themes\\Assets\\Asset',
