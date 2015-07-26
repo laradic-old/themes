@@ -4,8 +4,8 @@
 
 return array(
     /* paths */
-    'active'          => 'frontend/default',
-    'default'         => 'example/default',
+    'active'          => 'frontend/example',
+    'default'         => 'frontend/default',
     /* Class names */
     'assetClass'      => '\\Laradic\\Themes\\Assets\\Asset',
     'assetGroupClass' => '\\Laradic\\Themes\\Assets\\AssetGroup',

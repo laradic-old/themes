@@ -95,19 +95,6 @@ class Theme
         }
     }
 
-
-
-    public function asset($path)
-    {
-        $filePath = Stringy::create($this->path . '/' . $this->themes->getPath('assets'));
-        if ( $filePath->startsWith(public_path()) == false )
-        {
-            $message = "Invalid themes.php configuration. Theme path [{$this->path}] not inside the public directory";
-            throw new ThemesConfigurationException($message);
-        }
-        $urlPath = $filePath->removeLeft(public_path());
-    }
-
     /**
      * getCascadedPath
      *

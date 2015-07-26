@@ -27,21 +27,10 @@ use Symfony\Component\VarDumper\VarDumper;
  */
 class ThemeFactoryTest extends TestCase
 {
-    protected $paths, $fs, $factory;
+    protected $fs, $factory;
     public function setUp()
     {
         parent::setUp();
-        $this->paths = [
-            'themes'     => array(
-                public_path('themes'),
-                public_path()
-            ),
-            'namespaces' => 'namespaces',
-            'packages'   => 'packages',
-            'views'      => 'views',
-            'assets'     => 'assets',
-            'cache'      => public_path('cache')
-        ];
         $this->fs = m::mock('Illuminate\Filesystem\Filesystem');
         $this->factory = new ThemeFactory($this->fs, $this->app->make('events'));
         $this->factory->setPaths($this->paths);
@@ -54,13 +43,8 @@ class ThemeFactoryTest extends TestCase
     }
 
     protected function _resolveTheme($slug = 'frontend/example', array $config = []){
-        $themeConfig = array_merge_recursive([
-            'parent'  => null,
-            'name'    => 'Frontend example',
-            'slug'    => $slug,
-            'version' => '0.0.1',
-        ], $config);
-        $this->fs->shouldReceive('getRequire')->andReturn($themeConfig);
+        $config['slug'] = $slug;
+        $this->fs->shouldReceive('getRequire')->andReturn($this->_getThemeConfig($config));
         return $this->factory->resolveTheme($slug);
     }
 
