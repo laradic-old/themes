@@ -152,6 +152,7 @@ class ThemeServiceProvider extends ServiceProvider
 
             $themesViewFinder = new ThemeViewFinder($app['files'], $paths, $oldViewFinder->getExtensions());
             $themesViewFinder->setThemes($app['themes']);
+            $app['themes']->setFinder($themesViewFinder);
 
             foreach ($oldViewFinder->getPaths() as $location)
             {

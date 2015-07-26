@@ -13,6 +13,7 @@ namespace Laradic\Tests\Themes;
 use Illuminate\Support\NamespacedItemResolver;
 use Laradic\Support\String;
 use Laradic\Themes\Assets\AssetFactory;
+
 use Laradic\Themes\Theme;
 use Laradic\Themes\ThemeFactory;
 use Mockery as m;
@@ -202,6 +203,18 @@ class ThemeFactoryTest extends TestCase
         $this->factory->boot(true, true);
     }
 
+    public function testGettersSetters(){
+        $this->app->register(\Laradic\Themes\ThemeServiceProvider::class);
+        /** @var \Laradic\Themes\ThemeFactory $themes */
+        $themes = $this->app['themes'];
+        $this->assertInstanceOf(\Laradic\Themes\Contracts\ThemeViewFinder::class, $themes->getFinder());
+        $this->assertTrue(is_array($themes->getPublishers()));
+        $themes->setThemeClass(\Laradic\Themes\Theme::class);
+        $this->assertEquals(\Laradic\Themes\Theme::class, $themes->getThemeClass());
+        $this->assertInstanceOf(\ArrayIterator::class, $themes->getIterator());
+
+
+    }
     public function testFactory()
     {
 
