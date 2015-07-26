@@ -57,6 +57,16 @@ class CascadingPathsTest extends TestCase
         $this->assertViewContent('nstest::index', 'index of frontend/example::nstest');
         $this->assertViewContent('testvendor/testpkg::index', 'index of frontend/example::testvendor/testpkg');
 
+        // test parent and default fallbacks
+        $this->assertViewContent('parent-fallback', 'parent-fallback content');
+        $this->assertViewContent('nstest::parent-fallback', 'nstest parent-fallback content');
+        $this->assertViewContent('testvendor/testpkg::parent-fallback', 'testvendor/testpkg parent-fallback content');
+
+        $this->assertViewContent('default-fallback', 'default-fallback content');
+        $this->assertViewContent('nstest::default-fallback', 'nstest default-fallback content');
+        $this->assertViewContent('testvendor/testpkg::default-fallback', 'testvendor/testpkg default-fallback content');
+
+
         #$themes->addNamespace('nstestaa', 'nstest');
 
         #$this->assertViewContent('nstestaa::index', 'index of frontend/example::nstest');

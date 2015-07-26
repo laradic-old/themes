@@ -29,7 +29,7 @@ return array(
         'globalFilters' => array(
             'css' => array('Laradic\Themes\Assets\Filters\UriRewriteFilter'),
             'js' => array('Laradic\Themes\Assets\Filters\UriRewriteFilter'),
-            'scss' => array('Assetic\Filter\ScssphpFilter', 'Laradic\Themes\Assets\Filters\UriRewriteFilter')
+            #'scss' => array('Assetic\Filter\ScssphpFilter', 'Laradic\Themes\Assets\Filters\UriRewriteFilter')
         )
     )
 );
