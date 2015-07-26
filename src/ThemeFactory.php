@@ -12,7 +12,6 @@ use ArrayIterator;
 use Config;
 use Countable;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\NamespacedItemResolver;
 use IteratorAggregate;
@@ -138,6 +137,13 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
         {
             $theme = $this->resolveTheme($theme);
         }
+        else
+        {
+            if ( ! array_key_exists($theme->getSlug(), $this->themes) )
+            {
+                $this->themes[ $theme->getSlug() ] = $theme;
+            }
+        }
 
         $this->active = $theme;
 
@@ -166,6 +172,11 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
      */
     public function getDefault()
     {
+        if ( ! $this->default )
+        {
+            throw new RuntimeException('Could not get active theme because there isn\'t any defined');
+        }
+
         return $this->default;
     }
 
@@ -176,7 +187,17 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
      */
     public function setDefault($theme)
     {
-        $theme         = $this->resolveTheme($theme);
+        if ( ! $theme instanceof Theme )
+        {
+            $theme = $this->resolveTheme($theme);
+        }
+        else
+        {
+            if ( ! array_key_exists($theme->getSlug(), $this->themes) )
+            {
+                $this->themes[ $theme->getSlug() ] = $theme;
+            }
+        }
         $this->default = $theme;
     }
 
@@ -189,23 +210,20 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
      */
     public function resolveTheme($slug)
     {
-        if ( in_array($slug, $this->themes) )
+        if ( array_key_exists($slug, $this->themes) )
         {
             return $this->themes[ $slug ];
         }
 
-        $resolver = new NamespacedItemResolver;
-        list($area, $key) = $resolver->parseKey($slug);
+        list($area, $key) = with(new NamespacedItemResolver)->parseKey($slug);
 
-        foreach ( $this->paths['themes'] as $path )
+        foreach ( $this->paths[ 'themes' ] as $path )
         {
             $themePath = $this->getThemePath($path, $key, $area);
 
             if ( $this->files->isDirectory($themePath) )
             {
-                $class = Config::get('laradic.themes.themeClass');
-
-                return $this->themes[ $slug ] = new $class($this, $this->dispatcher, $themePath);
+                return $this->themes[ $slug ] = new $this->themeClass($this, $this->dispatcher, $themePath);
             }
         }
     }
@@ -299,8 +317,8 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
         while ( true )
         {
-            $paths[ ]  = $current->getCascadedPath($cascadeType, $cascadeName, $pathType);
-            $looped[ ] = $current;
+            $paths[]  = $current->getCascadedPath($cascadeType, $cascadeName, $pathType);
+            $looped[] = $current;
 
             if ( ! $parent = $current->getParentTheme() )
             {
@@ -317,7 +335,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
         if ( $default = $this->getDefault() and ! in_array($default, $looped) )
         {
-            $paths[ ] = $default->getCascadedPath($cascadeType, $cascadeName, $pathType);
+            $paths[] = $default->getCascadedPath($cascadeType, $cascadeName, $pathType);
         }
 
         return $paths;
@@ -331,7 +349,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
      * @param null $area
      * @return string
      */
-    protected function getThemePath($path, $key, $area = null)
+    public function getThemePath($path, $key, $area = null)
     {
         $split = '/(\/|\\\)/';
 
@@ -450,15 +468,14 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     public function boot($bootParent = true, $bootDefault = false)
     {
         $this->getActive()->boot();
-        if($bootParent and $this->getActive()->hasParent())
+        if ( $bootParent and $this->getActive()->hasParent() )
         {
             $this->getActive()->getParentTheme()->boot();
         }
-        if($bootDefault)
+        if ( $bootDefault )
         {
             $this->getDefault()->boot();
         }
-
     }
 
     //
@@ -543,7 +560,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
     {
         if ( is_null($key) )
         {
-            $this->themes[ ] = $value;
+            $this->themes[] = $value;
         }
         else
         {
@@ -675,8 +692,6 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
 
         return $this;
     }
-
-
 
 
 }

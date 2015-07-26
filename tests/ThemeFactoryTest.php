@@ -10,14 +10,14 @@
  */
 namespace Laradic\Tests\Themes;
 
-use Laradic\Dev\AbstractTestCase;
-use Laradic\Dev\Traits\LaravelTestCaseTrait;
-use Laradic\Dev\Traits\ServiceProviderTestCaseTrait;
-use Laradic\Themes\Assets\Asset;
+use Illuminate\Support\NamespacedItemResolver;
+use Laradic\Support\String;
 use Laradic\Themes\Assets\AssetFactory;
+use Laradic\Themes\Theme;
 use Laradic\Themes\ThemeFactory;
 use Mockery as m;
 use Symfony\Component\VarDumper\VarDumper;
+
 
 /**
  * Class StrTest
@@ -26,15 +26,190 @@ use Symfony\Component\VarDumper\VarDumper;
  */
 class ThemeFactoryTest extends TestCase
 {
-
-    protected function getFactoryMock()
+    protected $paths, $fs, $factory;
+    public function setUp()
     {
-        return new ThemeFactory(m::mock('Illuminate\Filesystem\Filesystem'), m::mock('Illuminate\Events\Dispatcher'));
-        #VarDumper::dump($f);
+        parent::setUp();
+        $this->paths = [
+            'themes'     => array(
+                public_path('themes'),
+                public_path()
+            ),
+            'namespaces' => 'namespaces',
+            'packages'   => 'packages',
+            'views'      => 'views',
+            'assets'     => 'assets',
+            'cache'      => public_path('cache')
+        ];
+        $this->fs = m::mock('Illuminate\Filesystem\Filesystem');
+        $this->factory = new ThemeFactory($this->fs, $this->app->make('events'));
+        $this->factory->setPaths($this->paths);
+        $this->factory->setThemeClass(\Laradic\Themes\Theme::class);
+    }
+
+    public function tearDown()
+    {
+        m::close();
+    }
+
+    protected function _resolveTheme($slug = 'frontend/example', array $config = []){
+        $themeConfig = array_merge_recursive([
+            'parent'  => null,
+            'name'    => 'Frontend example',
+            'slug'    => $slug,
+            'version' => '0.0.1',
+        ], $config);
+        $this->fs->shouldReceive('getRequire')->andReturn($themeConfig);
+        return $this->factory->resolveTheme($slug);
+    }
+
+    protected function _getThemePath($slug = 'frontend/example'){
+        list($area, $key) = with(new NamespacedItemResolver)->parseKey($slug);
+        return $this->factory->getThemePath(public_path('themes'), $key, $area);
+    }
+
+    public function testResolveTheme()
+    {
+        $this->fs->shouldReceive('isDirectory')->once()->andReturn(true);
+        $this->fs->shouldReceive('exists')->once()->andReturn(true);
+        $this->assertTheme($this->_resolveTheme());
+    }
+
+    public function testActiveTheme()
+    {
+        $this->fs->shouldReceive('isDirectory')->once()->andReturn(true);
+        $this->fs->shouldReceive('exists')->once()->andReturn(true);
+        $this->_resolveTheme();
+        $this->factory->setActive('frontend/example');
+        $this->assertTheme($this->factory->getActive());
+    }
+
+    /**
+     * testThemePath
+     * @expectedException \RuntimeException
+     *
+     */
+    public function testGetActiveIfNotSetThrowsException()
+    {
+        $this->factory->getActive();
+    }
+
+    public function testDefaultTheme()
+    {
+        $this->fs->shouldReceive('isDirectory')->once()->andReturn(true);
+        $this->fs->shouldReceive('exists')->once()->andReturn(true);
+        $this->_resolveTheme();
+        $this->factory->setDefault('frontend/example');
+        $this->assertTheme($this->factory->getDefault());
+    }
+
+    public function testHasGetAllCountMethods()
+    {
+        $this->fs->shouldReceive('isDirectory')->once()->andReturn(true);
+        $this->fs->shouldReceive('exists')->once()->andReturn(true);
+        $this->_resolveTheme();
+        $this->assertTrue($this->factory->has('frontend/example'));
+        $this->assertTrue(is_array($this->factory->all()));
+        $this->assertInArray('frontend/example', $this->factory->all());
+        $this->assertEquals(1, $this->factory->count());
+        $this->assertTheme($this->factory->get('frontend/example'));
+        $this->assertEquals('namespaces', $this->factory->getPath('namespaces'));
+    }
+
+    /**
+     * testThemePath
+     * @expectedException \RuntimeException
+     *
+     */
+    public function testGetDefaultIfNotSetThrowsException()
+    {
+        $this->factory->getDefault();
+    }
+
+    /**
+     * testFactoryCannotResolveTheme
+     * @expectedException \Symfony\Component\Filesystem\Exception\FileNotFoundException
+     */
+    public function testResolvedThemeNoConfigFoundException()
+    {
+        $this->fs->shouldReceive('isDirectory')->once()->andReturn(true);
+        $this->fs->shouldReceive('exists')->once()->andReturn(false);
+        $this->_resolveTheme();
+    }
+
+    public function testResolveThemeReturnsNone()
+    {
+        $this->fs->shouldReceive('isDirectory')->twice()->andReturn(false);
+        $this->assertNull($this->_resolveTheme());
+    }
+
+    public function testArrayAccess(){
+        $this->fs->shouldReceive('isDirectory')->once()->andReturn(true);
+        $this->fs->shouldReceive('exists')->once()->andReturn(true);
+        $this->_resolveTheme();
+        $this->assertTheme($this->factory['frontend/example']);
+    }
+
+    /**
+     * testThemePath
+     * RuntimeException
+     *
+     */
+    public function testThemePath()
+    {
+        $this->assertEquals(public_path('themes/proper/slug'), $this->_getThemePath('proper/slug'));
+        $this->assertEquals(public_path('themes/slug'), $this->_getThemePath('slug'));
+    }
+
+    /**
+     * testThemePath
+     * @expectedException \RuntimeException
+     *
+     */
+    public function testInvalidThemePathWith3Segments()
+    {
+        $this->_getThemePath('this/should/fail');
+    }
+
+    // @todo: to do..
+    public function testAddNamespace()
+    {
+        $this->factory->addNamespace('namespace', 'directory');
+        /**
+         * @var \Illuminate\View\FileViewFinder $finder
+         */
+        $finder = $this->app->make('view.finder');
+        $hints = $finder->getHints();
+        $paths = $finder->getPaths();
+        $a = 'c';
+    }
+
+    public function testBoot()
+    {
+        $active = m::mock(\Laradic\Themes\Theme::class);
+        $parent = m::mock(\Laradic\Themes\Theme::class);
+        $default = m::mock(\Laradic\Themes\Theme::class);
+        $active->shouldReceive('getSlug')->twice()->andReturn('frontend/example');
+        $default->shouldReceive('getSlug')->twice()->andReturn('frontend/default');
+        $this->factory
+            ->setActive($active)
+            ->setDefault($default);
+        $active->shouldReceive('boot')->once()->andReturn();
+        $active->shouldReceive('hasParent')->once()->andReturn(true);
+        $active->shouldReceive('getParentTheme')->once()->andReturn($parent);
+        $parent->shouldReceive('boot')->once()->andReturn();
+        $default->shouldReceive('boot')->once()->andReturn();
+        $this->factory->boot(true, true);
     }
 
     public function testFactory()
     {
+
+        //$fsm = m::mock('Illuminate\Filesystem\Filesystem');
+        #$factory = $this->factory($fs);
+        #list($area, $key) = with(new NamespacedItemResolver)->parseKey($slug);
+        #$themePath = $factory->getThemePath(public_path('themes'), $key, $area);
+        //call_user_func_array([$factory, 'getThemePath'], );
         /** @var \Illuminate\Foundation\Application $app */
         $app = $this->app;
         $app->register('Laradic\Themes\ThemeServiceProvider');
@@ -45,9 +220,4 @@ class ThemeFactoryTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function testMakeAsset()
-    {
-        $assetFactory = new AssetFactory($themesMock = $this->getFactoryMock());
-
-    }
 }

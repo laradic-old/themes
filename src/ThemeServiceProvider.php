@@ -166,7 +166,7 @@ class ThemeServiceProvider extends ServiceProvider
             return $themesViewFinder;
         });
 
-        View::setFinder($this->app['view.finder']);
+        $this->app['view']->setFinder($this->app['view.finder']);
     }
 
 }

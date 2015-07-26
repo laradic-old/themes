@@ -73,12 +73,12 @@ class Theme
         $this->path       = $path;
         $this->dispatcher = $dispatcher;
 
-        if ( ! File::exists($path . '/theme.php') )
+        if ( ! $this->themes->getFiles()->exists($path . '/theme.php') )
         {
             throw new FileNotFoundException("Error while loading theme, could not find " . $path . '/theme.php');
         }
 
-        $this->config = include($path . '/theme.php');
+        $this->config = $this->themes->getFiles()->getRequire($path . '/theme.php');
 
         $this->name       = $this->config['name'];
         $this->slug       = $this->config['slug'];
@@ -230,9 +230,14 @@ class Theme
         return $this->booted;
     }
 
+    /**
+     * getVersion
+     *
+     * @return \vierbergenlars\SemVer\Internal\SemVer
+     */
     public function getVersion()
     {
-        new SemVer($this->config['version']);
+        return new SemVer($this->config['version']);
     }
 
 }

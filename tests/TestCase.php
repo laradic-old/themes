@@ -15,6 +15,13 @@ use Laradic\Dev\Traits\BladeViewTestingTrait;
  */
 abstract class TestCase extends AbstractTestCase
 {
+    protected function getConfig(){
+        return require '../resources/config/config.php';
+    }
 
+    protected function assertTheme($theme){
+        $this->assertInstanceOf(\Laradic\Themes\Theme::class, $theme);
+        $this->assertInstanceOf(\vierbergenlars\SemVer\Internal\SemVer::class, $theme->getVersion());
+    }
 
 }

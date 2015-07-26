@@ -30,7 +30,11 @@
         "kriswallsmith/assetic": "~1.2",
         "nicmart/tree": "0.2.*",
         "davejamesmiller/laravel-breadcrumbs": "~3.0",
-        "leafo/scssphp": "0.1.*"
+        "leafo/scssphp": "0.1.*",
+        "vierbergenlars/php-semver": "3.0.*"
+    },
+    "require-dev": {
+        "laradic/dev": "dev-master"
     },
     "autoload": {
         "psr-4": {
