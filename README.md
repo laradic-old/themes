@@ -31,8 +31,8 @@ Version 0.3
   * [Overview](#overview)
   * [Todo for 1.0](#todo)
   * [Installation](#installation)
-        * [Composer](#composer)
-        * [Laravel](#laravel)
+      * [Composer](#composer)
+      * [Laravel](#laravel)
       * [Configuration](#configuration)
   * [First time usage guide and explenation](#first-time-usage-guide-and-explenation)
     * [Inheritance system basics](#inheritance-system-basics)
@@ -48,11 +48,10 @@ Version 0.3
   * [The theme file](#the-theme-file)
   * [Navigation/Breadcrumbs](#navigationbreadcrumbs)
   * [Console Commands](#console-commands)
-        * [List publishers](#list-publishers)
-        * [Publish a theme](#publish-a-theme)
-        * [Creating a theme](#creating-a-theme)
-        * [Creating the initial theme structure (ment as example)](#creating-the-initial-theme-structure-ment-as-example)
-
+      * [List publishers](#list-publishers)
+      * [Publish a theme](#publish-a-theme)
+      * [Creating a theme](#creating-a-theme)
+      * [Creating the initial theme structure (ment as example)](#creating-the-initial-theme-structure-ment-as-example)
   * [Copyright/License](#copyrightlicense)
 
   
