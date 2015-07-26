@@ -7,9 +7,9 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/laradic/themes.svg?style=flat-square)](https://packagist.org/packages/laradic/themes)
 [![License](http://img.shields.io/badge/license-MIT-ff69b4.svg?style=flat-square)](http://radic.mit-license.org)
 
-[![Goto Documentation](http://img.shields.io/badge/goto-docs-orange.svg?style=flat-square)](http://docs.radic.nl/themes)
+<!---[![Goto Documentation](http://img.shields.io/badge/goto-docs-orange.svg?style=flat-square)](http://docs.radic.nl/themes)
 [![Goto API Documentation](https://img.shields.io/badge/goto-api--docs-orange.svg?style=flat-square)](http://radic.nl:8080/job/laradic-themes/PHPDOX_Documentation/)
-[![Goto Repository](http://img.shields.io/badge/goto-repo-orange.svg?style=flat-square)](https://github.com/laradic/themes)
+[![Goto Repository](http://img.shields.io/badge/goto-repo-orange.svg?style=flat-square)](https://github.com/laradic/themes)--->
 
 
 Version 0.3
@@ -21,7 +21,7 @@ Version 0.3
 - **Template Languages** Works with PHP, Blade, Twig and any other view engine. 
 - **Cascading & Inheritance** Themes are able to inherit all options from other themes, providing a smart and intuitive way to extend existing themes.
 - **Asset Management** Dependable assets or asset groups with caching, minification, filters(scss, less, etc), etc.
-- **And so much more**...
+- **And much more**...
   
 
 -----------
@@ -59,10 +59,10 @@ Version 0.3
   
 
 ### Todo for 1.0
-- [ ] Proper documentation (not this README.md file)
+- [ ] Proper/updated documentation (not this README.md file)
 - [ ] Example application
 - [ ] Unit tests for Assets
-- [ ] Jenkins, travis, etc
+- [x] Jenkins, travis, etc
 - [x] Unit tests for Themes
   
 
