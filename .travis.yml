@@ -1,0 +1,26 @@
+language: php
+
+php:
+    - 5.5
+    - 5.6
+    - 7.0
+    - hhvm
+
+#git:
+#    submodules: false
+
+#before_install:
+#    - git submodule update --init --recursive --remote --force
+#    - git submodule foreach -q --recursive 'branch="$(git config -f $toplevel/.gitmodules submodule.$name.branch)"; git fetch --all; git checkout $branch; git pull'
+
+before_script:
+    - composer self-update
+    - composer install
+
+script:
+    - ./resources/build/tools/phpunit.phar --configuration ./resources/build/travis-ci.xml
+
+notifications:
+  email: false
+
+sudo: false

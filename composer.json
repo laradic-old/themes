@@ -1,6 +1,6 @@
 {
     "name": "laradic/themes",
-    "description": "Laravel 5 Themes package",
+    "description": "Laravel 5 package providing multi-theme inherited cascading support for views and assets.",
     "homepage": "https://github.com/laradic/themes",
     "keywords": [
         "extension",
@@ -8,7 +8,10 @@
         "blade",
         "laravel",
         "theme",
-        "themes"
+        "themes",
+        "twig",
+        "template",
+        "templates"
     ],
     "license": "MIT",
     "authors": [

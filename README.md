@@ -12,16 +12,15 @@
 [![Goto Repository](http://img.shields.io/badge/goto-repo-orange.svg?style=flat-square)](https://github.com/laradic/themes)
 
 
-Version 0.2.0
+Version 0.3
 -----------
 
-**Laravel 5** package providing multi-theme inherited cascading support.
+**Laravel 5** package providing multi-theme inherited cascading support for views and assets.
 
-- **Easy and worry free setup** Laradic Themes does not conflict with the standard Laravel view system. 
-- **Template Languages** Works with PHP, Blade, Twig and any other engine. 
+- **Easy and worry free setup** Does not conflict with the standard Laravel view system.
+- **Template Languages** Works with PHP, Blade, Twig and any other view engine. 
 - **Cascading & Inheritance** Themes are able to inherit all options from other themes, providing a smart and intuitive way to extend existing themes.
-- **Asset Management** Featuring: Dependable assets or asset groups, caching, minification, filters(scss, less, etc). Uses/extends kriswallsmith/assetic in the background.   
-- **Navigation & Breadcrumbs** Extra navigation helper classes that can be used in your themes.
+- **Asset Management** Dependable assets or asset groups with caching, minification, filters(scss, less, etc), etc.
 - **And so much more**...
   
 
@@ -29,7 +28,8 @@ Version 0.2.0
   
   
 ### Overview
- * [Overview](#overview)
+  * [Overview](#overview)
+  * [Todo for 1.0](#todo)
   * [Installation](#installation)
         * [Composer](#composer)
         * [Laravel](#laravel)
@@ -52,31 +52,37 @@ Version 0.2.0
         * [Publish a theme](#publish-a-theme)
         * [Creating a theme](#creating-a-theme)
         * [Creating the initial theme structure (ment as example)](#creating-the-initial-theme-structure-ment-as-example)
-  * [Todo](#todo)
+
   * [Copyright/License](#copyrightlicense)
 
   
 -----------
   
+
+### Todo for 1.0
+- [ ] Proper documentation (not this README.md file)
+- [ ] Example application
+- [ ] Unit tests for Assets
+- [ ] Jenkins, travis, etc
+- [x] Unit tests for Themes
   
 
 ### Installation
 ###### Composer
 ```JSON
-"laradic/themes": "~0.2"
+"laradic/themes": "0.3.*"
 ```
 ###### Laravel
 Add the ThemesServiceProvider to your config.
 ```php
-'Laradic\Themes\ThemeServiceProvider'
+Laradic\Themes\ThemeServiceProvider::class
 ```
 
 Optionally, you can add any of the Facades below:
 ```php
 array(
-    'Themes' => 'Laradic\Themes\Facades\Themes',
-    'Asset' => 'Laradic\Themes\Facades\Asset',
-    'Navigation' => 'Laradic\Themes\Facades\Navigation'
+    'Themes' => Laradic\Themes\Facades\Themes::class,
+    'Asset' => Laradic\Themes\Facades\Asset::class,
 );
 ```
 ##### Configuration
@@ -399,12 +405,6 @@ php artisan themes:init
 
 
 
-
-### Todo
-- [ ] Finishing Navigation & Breadcrumb helper
-- [ ] Proper documentation (not this README.md file)
-- [ ] Unit tests
-  
   
   
 ### Copyright/License
