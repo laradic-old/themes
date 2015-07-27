@@ -157,7 +157,7 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
      */
     public function getActive()
     {
-        if ( ! $this->active )
+        if ( ! isset($this->active) )
         {
             throw new RuntimeException('Could not get active theme because there isn\'t any defined');
         }
@@ -172,9 +172,9 @@ class ThemeFactory implements ArrayAccess, Countable, IteratorAggregate, ThemeFa
      */
     public function getDefault()
     {
-        if ( ! $this->default )
+        if ( ! isset($this->default) )
         {
-            throw new RuntimeException('Could not get active theme because there isn\'t any defined');
+            return;
         }
 
         return $this->default;

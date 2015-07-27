@@ -30,7 +30,8 @@
         "laradic/support": "^1.2.8",
         "laradic/console": "1.0.*",
         "kriswallsmith/assetic": "~1.2",
-        "vierbergenlars/php-semver": "3.0.*"
+        "vierbergenlars/php-semver": "3.0.*",
+        "laravelcollective/html": "~5.1"
     },
     "require-dev": {
         "laradic/dev": "dev-master"

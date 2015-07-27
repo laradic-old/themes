@@ -116,7 +116,7 @@ class AssetFactory implements AssetFactoryContract
      */
     public function script($assetPath = '', array $attr = [ ], $secure = false)
     {
-        return HTML::script($this->url($assetPath), $attr, $secure);
+        return app('html')->script($this->url($assetPath), $attr, $secure);
     }
 
     /**
@@ -129,7 +129,7 @@ class AssetFactory implements AssetFactoryContract
      */
     public function style($assetPath = '', array $attr = [ ], $secure = false)
     {
-        return HTML::style($this->url($assetPath), $attr, $secure);
+        return app('html')->style($this->url($assetPath), $attr, $secure);
     }
 
     public function addGlobalFilter($extension, $callback)

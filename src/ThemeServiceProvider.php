@@ -25,9 +25,10 @@ use Laradic\Themes\Assets\AssetFactory;
 class ThemeServiceProvider extends ServiceProvider
 {
     protected $providers = [
-        'Laradic\Themes\Providers\BusServiceProvider',
-        'Laradic\Themes\Providers\EventServiceProvider',
-        'Laradic\Themes\Providers\ConsoleServiceProvider'
+        \Laradic\Themes\Providers\BusServiceProvider::class,
+        \Laradic\Themes\Providers\EventServiceProvider::class,
+        \Laradic\Themes\Providers\ConsoleServiceProvider::class,
+        \Collective\Html\HtmlServiceProvider::class
     ];
 
 
@@ -36,9 +37,6 @@ class ThemeServiceProvider extends ServiceProvider
         /** @var \Illuminate\Foundation\Application $app */
         $app = parent::boot();
 
-        $app->make('themes')
-            ->setActive(config('laradic.themes.active'))
-            ->setDefault(config('laradic.themes.default'));
     }
 
     /**
@@ -52,6 +50,7 @@ class ThemeServiceProvider extends ServiceProvider
         $app = parent::register();
 
         $this->linkConfig();
+
         $this->registerAssets();
         $this->registerThemes();
         $this->registerViewFinder();
@@ -60,6 +59,7 @@ class ThemeServiceProvider extends ServiceProvider
         {
             $app->make('themes')->boot();
         });
+
     }
 
     protected function linkConfig()
@@ -97,6 +97,8 @@ class ThemeServiceProvider extends ServiceProvider
             $themeFactory = new ThemeFactory($app->make('files'), $app->make('events'));
             $themeFactory->setPaths(config('laradic.themes.paths'));
             $themeFactory->setThemeClass(config('laradic.themes.themeClass'));
+            $themeFactory->setActive(config('laradic.themes.active'));
+            $themeFactory->setDefault(config('laradic.themes.default'));
             return $themeFactory;
         });
         $this->app->alias('themes', 'Laradic\Themes\Contracts\ThemeFactory');
