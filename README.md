@@ -1,6 +1,22 @@
 <a name="top"></a>![Laravel logo](http://laravel.com/assets/img/laravel-logo.png)  Laradic Themes for Laravel 5
 ========================
 
+
+I have started to collaborate on several packages. Laradic/Themes has been merged into `Caffeinated\Themes@v3`. It features almost all of `Laradic\Themes` its functionality. We however decided to decouple assets and provide it in a seperate package `Caffeinated\Beverage`, which is able to compliment `Caffeinated\Themes`. 
+
+Basic asset filesystem and url path resolving is the only asset related thing that still remains in the new Caffeinated\Themes package.
+
+Laradic\Themes will be dropped.
+
+### [Click here to go to the new repo/v3 branch](https://github.com/caffeinated/themes/tree/v3)
+
+ 
+ 
+  
+   
+   
+   
+
 [![Build Status](https://img.shields.io/travis/laradic/themes.svg?branch=master&style=flat-square)](https://travis-ci.org/laradic/themes)
 [![GitHub Version](https://img.shields.io/github/tag/laradic/themes.svg?style=flat-square&label=version)](http://badge.fury.io/gh/laradic%2Fthemes)
 [![Code Coverage](https://img.shields.io/badge/coverage-100%-green.svg?style=flat-square)](http://radic.nl:8080/job/laradic-themes/cloverphp)
